@@ -1,10 +1,10 @@
 {% extends "layout/base.html" %}
 
 {% block content %}
-<form action="/signup" method="post">
+<form action="/login" method="post">
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit" value="提交"/>
+    <input type="submit" value="登陆"/>
 </form>
 {% endblock %}

@@ -80,6 +80,7 @@ INSTALLED_APPS = (
 	'django.contrib.sessions',
 	'django.contrib.sites',
 	
+	'openparty.apps.core',
 	'openparty.apps.member',
 )
 

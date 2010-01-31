@@ -22,6 +22,11 @@ urlpatterns += patterns('',
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
 )
 
+urlpatterns += patterns('openparty.apps.core.views',
+	(r'^index$', 'index'),
+)
+
 urlpatterns += patterns('openparty.apps.member.views',
 	(r'^signup$', 'signup'),
+	(r'^login$', 'login'),
 )
