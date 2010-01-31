@@ -3,6 +3,7 @@ import re
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from openparty.apps.member.models import Member
 
 class LoginForm(forms.Form):
 	email = forms.EmailField(label=u'email地址', required=True, widget=forms.TextInput())
@@ -81,4 +82,7 @@ class SignupForm(forms.Form):
 		user.set_password(password)
 		user.is_active = False
 		user.save()
-		return user
+		
+		member = Member(user=user)
+		member.save()
+		return member

@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
+from openparty.apps.member.models import Member
 from openparty.apps.member.forms import SignupForm
 
 class MemberTest(TestCase):
 	def test_save_member_though_form(self):
 			form = SignupForm({ 'email': 'some@domain.com', 'password1': '1', 'password2': '1' })
 			member = form.save()
-			self.assertTrue(member.id)
+			self.assertTrue(isinstance(member, Member))
+			self.assertTrue(member.user.id)
 
 	def test_save_member_though_form_with_nickname(self):
 		form = SignupForm({ 'email': 'some@domain.com', 'nickname': u'田乐', 'password1': '1', 'password2': '1' })
 		member = form.save()
-		print form.errors
-		self.assertTrue(member.id)
+		self.assertTrue(member.user.id)
 
 	def test_save_member_should_show_error_when_password_not_matching(self):
 		form = SignupForm({ 'email': 'some@domain.com', 'password1': '1', 'password2': '2' })
