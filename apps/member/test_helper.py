@@ -6,3 +6,4 @@ def create_user(email='tin@domain.com', password='123', nickname='tin', activate
 	if activate:
 		member.user.is_active = True
 		member.user.save()
+	return member

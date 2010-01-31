@@ -49,3 +49,6 @@ class MemberTest(TestCase):
 		response = self.client.post('/login', {'email': 'tin@domain.com', 'password': '123'})
 		self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
 
+	def test_avatar_of_member(self):
+		member = helper.create_user()
+		self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fuserserve-ak.last.fm%2Fserve%2F64s%2F9907065.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', member.avatar)
