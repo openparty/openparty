@@ -19,13 +19,13 @@ class LoginForm(forms.Form):
 			else:
 				raise forms.ValidationError(u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
 		else:
-			raise forms.ValidationError(u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者<a href="/signup">注册帐号</a>')
+			raise forms.ValidationError(u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号')
 		return self.cleaned_data
 
 	def login(self, request):
 		if self.is_valid():
 			login(request, self.user)
-			if self.cleaned_data["request"]:
+			if "remember" in self.cleaned_data and self.cleaned_data["remember"]:
 				request.session.set_expiry(60 * 60 * 24 * 7 * 3)
 			else:
 				request.session.set_expiry(0)
