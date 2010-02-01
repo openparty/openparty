@@ -84,6 +84,8 @@ INSTALLED_APPS = (
 	'openparty.apps.member',
 )
 
+INTERNAL_IPS = ('127.0.0.1')
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
