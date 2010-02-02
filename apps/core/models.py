@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-7 -*-
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -16,9 +16,10 @@ class Base(models.Model):
     deleted = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
 
     last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    #last_modifier = models.ForeignKey(Member, related_name='', limit_choices_to=, to_field='')
+    last_modifier = models.ForeignKey(User, related_name='', limit_choices_to=, to_field='')
 
-    vote = models.IntegerField()
+    #aggrgated
+    vote = models.PositiveIntegerField()
 
     class Meta:
         abstract = True
@@ -70,9 +71,10 @@ class Topic(Base):
 
     author = models.ForeignKey(OtherModel, related_name='', limit_choices_to=, to_field='')
     shown_in_event = models.ForeignKey(OtherModel, related_name='', limit_choices_to=, to_field='')
-    vote_web = models.IntegerField()
-    vote_live = models.IntegerField()
+    vote_live = models.PositiveIntegerField()
     content = models.TextField(blank=True)
+    #aggregated
+    vote_web = models.PositiveIntegerField()
 
     @property
     def is_shown(self):
@@ -97,3 +99,13 @@ class Fav(Attachable):
     user_raw = models.TextField(_('user raw'),blank=True) 
  
 
+class Vote(Attachable):
+    '''A Vote for Topic, Event or Comment'''
+    user = models.ForeignKey(User, related_name='votes',verbose_name=_('user'))
+    rating = models.FloatField(_('rating'),default=0)
+    scale = models.FloatField(default=5) #ratingscale
+    
+    def __unicode__(self):
+        return u'%s vote for %s' % (self.user, self.item)
+
+        
