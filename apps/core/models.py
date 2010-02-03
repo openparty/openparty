@@ -1,25 +1,23 @@
-# -*- coding: utf-7 -*-
+# -*- coding: utf-8 -*-
 
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
-
 import datetime
 
 class Base(models.Model):
     name = models.CharField(max_length=255, blank=False)
-    total_favourites = PositiveIntegerFiled(default=0, editable=False)
 
     created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    deleted = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
 
     last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modifier = models.ForeignKey(User, related_name='', limit_choices_to=, to_field='')
+    last_modified_by = models.ForeignKey(User, related_name='#FIXME Django Abstrca Related_name', limit_choices_to=, to_field='')
 
     #aggrgated
-    vote = models.PositiveIntegerField()
+    total_votes = models.PositiveIntegerField()
+    total_favourites = PositiveIntegerFiled(default=0, editable=False)
 
     class Meta:
         abstract = True
@@ -28,6 +26,12 @@ class Attachable(models.Model):
     conntent_type = models.ForeignKey(ContentType, limit_choices_to = {'model__in': ('topic', 'event', 'comment')})
     object_id = models.PositiveIntegerField(_('object id'),)
     item = generic.GenericForeignKey('content_type', 'object_id')
+
+    created = models.DateTimeField(_('created'),auto_now_add=True) 
+
+    # denorm 
+    item_raw = models.TextField(_('item raw'),blank=True) 
+    user_raw = models.TextField(_('user raw'),blank=True) 
 
     class Meta:
         abstract = True
@@ -68,13 +72,11 @@ class Event(Base):
 
 
 class Topic(Base):
-
-    author = models.ForeignKey(OtherModel, related_name='', limit_choices_to=, to_field='')
-    shown_in_event = models.ForeignKey(OtherModel, related_name='', limit_choices_to=, to_field='')
-    vote_live = models.PositiveIntegerField()
+    author = models.ForeignKey(User, related_name='topic_created')
+    shown_in_event = models.ForeignKey(Event, related_name='topic_shown_in')
     content = models.TextField(blank=True)
-    #aggregated
-    vote_web = models.PositiveIntegerField()
+
+    total_votes_live = models.PositiveIntegerField()
 
     @property
     def is_shown(self):
@@ -84,24 +86,19 @@ class Topic(Base):
     def is_arranged(self):
         return 'if a topic is (attached or related) to an event'
 
+    '''#TODO Add a custom manager for most web voted & unshown topics, to add to a upcoming event'''
+
 class Comment(Attachable):
-    
-    content = models.TextField(_('content'),)
-    author = models.ForeignKey(User, related_name='',verbose_name=_('author'))
+    author = models.ForeignKey(User, related_name='comment_created',verbose_name=_('author'))
+    content = models.TextField()
 
 class Fav(Attachable):
     ''' A Favourite action.''' 
     user = models.ForeignKey(User, related_name='favourites',verbose_name=_('user')) 
-    created = models.DateTimeField(_('created'),auto_now_add=True) 
-
-    # denorm 
-    item_raw = models.TextField(_('item raw'),blank=True) 
-    user_raw = models.TextField(_('user raw'),blank=True) 
- 
 
 class Vote(Attachable):
     '''A Vote for Topic, Event or Comment'''
-    user = models.ForeignKey(User, related_name='votes',verbose_name=_('user'))
+    user = models.ForeignKey(User, related_name='vote_created',verbose_name=_('user'))
     rating = models.FloatField(_('rating'),default=0)
     scale = models.FloatField(default=5) #ratingscale
     
