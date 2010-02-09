@@ -10,7 +10,7 @@ class Base(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
 
     last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modified_by = models.ForeignKey(User, related_name='#FIXME Django Abstrca Related_name', limit_choices_to=, to_field='')
+    last_modified_by = models.ForeignKey(User, related_name='last_modified', limit_choices_to=, to_field='')
 
     #aggrgated
     total_votes = models.PositiveIntegerField()
@@ -32,6 +32,5 @@ class Attachable(models.Model):
 
     class Meta:
         abstract = True
-
 
 
