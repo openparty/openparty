@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from abstract import Base, Attachable
+
 
 import datetime
 
@@ -51,11 +53,11 @@ class Comment(Attachable):
 
 class Fav(Attachable):
     ''' A Favourite action.''' 
-    user = models.ForeignKey(User, related_name='favourites',"用户") 
+    user = models.ForeignKey(User, related_name='favourites',verbose_name="用户") 
 
 class Vote(Attachable):
     '''A Vote for Topic, Event or Comment'''
-    user = models.ForeignKey(User, related_name='vote_created',"用户")
+    user = models.ForeignKey(User, related_name='vote_created',verbose_name="用户")
     rating = models.FloatField("评分",default=0)
     
     def __unicode__(self):

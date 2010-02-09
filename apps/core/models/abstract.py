@@ -10,18 +10,18 @@ class Base(models.Model):
     created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
 
     last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modified_by = models.ForeignKey(User, related_name='last_modified', limit_choices_to=, to_field='')
+    last_modified_by = models.ForeignKey(User, related_name='%(class)s_last_modified')
 
     #aggrgated
     total_votes = models.PositiveIntegerField()
-    total_favourites = PositiveIntegerFiled(default=0, editable=False)
+    total_favourites = models.PositiveIntegerField(default=0, editable=False)
 
     class Meta:
         abstract = True
 
 class Attachable(models.Model):
     conntent_type = models.ForeignKey(ContentType, limit_choices_to = {'model__in': ('topic', 'event', 'comment')})
-    object_id = models.PositiveIntegerField(_('object id'),)
+    object_id = models.PositiveIntegerField()
     item = generic.GenericForeignKey('content_type', 'object_id')
 
     created = models.DateTimeField("创建日期",auto_now_add=True) 
