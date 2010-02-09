@@ -6,15 +6,15 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-	# Example:
-	# (r'^openparty/', include('openparty.foo.urls')),
+    # Example:
+    # (r'^openparty/', include('openparty.foo.urls')),
 
-	# Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
-	# to INSTALLED_APPS to enable admin documentation:
-	# (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
+    # to INSTALLED_APPS to enable admin documentation:
+    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-	# Uncomment the next line to enable the admin:
-	(r'^admin/', include(admin.site.urls)),
+    # Uncomment the next line to enable the admin:
+    (r'^admin/', include(admin.site.urls)),
 )
 
 urlpatterns += patterns('',
@@ -23,10 +23,10 @@ urlpatterns += patterns('',
 )
 
 urlpatterns += patterns('openparty.apps.core.views',
-	(r'^index$', 'index'),
+    (r'^index$', 'index'),
 )
 
 urlpatterns += patterns('openparty.apps.member.views',
-	(r'^signup$', 'signup'),
-	(r'^login$', 'login'),
+    (r'^signup$', 'signup'),
+    (r'^login$', 'login'),
 )

@@ -1,16 +1,16 @@
 <table id="debug-QueryTable">
-	<thead>
-		<tr>
-		  <th scope="col">#</th>
-		  <th scope="col">SQL</th>
-		  <th scope="col">Time</th>
-		</tr>
-	</thead>
-	{% for query in sql_queries %}
-	<tr class="{% cycle odd,even %}">
-	  <td>{{ forloop.counter }}</td>
-	  <td>{{ query.sql|escape }}</td>
-	  <td>{{ query.time }}</td>
-	</tr>
-	{% endfor %}
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">SQL</th>
+      <th scope="col">Time</th>
+    </tr>
+  </thead>
+  {% for query in sql_queries %}
+  <tr class="{% cycle odd,even %}">
+    <td>{{ forloop.counter }}</td>
+    <td>{{ query.sql|escape }}</td>
+    <td>{{ query.time }}</td>
+  </tr>
+  {% endfor %}
 </table>
