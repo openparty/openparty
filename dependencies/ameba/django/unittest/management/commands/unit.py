@@ -6,7 +6,6 @@ from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
-
     def handle(self, *args, **options):
         if len(args) > 0:
             self.test_case = args[0]
