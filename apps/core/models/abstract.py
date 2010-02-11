@@ -18,6 +18,7 @@ class Base(models.Model):
 
     class Meta:
         abstract = True
+        app_label = 'core'
 
 class Attachable(models.Model):
     conntent_type = models.ForeignKey(ContentType, limit_choices_to = {'model__in': ('topic', 'event', 'comment')})
@@ -32,5 +33,6 @@ class Attachable(models.Model):
 
     class Meta:
         abstract = True
+        app_label = 'core'
 
 
