@@ -13,7 +13,7 @@ class Base(models.Model):
     last_modified_by = models.ForeignKey(User, related_name='%(class)s_last_modified')
 
     #aggrgated
-    total_votes = models.PositiveIntegerField()
+    total_votes = models.PositiveIntegerField(default=0)
     total_favourites = models.PositiveIntegerField(default=0, editable=False)
 
     class Meta:
