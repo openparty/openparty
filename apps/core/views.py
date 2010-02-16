@@ -14,7 +14,7 @@ def index(request):
     return render_to_response('index.html', {}, context_instance=RequestContext(request))
 
 def event_list(request):
-    event_list = Event.objects.all()
+    event_list = Event.objects.all().order_by('-datetime_begin')
     return render('core/event_list.html', locals(), request)
 
 def topic_list(request):

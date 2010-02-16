@@ -24,6 +24,7 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('openparty.apps.core.views',
     (r'^index$', 'index'),
+    (r'^/?$', 'index'),
     (r'^events$', 'event_list'),
     (r'^topics$', 'topic_list'),
 )

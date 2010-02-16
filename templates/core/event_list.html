@@ -1,8 +1,84 @@
-{% extends "layout/base.html" %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta name="author" content="Luka Cvrk (www.solucija.com)" />
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<link rel="stylesheet" href="/media/css/style.css" type="text/css" />
+	<title>Internet Music</title>
+</head>
+<body>
+	<div class="content">
+		<div class="header_right">
+			<div class="top_info">
+				<div class="top_info_right">
+					<p><b>You are not Logged in!</b> <a href="#">Log in</a>  or <a href="#">register</a> to start downloading music!</p>					
+				</div>		
+			</div>
+					
+			<div class="bar">
+				<ul>
+					<li class="slogan">Search Categories:</li>
+					<li><a href="#" accesskey="b">Bands</a></li>
+					<li><a href="#" accesskey="a">Artists</a></li>
+					<li class="active">Music</li>
+					<li><a href="#" accesskey="p">Pictures</a></li>
+					<li><a href="#" accesskey="g">Gigs</a></li>
+				
+				</ul>
+			</div>
+		</div>
+			
+		<div class="logo">
+			<h1><a href="#"><span class="red">OpenParty</span></a></h1>
+			<p>What shall we play today?</p>
+		</div>
+		
+		<div class="search_field">
+			<p>Search Example:Progressive Trance&nbsp;&nbsp; </p>
+		</div>
+		
+		<div class="newsletter">
+			<p>Subscribe for Newsletter!</p>
+		</div>
+		
+		<div class="subheader">
+			<p>Open Party是由北京的多个技术社区共同举办的社交活动。本着自由、开放、分享、互动的宗旨，通过采用“非会议（Unconference）”的形式， 为参与人员创建一个表达和交流的平台。本活动的目标是营造一个交流、表现、学习、生活、发展、进步的空间。活动话题不仅仅局限于技 术，还包括生活、旅游、艺术、创业、商务、投资、营销等各方面的话题。</p>
+		</div>
+		
+        <div class="left">
+            {% for event in event_list %}
+            {% ifequal event.is_upcoming 1%}
+                <div class="lt"></div>
+                <div class="lbox">
+                    <h2>即将开始：<span class="yellow">{{ event.name }}</span></h2>
+                <p> {{ event.content }} <a href="#">查看更多</a></p>
+            </div>
+            {% else %}
+                <div class="left_articles">
+                    <h2><a href="#">{{ event.name }}</a></h2>
+                    <p>{{ event.content }} <a href="#">查看更多</a></p>
+                </div>
+            {% endifequal %}
 
-{% block content %}
-<p>欢迎来到Open Party, {{ user.email }}</p>
-<p>
-  <img src="{{ user.member.avatar }}" height="40" width="40" />
-</p>
-{% endblock %}
+            {% endfor %}
+								
+		</div>	
+		<div class="right">
+						
+			<div class="rt"></div>
+			<div class="right_articles">
+				<p><img src="images/image.gif" alt="Image" title="Image" class="image" /><b>Lorem ipsum dolor sit amet</b><br />consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam <a href="#">erat volutpat</a>. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis <a href="#">nisl ut aliquip ex</a>.</p>
+			</div>
+		</div>
+  <div class="footer"> 
+    <p><a href="#">RSS Feed</a> | <a href="#">Contact</a> | <a href="#">Accessibility</a> 
+      | <a href="#">Products</a> | <a href="#">Disclaimer</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> 
+      and <a href="http://validator.w3.org/check?uri=referer">XHTML</a><br />
+      &copy; Copyright 2006 Internet Music, Design: Luka Cvrk - <a href="http://www.solucija.com/" title="What's your solution?">Solucija</a><br />
+      
+<!--This theme is free for distriubtion,  so long as  link to openwebdesing.org and www.best10webhosting.net  stay on the theme-->
+Courtesy of <a href="http://www.openwebdesign.org" target="_blank">Open Web Design</a> &amp; <a href="http://www.dubaiapartments.biz/hotels/" target="_blank">Hotels - Dubai</a> </p>
+		</div>
+	</div>
+</body>
+</html>
