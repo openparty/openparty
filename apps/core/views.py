@@ -15,8 +15,8 @@ def index(request):
 
 def event_list(request):
     event_list = Event.objects.all().order_by('-datetime_begin')
+    topic_list = Topic.objects.all()
     return render('core/event_list.html', locals(), request)
 
 def topic_list(request):
-    topic_list = Event.objects.all()
     return render('core/topic_list.html', locals(), request)

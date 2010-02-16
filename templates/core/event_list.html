@@ -4,25 +4,23 @@
 	<meta name="author" content="Luka Cvrk (www.solucija.com)" />
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" href="/media/css/style.css" type="text/css" />
-	<title>Internet Music</title>
+	<title>Beijing OpenParty</title>
 </head>
 <body>
 	<div class="content">
 		<div class="header_right">
 			<div class="top_info">
 				<div class="top_info_right">
-					<p><b>You are not Logged in!</b> <a href="#">Log in</a>  or <a href="#">register</a> to start downloading music!</p>					
+					<p><b>您还没有登陆，请</b> <a href="#">登陆</a> 或 <a href="#">注册</a></p>					
 				</div>		
 			</div>
 					
 			<div class="bar">
 				<ul>
-					<li class="slogan">Search Categories:</li>
-					<li><a href="#" accesskey="b">Bands</a></li>
+					<li class="slogan">这部分只是示意:</li>
 					<li><a href="#" accesskey="a">Artists</a></li>
 					<li class="active">Music</li>
 					<li><a href="#" accesskey="p">Pictures</a></li>
-					<li><a href="#" accesskey="g">Gigs</a></li>
 				
 				</ul>
 			</div>
@@ -30,15 +28,15 @@
 			
 		<div class="logo">
 			<h1><a href="#"><span class="red">OpenParty</span></a></h1>
-			<p>What shall we play today?</p>
+			<p>something as our slogan</p>
 		</div>
 		
 		<div class="search_field">
-			<p>Search Example:Progressive Trance&nbsp;&nbsp; </p>
+			<p>这部分只是示意&nbsp;&nbsp; </p>
 		</div>
 		
 		<div class="newsletter">
-			<p>Subscribe for Newsletter!</p>
+			<p>订阅活动通知</p>
 		</div>
 		
 		<div class="subheader">
@@ -51,12 +49,12 @@
                 <div class="lt"></div>
                 <div class="lbox">
                     <h2>即将开始：<span class="yellow">{{ event.name }}</span></h2>
-                <p> {{ event.content }} <a href="#">查看更多</a></p>
+                    <p> {{ event.content }} <a href="/event/{{ event.id }}">查看更多</a></p>
             </div>
             {% else %}
                 <div class="left_articles">
                     <h2><a href="#">{{ event.name }}</a></h2>
-                    <p>{{ event.content }} <a href="#">查看更多</a></p>
+                    <p>{{ event.content }} <a href="/event/{{ event.id }}">查看更多</a></p>
                 </div>
             {% endifequal %}
 
@@ -64,11 +62,12 @@
 								
 		</div>	
 		<div class="right">
-						
+            {% for topic in topic_list %}			
 			<div class="rt"></div>
 			<div class="right_articles">
-				<p><img src="images/image.gif" alt="Image" title="Image" class="image" /><b>Lorem ipsum dolor sit amet</b><br />consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam <a href="#">erat volutpat</a>. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis <a href="#">nisl ut aliquip ex</a>.</p>
-			</div>
+                <p><b>{{ topic.name }}</b><br />{{ topic.content }} <a href="#">查看更多</a>.</p>
+            </div>
+            {% endfor %}
 		</div>
   <div class="footer"> 
     <p><a href="#">RSS Feed</a> | <a href="#">Contact</a> | <a href="#">Accessibility</a> 

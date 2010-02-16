@@ -114,7 +114,7 @@ form {
 	margin: 12px 0 5px 0;
 	padding: 0 5px 5px 0;
 	text-align: right;
-	background: #FFF url(dot.gif) repeat-x bottom;
+	background: #FFF;
 	color: #444;
 }
 	
@@ -140,7 +140,7 @@ form {
 	}
 	
 	.bar li.active { 
-		background: #FFF url(bar.gif) no-repeat center bottom; 
+		background: #FFF; 
 		color: #C3593C;
 		font-weight: bold; 
 		padding-bottom: 8px; 
@@ -242,21 +242,21 @@ form {
 }
 
 .right a {
-	color: #FFFCD1;
+	color: #0F0F0F;
 	background: inherit;
 }
 
 		
 	.rt {
-		background: #C85E35 url(rt.gif) no-repeat;
-		color: #FFF;
+		background: #FFE0D4;
+		color: #000;
 		height: 7px;
 	}
 		
 	.right_articles {
 		font-size: 0.9em;
-		background: #C85E35 url(rb.gif) no-repeat bottom;
-		color: #FEE1D5;
+		background: #FFE0D4;
+		color: #000;
 		padding: 4px 8px;	
 		margin: 0 0 10px 0;
 	}
@@ -275,7 +275,7 @@ form {
 	text-align: center;
 	line-height: 1.8em;
 	color: #808080;
-	background: #FFF url(dot.gif) repeat-x;
+	background: #FFF;
 	padding: 8px 0;
 }
 
