@@ -11,11 +11,14 @@ def render(template_name, template_values, request):
     return render_to_response(template_name, template_values, context_instance=RequestContext(request))
 
 def index(request):
-    return render_to_response('index.html', {}, context_instance=RequestContext(request))
+    event_list = Event.objects.all().order_by('-datetime_begin')
+    topic_list = Topic.objects.all().order_by('-total_votes')
+    return render('core/event_list.html', locals(), request)
+    #return render_to_response('index.html', {}, context_instance=RequestContext(request))
 
 def event_list(request):
     event_list = Event.objects.all().order_by('-datetime_begin')
-    topic_list = Topic.objects.all()
+    topic_list = Topic.objects.all().order_by('-total_votes')
     return render('core/event_list.html', locals(), request)
 
 def topic_list(request):
