@@ -29,3 +29,7 @@ def topic_list(request):
 def event(request, id):
     this_event = Event.objects.get(pk = id)
     return render('core/event.html', locals(), request)
+
+def topic(request, id):
+    this_topic = Topic.objects.get(pk = id)
+    return render('core/topic.html', locals(), request)

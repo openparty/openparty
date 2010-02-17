@@ -6,7 +6,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from abstract import Base, Attachable
 
-
 import datetime
 
 class Event(Base):

@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% block content %}
+        <div class="left">
+            <h1>话题详情：</h1><a href="/topics">返回话题列表</a>
+            <div class="lt"></div>
+            <div class="lbox">
+                <h2><span class="yellow">{{ this_topic.name }}</span></h2>
+                <p> {{ this_topic.content }}</p>
+                <p> 所属活动：<a href="/event/{{this_topic.shown_in_event.id}}">{{this_topic.shown_in_event.name}}</a> 日期：{{this_topic.shown_in_event.datetime_begin|date}}</p>
+                {% ifequal this_topic.shown_in_event.is_off 1%}
+                <p>网络投票数：{{ this_topic.total_votes }} </p>
+                <p>本话题所属活动已经结束</p>
+                <p>现场投票：</p>
+                {% else %}
+                <p>网络投票进行中：{{ this_topic.total_votes }} </p>
+                {% endifequal %}
+            </div>
+        </div>	
+{% endblock %}
