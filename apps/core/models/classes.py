@@ -35,6 +35,7 @@ class Topic(Base):
     author = models.ForeignKey(User, related_name='topic_created')
     shown_in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name="已在此活动中宣讲") 
     arranged_in_event = models.ForeignKey(Event, related_name='topic_arranged_in', blank=True, null=True, verbose_name="已安排在此活动中")
+    #TODO 将这两个合为一个
     description = models.TextField("简介", max_length=200, blank=False)
     content = models.TextField("内容", blank=False)
 
