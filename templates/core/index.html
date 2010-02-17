@@ -7,12 +7,14 @@
                 <div class="lt"></div>
                 <div class="lbox">
                     <h2>即将开始：<span class="yellow">{{ event.name }}</span></h2>
-                    <p> {{ event.description }} <a href="/event/{{ event.id }}">查看更多</a></p>
+                    <p> {{ event.description }}</p>
+                    <p> <a href="/event/{{ event.id }}">查看更多</a></p>
             </div>
             {% else %}
                 <div class="left_articles">
                     <h2><a href="#">{{ event.name }}</a></h2>
-                    <p>{{ event.description }} <a href="/event/{{ event.id }}">查看更多</a></p>
+                    <p>{{ event.description }} </p>
+                    <p> <a href="/event/{{ event.id }}">查看更多</a></p>
                 </div>
             {% endifequal %}
 
