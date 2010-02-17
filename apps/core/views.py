@@ -13,7 +13,7 @@ def render(template_name, template_values, request):
 def index(request):
     event_list = Event.objects.all().order_by('-datetime_begin')
     topic_list = Topic.objects.all().order_by('-total_votes')
-    return render('core/event_list.html', locals(), request)
+    return render('core/index.html', locals(), request)
     #return render_to_response('index.html', {}, context_instance=RequestContext(request))
 
 def event_list(request):
