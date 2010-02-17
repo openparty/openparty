@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 {% block content %}
         <div class="left">
-        <h1>活动列表：</h1>
+        <h1>话题列表：</h1>
         {% for topic in topic_list %}
         {% ifequal topic.shown_in_event.is_upcoming 1%}
             <div class="lt"></div>
@@ -16,7 +16,6 @@
                 <h2><a href="#">{{ topic.name }}</a></h2>
                 <p>{{ topic.description }}</p>
                    <p> <a href="/event/{{ topic.id }}">查看更多</a></p>
-
             </div>
         {% endifequal %}
 

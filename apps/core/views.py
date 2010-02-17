@@ -25,3 +25,7 @@ def topic_list(request):
     topic_list = Topic.objects.all().order_by('-total_votes').order_by('-shown_in_event__datetime_begin')
     #需注意排序顺序
     return render('core/topic_list.html', locals(), request)
+
+def event(request, id):
+    this_event = Event.objects.get(pk = id)
+    return render('core/event.html', locals(), request)
