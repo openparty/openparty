@@ -14,6 +14,10 @@ class Event(Base):
     description = models.TextField("简介", max_length=200, blank=False)
     content = models.TextField("介绍", blank=False)
 
+    #englishname?
+    #url_path = models.SlugField(_('url path'),max_length=250, db_index=True, blank=True)
+    #Currently using ID in url
+
     @property
     def is_running(self):
         return datetime.datetime.now() > self.datetime_begin and datetime.datetime.now() < self.datetime_end
@@ -31,21 +35,34 @@ class Event(Base):
 
 
 class Topic(Base):
-    author = models.ForeignKey(User, related_name='topic_created')
-    shown_in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name="已在此活动中宣讲") 
-    arranged_in_event = models.ForeignKey(Event, related_name='topic_arranged_in', blank=True, null=True, verbose_name="已安排在此活动中")
-    #TODO 将这两个合为一个
+    author = models.ForeignKey(User, related_name='topic_created', verbose_name="演讲者")
+    in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name="已安排在此活动中") 
     description = models.TextField("简介", max_length=200, blank=False)
     content = models.TextField("内容", blank=False)
 
     @property
     def is_shown(self):
-        return self.shown_in_event != None
+        '''该话题所属活动是否正在进行或已经结束'''
+        if self.in_event is not None:
+            if self.in_event.is_off == True:
+                return True
+            elif self.in_event.is_running == True:
+                return True
+            else:
+                return False
+        else:
+            return False
 
     @property
     def is_arranged(self):
-        '''if a topic is (attached or related) to an event'''
-        return self.arranged_in_event != None
+        '''该话题是否已经加入到活动，并且活动尚未开始'''
+        if self.in_event is not None:
+            if self.in_event.is_upcomming == True:
+                return True
+            else:
+                return False
+        else:
+            return False
 
     def __unicode__(self):
             return self.name
@@ -56,9 +73,15 @@ class Comment(Attachable):
     author = models.ForeignKey(User, related_name='comment_created',verbose_name="作者")
     content = models.TextField("内容")
 
+    def __unicode__(self):
+        return u'%s 对 %s 的评论： %s' % (self.user, self.item, self.content)
+
 class Fav(Attachable):
     ''' A Favourite action.''' 
     user = models.ForeignKey(User, related_name='favourites',verbose_name="用户") 
+
+    def __unicode__(self):
+        return u'%s 收藏了 %s' % (self.user, self.item)
 
 class Vote(Attachable):
     '''A Vote for Topic, Event or Comment'''
