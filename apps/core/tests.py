@@ -1,23 +1,28 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
-"""
+# -*- coding: utf-8 -*-
 
 from django.test import TestCase
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
+class StatusCheckTest(TestCase):
+    def statuscheck_indexpage(self):
+        response = self.client.get("/")
+        #Check the response status
+        self.failUnlessEqual(response.status_code, 200)
+        #check template usage
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
+    def statuscheck_eventlistpage(self):
+        response = self.client.get("/events")
+        self.failUnlessEqual(response.status_code, 200)
 
->>> 1 + 1 == 2
-True
-"""}
+    def statuscheck_topiclist_page(self):
+        response = self.client.get("/topics")
+        self.failUnlessEqual(response.status_code, 200)
+
+    def statuscheck_eventdetail_page(self):
+        response = self.client.get("/event/1")
+        self.failUnlessEqual(response.status_code, 200)
+        response = self.client.get("/event/19999")
+        self.failUnlessEqual(response.status_code, 200)
+
+
+
 
