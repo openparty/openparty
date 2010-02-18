@@ -12,9 +12,16 @@ def render(template_name, template_values, request):
 
 def index(request):
     event_list = Event.objects.all().order_by('-datetime_begin')
-    topic_list = Topic.objects.all().order_by('-total_votes')
+    if event_list[0].is_upcoming == True:
+        #有即将开始的活动
+        upcoming_topic_list = Topic.objects.filter(in_event=event_list[0]).order_by('-total_votes')[:5]
+        #首页优先显示即将开始的活动话题
+        if len(upcoming_topic_list) == 0:
+            #如果即将开始的活动还没有话题加入，那么根据投票显示以往的热门话题
+            topic_list = Topic.objects.all().order_by('-total_votes')[:5]
+        else:
+            topic_list = upcoming_topic_list
     return render('core/index.html', locals(), request)
-    #return render_to_response('index.html', {}, context_instance=RequestContext(request))
 
 def event_list(request):
     event_list = Event.objects.all().order_by('-datetime_begin')
