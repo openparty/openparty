@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+    'django.contrib.comments',
     'openparty.dependencies.ameba.django.unittest',
     'openparty.apps.core',
     'openparty.apps.member',
