@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 
 from models import Event, Topic
+from models import Vote
 
 def render(template_name, template_values, request):
     """render the template"""
@@ -39,4 +40,16 @@ def event(request, id):
 
 def topic(request, id):
     this_topic = Topic.objects.get(pk = id)
+
+    #vote_thistopic = Vote.objects.get(user = request.user, item = this_topic)
+    vote_thistopic = this_topic.votes.get(user = request.user)
+    is_voted = False
+    try:
+        #vote_thistopic = Vote.objects.get(user = request.user, item = this_topic)
+        vote_thistopic = this_topic.votes.get(user = request.user)
+        is_voted = True
+    except:
+        pass
+
+
     return render('core/topic.html', locals(), request)

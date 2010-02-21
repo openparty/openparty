@@ -67,6 +67,8 @@ class Topic(Base):
     def __unicode__(self):
             return self.name
 
+    votes = generic.GenericRelation('Vote')
+
     '''#TODO Add a custom manager for most web voted & unshown topics, to add to a upcoming event'''
 
 class Comment(Attachable):

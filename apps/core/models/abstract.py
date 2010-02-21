@@ -21,7 +21,7 @@ class Base(models.Model):
         app_label = 'core'
 
 class Attachable(models.Model):
-    conntent_type = models.ForeignKey(ContentType, limit_choices_to = {'model__in': ('topic', 'event', 'comment')})
+    content_type = models.ForeignKey(ContentType, limit_choices_to = {'model__in': ('topic', 'event', 'comment')})
     object_id = models.PositiveIntegerField()
     item = generic.GenericForeignKey('content_type', 'object_id')
 

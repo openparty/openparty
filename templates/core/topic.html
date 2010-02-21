@@ -13,6 +13,11 @@
                 <p>现场投票：</p>
                 {% else %}
                 <p>网络投票进行中：{{ this_topic.total_votes }} </p>
+                {% if not is_voted %}
+                    <a href="/vote/topic/{{this_topic.id}}">投票</a>
+                {% else %}
+                    已经投过票了
+                {% endif %}
                 {% endifequal %}
             </div>
             {% if request.user.is_authenticated %}
