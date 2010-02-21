@@ -19,10 +19,11 @@
             <div class="left_articles">
                 <h2><a href="/topic/{{ event_topic.id }}">{{ event_topic.name }}</a></h2>
                 <p>{{ event_topic.description }}</p>
-                <p> <a href="/event/{{ event_topic.id }}">查看更多</a></p>
+                <p> <a href="/topic/{{ event_topic.id }}">查看更多</a></p>
             </div>
             {% endfor %}
 
+            {% if request.user.is_authenticated %}
             <h1>评论此活动：</h1>
             {% load comments %}
             {% render_comment_list for this_event %}
@@ -32,6 +33,7 @@
                 <h2><a href="/topic/{{ event_topic.id }}">{{ event_topic.name }}</a></h2>
                 <p>{{ event_topic.description }}</p>
             </div>
+            {% endfor %}
  
 
 

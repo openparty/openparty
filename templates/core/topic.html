@@ -15,5 +15,11 @@
                 <p>网络投票进行中：{{ this_topic.total_votes }} </p>
                 {% endifequal %}
             </div>
+            {% if request.user.is_authenticated %}
+                <h3>评论此活动：</h3>
+                {% load comments %}
+                {% render_comment_list for this_topic %}
+                {% render_comment_form for this_topic %}
+            {% endif %}
         </div>	
 {% endblock %}
