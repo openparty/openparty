@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
+from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
+
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 from models import Event, Topic
 from models import Vote
@@ -41,11 +43,8 @@ def event(request, id):
 def topic(request, id):
     this_topic = Topic.objects.get(pk = id)
 
-    #vote_thistopic = Vote.objects.get(user = request.user, item = this_topic)
-    vote_thistopic = this_topic.votes.get(user = request.user)
     is_voted = False
     try:
-        #vote_thistopic = Vote.objects.get(user = request.user, item = this_topic)
         vote_thistopic = this_topic.votes.get(user = request.user)
         is_voted = True
     except:
@@ -53,3 +52,33 @@ def topic(request, id):
 
 
     return render('core/topic.html', locals(), request)
+
+#@authenticated:
+def vote(request, id):
+
+    this_topic = Topic.objects.get(pk = id)
+    
+    is_voted = False
+    try:
+        vote_thistopic = this_topic.votes.get(user = request.user)
+        is_voted = True
+    except:
+        pass
+
+    if is_voted == False:
+        this_vote = Vote(user = request.user)
+        #this_topic.votes.add(user = request.user)
+        topic_type = ContentType.objects.get_for_model(Topic)
+        this_vote.content_type=topic_type
+        this_vote.object_id=this_topic.id
+        this_vote.save()
+
+
+    #update vote count
+    this_topic.save()
+    
+    return HttpResponseRedirect("/")
+
+
+
+

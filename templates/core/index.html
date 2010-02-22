@@ -26,7 +26,7 @@
             {% for topic in topic_list %}			
 			<div class="rt"></div>
 			<div class="right_articles">
-                <p><b>{{ topic.name }}</b><br />{{ topic.description }} <a href="#">查看更多</a>.</p>
+                <p><a href="/topic/{{topic.id}}"><b>{{ topic.name }}</b></a><br />{{ topic.description }} <a href="/topic/{{topic.id}}">查看更多</a>.</p>
             </div>
             {% endfor %}
         </div>

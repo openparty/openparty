@@ -71,6 +71,11 @@ class Topic(Base):
 
     '''#TODO Add a custom manager for most web voted & unshown topics, to add to a upcoming event'''
 
+
+    def save(self, *args, **kwargs):
+        self.total_votes = self.votes.count()
+        super(Topic, self).save(*args, **kwargs)
+
 class Comment(Attachable):
     author = models.ForeignKey(User, related_name='comment_created',verbose_name="作者")
     content = models.TextField("内容")
