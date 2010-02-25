@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>{% if page_title %}{{ page_title }}{% else %}OpenParty{% endif %}</title>
+  <title>{% if page_title %}{{ page_title }}{% else %}OpenParty - {% block title %}{% endblock %}{% endif %}</title>
   <link rel="shortcut icon" href="/static/favicon.ico" />
   {% block head %}{% endblock %}
 </head>
