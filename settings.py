@@ -2,6 +2,12 @@
 import os.path
 PROJECT_PATH = os.path.dirname(__file__)
 
+# Add all third party vendor dependencies to project's path:
+# so we can load it without install them
+import sys
+if not 'vendor' in sys.path:
+    sys.path.append('vendor')
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -17,6 +23,11 @@ DATABASE_USER = 'root'      # Not used with sqlite3.
 DATABASE_PASSWORD = ''      # Not used with sqlite3.
 DATABASE_HOST = '127.0.0.1' # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''          # Set to empty string for default. Not used with sqlite3.
+
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+# EMAIL_USE_TLS = True
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -63,7 +74,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
 )
 
 ROOT_URLCONF = 'openparty.urls'
@@ -85,7 +96,11 @@ INSTALLED_APPS = (
     'openparty.dependencies.ameba.django.unittest',
     'openparty.apps.core',
     'openparty.apps.member',
+    'registration',
 )
+
+# One-week activation window; you may, of course, use a different value.
+ACCOUNT_ACTIVATION_DAYS = 7 
 
 INTERNAL_IPS = ('127.0.0.1')
 
