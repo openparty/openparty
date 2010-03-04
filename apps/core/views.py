@@ -9,6 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from models import Event, Topic
 from models import Vote
 
+from apps.member.models import *
+
 def render(template_name, template_values, request):
     """render the template"""
     return render_to_response(template_name, template_values, context_instance=RequestContext(request))

@@ -13,7 +13,11 @@
 		<div class="header_right">
 			<div class="top_info">
 				<div class="top_info_right">
-					<p><b>您还没有登陆</b>，请<a href="#">登陆</a> 或 <a href="#">注册</a></p>					
+                {% if request.user.is_authenticated %}
+                    <p>欢迎，<b>{{request.user.username}}</b> - <a href="#">登出</a></p>
+                {% else %}
+					<p><b>您还没有登陆</b>，请<a href="#">登陆</a> 或 <a href="#">注册</a></p>
+                {% endif %}
 				</div>		
 			</div>
 					
