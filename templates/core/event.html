@@ -23,10 +23,22 @@
             </div>
             {% endfor %}
 
+            {% load comments %}
+            
+            {% get_comment_list for this_event as comment_list %}
+            <dl id="comments">
+              {% for comment in comment_list %}
+                <dt id="c{{ comment.id }}">
+                    {{ comment.name }}, {{ comment.submit_date|timesince }}之前:
+                </dt>
+                <dd>
+                    <p>{{ comment.comment }}</p>
+                </dd>
+              {% endfor %}
+            </dl>
+
             {% if request.user.is_authenticated %}
             <h1>评论此活动：</h1>
-            {% load comments %}
-            {% render_comment_list for this_event %}
             {% render_comment_form for this_event %}
             <br />
             <div class="left_articles">
