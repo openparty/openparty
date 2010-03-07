@@ -70,10 +70,19 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.load_template_source',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    # "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.contrib.messages.context_processors.messages"
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
 )
 
@@ -91,6 +100,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.comments',
     'openparty.dependencies.ameba.django.unittest',
@@ -102,6 +112,7 @@ INSTALLED_APPS = (
 ACCOUNT_ACTIVATION_DAYS = 7
 SITE_URL = 'http://localhost:8000'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')
 
 # local_settings.py can be used to override environment-specific settings

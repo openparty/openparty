@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib, hashlib, random
+import re, urllib, hashlib, random, datetime
 from django.db import models
 from django.conf import settings
 from django.utils.hashcompat import sha_constructor
@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 
 import user
 
+ACTIVATION_KEY_PATTERN = re.compile('^[a-f0-9]{40}$')
 
 class MemberManager(models.Manager):
     @commit_on_success
@@ -31,6 +32,21 @@ class MemberManager(models.Manager):
         member.save()
 
         return member
+    
+    def find_by_activation_key(self, activation_key):
+        if ACTIVATION_KEY_PATTERN.search(activation_key):
+            try:
+                member = self.get(activation_key=activation_key)
+            except self.model.DoesNotExist:
+                return False
+            if not member.is_activation_key_expired():
+                user = member.user
+                user.is_active = True
+                user.save()
+                member.activation_key = self.model.ACTIVATED
+                member.save()
+                return member
+        return False
 
 
 class Member(models.Model):
@@ -63,3 +79,8 @@ class Member(models.Model):
         message = render_to_string('member/activation_email.txt', ctx)
 
         self.user.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
+    
+    def is_activation_key_expired(self):
+        expiration_date = datetime.timedelta(days=settings.ACCOUNT_ACTIVATION_DAYS)
+        already_joined_longer_than_expiration_days = (self.user.date_joined + expiration_date <= datetime.datetime.now())
+        return self.activation_key == self.ACTIVATED or already_joined_longer_than_expiration_days
