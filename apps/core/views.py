@@ -17,7 +17,7 @@ def render(template_name, template_values, request):
 
 def index(request):
     event_list = Event.objects.all().order_by('-datetime_begin')
-    if event_list[0].is_upcoming == True:
+    if len(event_list) and event_list[0].is_upcoming == True:
         #有即将开始的活动
         upcoming_topic_list = Topic.objects.filter(in_event=event_list[0]).order_by('-total_votes')[:5]
         #首页优先显示即将开始的活动话题
