@@ -1,0 +1,10 @@
+Thank you for signing up for Open Party!  You are one step away from being able to use the tool.
+
+You now need to confirm that you are the person who signed up for an account on the feedme website.
+
+Please click here to verify your account: http://{{ site }}/accounts/activate/{{ activation_key }}/
+
+If you have any questions, feel free to email us at staff@beijing-open-party.org.
+
+Thanks in advance,
+The Open Party Team

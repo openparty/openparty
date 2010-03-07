@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+import random
 from django import forms
 from django.contrib.auth.models import User
 from openparty.apps.member.models import Member
@@ -47,13 +48,5 @@ class SignupForm(forms.Form):
         password = self.cleaned_data['password1']
         
         
-        user = User()
-        user.username = email
-        user.email = email
-        user.set_password(password)
-        user.is_active = False
-        user.save()
-        
-        member = Member(user=user)
-        member.save()
+        member = Member.objects.create_with_inactive_user(email=email, password=password, nickname=nickname)
         return member

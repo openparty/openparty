@@ -96,11 +96,11 @@ INSTALLED_APPS = (
     'openparty.dependencies.ameba.django.unittest',
     'openparty.apps.core',
     'openparty.apps.member',
-    'registration',
 )
 
 # One-week activation window; you may, of course, use a different value.
-ACCOUNT_ACTIVATION_DAYS = 7 
+ACCOUNT_ACTIVATION_DAYS = 7
+SITE_URL = 'http://localhost:8000'
 
 INTERNAL_IPS = ('127.0.0.1')
 
