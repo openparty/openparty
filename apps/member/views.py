@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth import logout as auth_logout
 
 from openparty.apps.member.forms import LoginForm, SignupForm
 from openparty.apps.member.models import Member
@@ -17,6 +18,10 @@ def login(request):
     
     ctx = { 'form': form, }
     return render_to_response('member/login.html', ctx, context_instance=RequestContext(request))
+
+def logout(request):
+    auth_logout(request)
+    return HttpResponseRedirect('/')
 
 def signup(request):
     if request.method == 'POST':
