@@ -4,7 +4,17 @@
   <meta charset="UTF-8" />
   <title>{% if page_title %}{{ page_title }}{% else %}OpenParty - {% block title %}{% endblock %}{% endif %}</title>
   <link rel="shortcut icon" href="/static/favicon.ico" />
+  <link type="text/css" media="screen" href="/media/css/reset.css" />
+  <link type="text/css" media="screen" href="/media/css/openparty.css" />
   {% block head %}{% endblock %}
 </head>
 <body>
-<div id="root">
+<div id="root" class="w950">
+  <div id="header">
+    <h1 id="logo">
+      <a href="beta.beijign-open-party.org">
+        Beijing Open Party
+        <img width="447" height="92" src="/media/images/logo.png" alt="Open Party" title="Open Party - IT community unconference" />
+      </a>
+    </h1>
+  </div>
