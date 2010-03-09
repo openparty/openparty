@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label=u'email地址', required=True, widget=forms.TextInput())
+    email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput())
     password = forms.CharField(label=u'密码', required=True, widget=forms.PasswordInput(render_value=False))
     remember = forms.BooleanField(label=u'记住登陆信息', help_text=u'如果选择记住登陆信息，会保留登陆信息2周', required = False)
     

@@ -1,0 +1,31 @@
+body {
+  font-family:georgia,'times new roman',times,serif;
+  line-height:1.7;
+}
+form p {
+  margin: 0.5em 0;
+}
+.center-align {
+  text-align: center;
+}
+/* login styles */
+#login {
+  background: url(../images/logo.png) transparent left top no-repeat;
+  margin: 10em auto;
+  padding-left: 470px;
+  width: 20em;
+}
+
+#login form {
+  border-left: #aaa 1px solid;
+}
+
+#login label {
+  display: inline-block;
+  text-align: right;
+  width: 4em;
+}
+
+#login input[type='submit'] {
+  margin-left: 4em;
+}

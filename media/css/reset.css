@@ -3,7 +3,8 @@ body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legen
   padding:0;
 }
 body,button,input,select,textarea {
-  font:12px/1.5 tahoma,arial,\5b8b\4f53,sans-serif;
+/*  font:12px/1.5 tahoma,arial,\5b8b\4f53,sans-serif;*/
+  font:13px/1.231 arial,helvetica,clean,sans-serif;
 }
 h1,h2,h3,h4,h5,h6 {
   font-size:100%;
@@ -50,6 +51,7 @@ table {
 }
 .w950{
   width:950px;
+  margin: 0 auto;
 }
 .col-main{
   float:left;
