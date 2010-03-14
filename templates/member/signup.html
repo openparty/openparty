@@ -1,10 +1,62 @@
-{% extends "layout/base.html" %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% if page_title %}{{ page_title }}{% else %}OpenParty - {% block title %}{% endblock %}{% endif %}</title>
+  <link rel="shortcut icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/media/css/reset.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/media/css/openparty.css" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+<div id="root" class="w950">
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 
-{% block content %}
-<form action="/signup" method="post">
-  <table>
-    {{ form.as_table }}
-  </table>
-  <input type="submit" value="提交"/>
-</form>
-{% endblock %}
+  <div id="signup" class="narrow">
+    <form action="/signup" method="post">
+      <p>
+        <label>{{ form.email.label }}</label>
+        {{ form.email }}
+        <span class="hint">我们推荐您使用您使用加入Google Groups的那个邮箱</span>
+      </p>
+      <p>
+        <label>{{ form.nickname.label }}</label>
+        {{ form.nickname }}
+        <span class="hint">如果您不想让所有人看到您的邮件，那么请您留下一个社区里面的常用昵称，也许它比您的真名还要响亮</span>
+      </p>
+      <p>
+        <label>{{ form.password1.label }}</label>
+        {{ form.password1 }}
+      </p>
+      <p>
+        <label>{{ form.password2.label }}</label>
+        {{ form.password2 }}
+      </p>
+      <input type="submit" value="提交注册" tabindex="5"/>
+    </form>
+    <div id="signup-guide">
+      <p>注册成为Open Party会员后您可以：</p>
+      <ul>
+        <li>第一时间得到各种开源社区活动的通知（您也可以订阅我们的RSS）</li>
+        <li>方便的报名参加当期的活动</li>
+        <li>告诉社区您想听什么样的话题</li>
+        <li>记录您准备话题的过程，让社区知道您准备贡献什么样的话题</li>
+        <li>和活动上见面了的朋友做在线沟通</li>
+        <li>和社区里面的朋友交换“名片”</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="center-align">
+    &copy; 2010 www.beijing-open-party.org<br />
+    Powered by <a href="http://djangoproject.com" target="_blank">Django</a> + <a href="http://code.google.com/p/openparty" target="_blank">OpenParty app</a>
+  </div>
+</div><!-- end of root container -->
+</body>
+</html>

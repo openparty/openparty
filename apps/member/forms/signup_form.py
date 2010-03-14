@@ -6,11 +6,11 @@ from django.contrib.auth.models import User
 from openparty.apps.member.models import Member
 
 class SignupForm(forms.Form):
-    email = forms.EmailField(label=u'email地址', required=True, widget=forms.TextInput())
-    nickname = forms.CharField(label=u'昵称', required=False, max_length=30, widget=forms.TextInput())
+    email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput(attrs={'tabindex': '1'}))
+    nickname = forms.CharField(label=u'昵称', required=False, max_length=30, widget=forms.TextInput(attrs={'tabindex': '2'}))
     
-    password1 = forms.CharField(label=u'密码', required=True, widget=forms.PasswordInput(render_value=False))
-    password2 = forms.CharField(label=u'重复密码', widget=forms.PasswordInput(render_value=False))
+    password1 = forms.CharField(label=u'密码', required=True, widget=forms.PasswordInput(render_value=False, attrs={'tabindex': '3'}))
+    password2 = forms.CharField(label=u'重复密码', widget=forms.PasswordInput(render_value=False, attrs={'tabindex': '4'}))
     
     def clean_nickname(self):
         nickname = self.cleaned_data['nickname'].strip()

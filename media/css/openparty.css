@@ -8,24 +8,50 @@ form p {
 .center-align {
   text-align: center;
 }
+.hint {
+  font-size: 0.8em;
+  color: #999;
+}
+/* may be commons */
+.narrow label {
+  display: inline-block;
+  text-align: right;
+  width: 4em;
+}
+
+.narrow input[type='submit'] {
+  margin-left: 4em;
+}
+
+.narrow .hint {
+  display: block;
+  margin-left: 5.2em;
+}
+
 /* login styles */
-#login {
+#login,
+#signup {
   background: url(../images/logo_300.png) transparent left top no-repeat;
   margin: 10em auto;
   padding-left: 310px;
-  width: 20em;
+  width: 25em;
 }
 
 #login form {
 /*  border-left: #aaa 1px solid;*/
 }
 
-#login label {
-  display: inline-block;
-  text-align: right;
-  width: 4em;
+#signup-guide {
+  font-size: 1.1em;
+  margin-top: 2em;
+  margin-left: -310px;
 }
 
-#login input[type='submit'] {
-  margin-left: 4em;
+#signup-guide ul {
+  margin-left: 2em;
+  margin-top: 1em;
+}
+
+#signup-guide li {
+  list-style: disc;
 }
