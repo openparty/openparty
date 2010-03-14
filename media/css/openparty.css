@@ -10,14 +10,14 @@ form p {
 }
 /* login styles */
 #login {
-  background: url(../images/logo.png) transparent left top no-repeat;
+  background: url(../images/logo_300.png) transparent left top no-repeat;
   margin: 10em auto;
-  padding-left: 470px;
+  padding-left: 310px;
   width: 20em;
 }
 
 #login form {
-  border-left: #aaa 1px solid;
+/*  border-left: #aaa 1px solid;*/
 }
 
 #login label {
