@@ -1,5 +1,8 @@
-{% extends "layout/base.html" %}
+{% extends "member/base.html" %}
 
 {% block content %}
-<p>已经向{{email}}发送了email，请您登录邮箱确认再回来登录</p>
+<div id="verification-sent">
+  <p>已经向{{email}}发送了email</p>
+  <p>请您登录邮箱确认再回来登录</p>
+</div>
 {% endblock %}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% if page_title %}{{ page_title }}{% else %}OpenParty - {% block title %}{% endblock %}{% endif %}</title>
+  <link rel="shortcut icon" href="/static/favicon.ico" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/media/css/reset.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/media/css/openparty.css" />
+  {% block head %}{% endblock %}
+</head>
+<body>
+<div id="root" class="w950">
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}

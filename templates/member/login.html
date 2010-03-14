@@ -1,30 +1,15 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <title>{% if page_title %}{{ page_title }}{% else %}OpenParty - {% block title %}{% endblock %}{% endif %}</title>
-  <link rel="shortcut icon" href="/static/favicon.ico" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/media/css/reset.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="/media/css/openparty.css" />
-  {% block head %}{% endblock %}
-</head>
-<body>
-<div id="root" class="w950">
-  {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+{% extends "member/base.html" %}
 
+{% block content %}
   <div id="login" class="narrow">
     <form action="/login" method="post">
       <p>
+        {{ form.email.errors }}
         <label>{{ form.email.label }}</label>
         {{ form.email }}
       </p>
       <p>
+        {{ form.password.errors }}
         <label>{{ form.password.label }}</label>
         {{ form.password }}
       </p>
@@ -32,14 +17,12 @@
         <label class="invisible"></label>
         {{ form.remember}} {{ form.remember.label }}？(两周)
       </p>
+      <p>
+        <label class="invisible"></label>
+        还没有注册？<a href="/signup">现在就注册</a>
+      </p>
+      {{ form.non_field_errors }}
       <input type="submit" value="登陆" tabindex="4"/>
     </form>
   </div>
-  
-  <div class="center-align">
-    &copy; 2010 www.beijing-open-party.org<br />
-    Powered by <a href="http://djangoproject.com" target="_blank">Django</a> + <a href="http://code.google.com/p/openparty" target="_blank">OpenParty app</a>
-  </div>
-</div><!-- end of root container -->
-</body>
-</html>
+{% endblock %}

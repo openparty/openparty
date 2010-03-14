@@ -15,7 +15,7 @@ def login(request):
             return HttpResponseRedirect('index')
     else:
         form = LoginForm()
-    
+
     ctx = { 'form': form, }
     return render_to_response('member/login.html', ctx, context_instance=RequestContext(request))
 

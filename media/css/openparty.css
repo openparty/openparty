@@ -1,5 +1,5 @@
 body {
-  font-family:georgia,'times new roman',times,serif;
+  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "STHeiti", "Microsoft YaHei", serif;
   line-height:1.7;
 }
 form p {
@@ -11,6 +11,43 @@ form p {
 .hint {
   font-size: 0.8em;
   color: #999;
+}
+.messages li {
+  margin: 0.5em auto;
+  padding: 0.5em 1em;
+  font-size: 1.1em;
+  font-weight: bold;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+.messages .success {
+  background:#E6EFC2;
+  color:#264409;
+  border-color:#C6D880;
+}
+.messages .error {
+  background:#FBE3E4;
+  color:#8a1f11;
+  border-color:#FBC2C4;
+}
+.messages .notice {
+  background:#FFF6BF;
+  color:#514721;
+  border-color:#FFD324;
+}
+.messages .success {
+  background:#E6EFC2;
+  color:#264409;
+  border-color:#C6D880;
+}
+.messages .error a {
+  color:#8a1f11;
+}
+.messages .notice a {
+  color:#514721;
+}
+.messages .success a {
+  color:#264409;
 }
 /* may be commons */
 .narrow label {
@@ -28,9 +65,20 @@ form p {
   margin-left: 5.2em;
 }
 
+.narrow a {
+  text-decoration: underline;
+}
+
+.narrow .errorlist {
+  color: #CC0000;
+  margin-left: 4.1em;
+  list-style: disc;
+}
+
 /* login styles */
 #login,
-#signup {
+#signup,
+#verification-sent {
   background: url(../images/logo_300.png) transparent left top no-repeat;
   margin: 10em auto;
   padding-left: 310px;
@@ -54,4 +102,8 @@ form p {
 
 #signup-guide li {
   list-style: disc;
+}
+
+#verification-sent {
+  min-height: 8em;
 }

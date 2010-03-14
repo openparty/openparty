@@ -1,6 +1,6 @@
-Thank you for signing up for Open Party!  You are one step away from being able to use the tool.
+Thank you for signing up for Open Party!  You are one step away from being able to login.
 
-You now need to confirm that you are the person who signed up for an account on the feedme website.
+You now need to confirm that you are the person who signed up for an account on the Open Party website.
 
 Please click here to verify your account: {{ site }}/activate/{{ activation_key }}/
 
