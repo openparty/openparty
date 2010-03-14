@@ -4,9 +4,9 @@ from django.contrib.auth import authenticate, login
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput())
-    password = forms.CharField(label=u'密码', required=True, widget=forms.PasswordInput(render_value=False))
-    remember = forms.BooleanField(label=u'记住登陆信息', help_text=u'如果选择记住登陆信息，会保留登陆信息2周', required = False)
+    email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput(attrs={'tabindex': '1'}))
+    password = forms.CharField(label=u'密码', required=True, widget=forms.PasswordInput(render_value=False, attrs={'tabindex': '2'}))
+    remember = forms.BooleanField(label=u'记住登陆信息', help_text=u'如果选择记住登陆信息，会保留登陆信息2周', required = False, widget=forms.CheckboxInput(attrs={'tabindex': '3'}))
     
     user = None
     
