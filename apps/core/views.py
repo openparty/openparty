@@ -9,11 +9,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from models import Event, Topic
 from models import Vote
 
-from apps.member.models import *
-
-def render(template_name, template_values, request):
-    """render the template"""
-    return render_to_response(template_name, template_values, context_instance=RequestContext(request))
 
 def index(request):
     event_list = Event.objects.all().order_by('-datetime_begin')
@@ -26,21 +21,21 @@ def index(request):
             topic_list = Topic.objects.all().order_by('-total_votes')[:5]
         else:
             topic_list = upcoming_topic_list
-    return render('core/index.html', locals(), request)
+    return render_to_response('core/index.html', locals(), context_instance=RequestContext(request))
 
 def event_list(request):
     event_list = Event.objects.all().order_by('-datetime_begin')
     topic_list = Topic.objects.all().order_by('-total_votes')
-    return render('core/event_list.html', locals(), request)
+    return render_to_response('core/event_list.html', locals(), context_instance=RequestContext(request))
 
 def topic_list(request):
     topic_list = Topic.objects.all().order_by('-total_votes').order_by('-in_event__datetime_begin')
     #需注意排序顺序
-    return render('core/topic_list.html', locals(), request)
+    return render_to_response('core/topic_list.html', locals(), context_instance=RequestContext(request))
 
 def event(request, id):
     this_event = Event.objects.get(pk = id)
-    return render('core/event.html', locals(), request)
+    return render_to_response('core/event.html', locals(), context_instance=RequestContext(request))
 
 def topic(request, id):
     this_topic = Topic.objects.get(pk = id)
@@ -53,7 +48,7 @@ def topic(request, id):
         pass
 
 
-    return render('core/topic.html', locals(), request)
+    return render_to_response('core/topic.html', locals(), context_instance=RequestContext(request))
 
 #@authenticated:
 def vote(request, id):
