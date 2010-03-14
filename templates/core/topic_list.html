@@ -7,7 +7,7 @@
             <div class="lt"></div>
             <div class="lbox">
                 <h2>即将开始：<span class="yellow"><a href="/topic/{{ topic.id }}">{{ topic.name }}</a></span></h2>
-                <p> 得票数：{{ topic.total_votes }} 所属活动：<a href="/event/{{topic.in_event.id}}">{{topic.in_event.name}}</a> 日期：{{topic.in_event.datetime_begin|date}}</p>
+                <p> 得票数：{{ topic.total_votes }} 所属活动：<a href="/event/{{topic.in_event.id}}">{{topic.in_event.name}}</a> 日期：{{topic.in_event.begin_time|date}}</p>
                 <p> {{ topic.description }}</p>
                 <p> <a href="/topic/{{ topic.id }}">查看更多</a></p>
             </div>

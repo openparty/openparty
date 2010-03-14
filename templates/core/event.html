@@ -7,8 +7,8 @@
             <div class="lbox">
                 <h2><span class="yellow">{{ this_event.name }}</span></h2>{% ifequal this_event.is_off 1 %}<p>本活动已结束</p>{% endifequal %}
                 <p> {{ this_event.content }}</p>
-                <p> 开始时间：{{this_event.datetime_begin}}</p>
-                <p> 结束时间：{{this_event.datetime_end}}</p>
+                <p> 开始时间：{{ this_event.begin_time }}</p>
+                <p> 结束时间：{{ this_event.end_time }}</p>
                 <p> 已报名人数：</p>
                 
             </div>

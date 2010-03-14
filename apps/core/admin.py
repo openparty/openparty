@@ -4,8 +4,8 @@ from models import Event, Topic
 
 
 class Event_Admin(admin.ModelAdmin):
-    list_display = ('name', 'datetime_begin')
-    list_filter = ['datetime_begin']
+    list_display = ('name', 'begin_time')
+    list_filter = ['begin_time']
 
 admin.site.register(Event, Event_Admin)
 

@@ -6,7 +6,7 @@
             <div class="lbox">
                 <h2><span class="yellow">{{ this_topic.name }}</span></h2>
                 <p> {{ this_topic.content }}</p>
-                <p> 所属活动：<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a> 日期：{{this_topic.in_event.datetime_begin|date}}</p>
+                <p> 所属活动：<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a> 日期：{{this_topic.in_event.begin_time|date}}</p>
                 {% ifequal this_topic.in_event.is_off 1%}
                 <p>网络投票数：{{ this_topic.total_votes }} </p>
                 <p>本话题所属活动已经结束</p>

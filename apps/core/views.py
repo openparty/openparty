@@ -11,7 +11,7 @@ from models import Vote
 
 
 def index(request):
-    event_list = Event.objects.all().order_by('-datetime_begin')
+    event_list = Event.objects.all().order_by('-begin_time')
     if len(event_list) and event_list[0].is_upcoming == True:
         #有即将开始的活动
         upcoming_topic_list = Topic.objects.filter(in_event=event_list[0]).order_by('-total_votes')[:5]
@@ -24,12 +24,12 @@ def index(request):
     return render_to_response('core/index.html', locals(), context_instance=RequestContext(request))
 
 def event_list(request):
-    event_list = Event.objects.all().order_by('-datetime_begin')
+    event_list = Event.objects.all().order_by('-begin_time')
     topic_list = Topic.objects.all().order_by('-total_votes')
     return render_to_response('core/event_list.html', locals(), context_instance=RequestContext(request))
 
 def topic_list(request):
-    topic_list = Topic.objects.all().order_by('-total_votes').order_by('-in_event__datetime_begin')
+    topic_list = Topic.objects.all().order_by('-total_votes').order_by('-in_event__begin_time')
     #需注意排序顺序
     return render_to_response('core/topic_list.html', locals(), context_instance=RequestContext(request))
 
