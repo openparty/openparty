@@ -1,11 +1,12 @@
 {% extends "core/base.html" %}
 {% block content %}
+        {% load markup %}
         <div class="left">
             <h1>话题详情：</h1><a href="/topics">返回话题列表</a>
             <div class="lt"></div>
             <div class="lbox">
                 <h2><span class="yellow">{{ this_topic.name }}</span></h2>
-                <p> {{ this_topic.content }}</p>
+                <p> {{ this_topic.content|restructuredtext }}</p>
                 <p> 所属活动：<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a> 日期：{{this_topic.in_event.begin_time|date}}</p>
                 {% ifequal this_topic.in_event.is_off 1%}
                 <p>网络投票数：{{ this_topic.total_votes }} </p>

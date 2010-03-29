@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.comments',
+    'django.contrib.markup',
     #TODO: take the unittest framework back
     # 'openparty.dependencies.ameba.django.unittest',
     'openparty.apps.core',

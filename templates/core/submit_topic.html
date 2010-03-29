@@ -5,7 +5,7 @@
             <div class="lbox">
                 {% if save_success %}
                     感谢您的话题提交，系统会根据接下来活动场次的情况以及用户的投票来安排您的话题，期待您精彩的演讲
-                {% endif %}
+                {% else %}
                 <form action="{% url submit_new_topic %}" method="POST">
                 <table>
                     <tr>
@@ -15,12 +15,13 @@
                         <tr><td>{{form.description}}</td></tr>
                     <tr><td>{{form.content.label}}</td></tr>
                     <tr>
-                        <td>reStructuredText</td>
+                        <td>请使用<a href="http://en.wikipedia.org/wiki/ReStructuredText" target="_blank">reStructuredText</a>进行编辑</td>
                     </tr>
                         <tr><td>{{form.content}}</td></tr>
                 </table>
                 <input type="submit" value="提交">
                 </form>
+                {% endif %}
             </div>
        </div>	
 {% endblock %}
