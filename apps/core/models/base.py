@@ -4,7 +4,7 @@ from django.db import models
 from openparty.apps.member.models import Member
 
 class Base(models.Model):
-    name = models.CharField(max_length=255, blank=False)
+    name = models.CharField("名称", max_length=255, blank=False)
 
     created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
 

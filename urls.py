@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include
+from django.conf.urls.defaults import patterns, include, url
 from openparty.settings import MEDIA_ROOT
 
 # Uncomment the next two lines to enable the admin:
@@ -31,6 +31,7 @@ urlpatterns += patterns('openparty.apps.core.views',
     (r'^event/(?P<id>\d+)$', 'event'),
     (r'^topic/(?P<id>\d+)$', 'topic'),
     (r'^vote/topic/(?P<id>\d+)$', 'vote'),
+    url(r'^topic/submit/?$', 'submit_topic', name='submit_new_topic'),
 )
 
 urlpatterns += patterns('openparty.apps.member.views',

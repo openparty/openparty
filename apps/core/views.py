@@ -77,5 +77,22 @@ def vote(request, id):
     return HttpResponseRedirect("/")
 
 
+def submit_topic(request):
 
+    from django.forms import ModelForm, Textarea
+
+    # Create the form class.
+    class ArticleForm(ModelForm):
+        class Meta:
+            model = Topic
+            fields = ('name', 'description', 'content')
+            widgets = {
+                        'description': Textarea(attrs={'cols': 55, 'rows': 5}),
+                        'content': Textarea(attrs={'cols': 55, 'rows': 20}),
+                    }
+
+    # Creating a form to add an article.
+    form = ArticleForm()
+
+    return render_to_response('core/submit_topic.html', locals(), context_instance=RequestContext(request))
 
