@@ -44,9 +44,14 @@ def event(request, id):
 def topic(request, id):
     this_topic = Topic.objects.get(pk = id)
 
+    if this_topic.is_arranged:
+        can_vote = True 
+    else:
+        can_vote = False
+
     is_voted = False
     try:
-        vote_thistopic = this_topic.votes.get(user = request.user)
+        vote_thistopic = this_topic.votes.get(user = Member.objects.get(user=request.user))
         is_voted = True
     except:
         pass
@@ -61,13 +66,13 @@ def vote(request, id):
     
     is_voted = False
     try:
-        vote_thistopic = this_topic.votes.get(user = request.user)
+        vote_thistopic = this_topic.votes.get(user = Member.objects.get(user = request.user))
         is_voted = True
     except:
         pass
 
     if is_voted == False:
-        this_vote = Vote(user = request.user)
+        this_vote = Vote(user = Member.objects.get(user = request.user))
         #this_topic.votes.add(user = request.user)
         topic_type = ContentType.objects.get_for_model(Topic)
         this_vote.content_type=topic_type

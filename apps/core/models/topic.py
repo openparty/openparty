@@ -31,7 +31,7 @@ class Topic(Base):
     def is_arranged(self):
         '''该话题是否已经加入到活动，并且活动尚未开始'''
         if self.in_event is not None:
-            if self.in_event.is_upcomming == True:
+            if self.in_event.is_upcoming == True:
                 return True
             else:
                 return False

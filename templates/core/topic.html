@@ -13,12 +13,16 @@
                 <p>本话题所属活动已经结束</p>
                 <p>现场投票：</p>
                 {% else %}
-                <p>网络投票进行中：{{ this_topic.total_votes }} </p>
-                {% if not is_voted %}
-                    <a href="/vote/topic/{{this_topic.id}}">投票</a>
-                {% else %}
-                    已经投过票了
-                {% endif %}
+                    {% if can_vote %}
+                        <p>网络投票进行中：{{ this_topic.total_votes }} </p>
+                        {% if not is_voted %}
+                            <a href="/vote/topic/{{this_topic.id}}">投票</a>
+                        {% else %}
+                            已经投过票了
+                        {% endif %}
+                    {% else %}
+                        <p>该话题尚未加入任何活动，无法开始投票</p> 
+                    {% endif %}
                 {% endifequal %}
             </div>
                 {% load comments %}
