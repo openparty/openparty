@@ -13,6 +13,12 @@ class Topic(Base):
     in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name=u"已安排在此活动中") 
     description = models.TextField(u"简介", max_length=200, blank=False)
     content = models.TextField(u"内容", blank=False)
+    
+    def set_author(self, user):
+        author = Member.objects.get(user = user)
+        self.last_modified_by = author # last_modified_by 总是author？
+        self.author = author
+        return self
 
     @property
     def is_shown(self):

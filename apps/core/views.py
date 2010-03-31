@@ -7,9 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
-from django.forms import ModelForm, Textarea
-
-from apps.member.models import Member 
+from apps.member.models import Member
+from forms import ArticleForm
 from models import Event, Topic
 from models import Vote
 
@@ -87,31 +86,24 @@ def vote(request, id):
 
 @login_required
 def submit_topic(request):
-    # Create the form class.
-    class ArticleForm(ModelForm):
-        class Meta:
-            model = Topic
-            fields = ('name', 'description', 'content')
-            widgets = {
-                        'description': Textarea(attrs={'cols': 55, 'rows': 5}),
-                        'content': Textarea(attrs={'cols': 55, 'rows': 20}),
-                    }
-
-
     if request.method == 'GET':
+        context = {'form': ArticleForm()}
+        return render_to_response('core/submit_topic.html',
+                                    context,
+                                    context_instance=RequestContext(request))
 
-        # Creating a form to add an article.
-        form = ArticleForm()
-
-        return render_to_response('core/submit_topic.html', locals(), context_instance=RequestContext(request))
-
-    elif request.method == 'POST':
-
+    if request.method == 'POST':
         form = ArticleForm(request.POST)
-        new_topic = form.save(commit=False)
-        new_topic.last_modified_by = Member.objects.get(user = request.user)
-        new_topic.author = Member.objects.get(user = request.user)
-        new_topic.save()
-        save_success = True
-        return render_to_response('core/submit_topic.html', locals(), context_instance=RequestContext(request))
-
+        topic = form.save(commit=False)
+        topic.set_author(request.user)
+        topic.save()
+        
+        context = {
+            'form': form,
+            'topic': topic,
+            'save_success': True
+        }
+        
+        return render_to_response('core/submit_topic.html',
+                                    context,
+                                    context_instance=RequestContext(request))
