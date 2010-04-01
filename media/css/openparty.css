@@ -107,3 +107,47 @@ form p {
 #verification-sent {
   min-height: 8em;
 }
+
+.gutter {
+  padding: 20px 0;
+}
+
+#logo {
+  margin: 0;
+}
+
+#toolbar li {
+  display: inline;
+}
+
+.navigator-wrap {
+  background-color: #bbb;
+  border-top:1px solid #bfbfbf;
+  border-bottom:1px solid #aaa;
+  padding: 0.75em 0;
+}
+
+.main-navigator {
+  margin: 0;
+}
+
+.main-navigator li {
+  display: block;
+  float: left;
+  padding: 0.5em 1em;
+  margin: 0 3em 0 0;
+  font-weight: bold;
+  color: white;
+  -moz-border-radius: 14px;
+  -webkit-border-radius: 14px;
+  border-radius: 14px;
+}
+
+.main-navigator li.active {
+  background: #888;
+}
+
+.main-navigator a:link,
+.main-navigator a:visited {
+  color: white;
+}
