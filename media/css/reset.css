@@ -49,10 +49,6 @@ table {
 #page,#header,#content,#footer{
   margin-left:auto;margin-right:auto;
 }
-.w950{
-  width:950px;
-  margin: 0 auto;
-}
 .col-main{
   float:left;
   width:100%;
@@ -86,3 +82,23 @@ table {
   *zoom:1;
 }
 /*!CSS Document for Taobao HomePage 2010 - Created by YunQian(yunqian@taobao.com) */
+/* remember to define focus styles! */
+:focus {
+        outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+        text-decoration: none;
+}
+del {
+        text-decoration: line-through;
+}
+blockquote, q { 
+        quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+        content: ''; 
+        content: none;
+}
