@@ -7,42 +7,67 @@
   </div>
 </div>
 
-<div id="content" class="container_16">
-  <div class="next-event grid_8">
-    <h2>下次活动</h2>
-    <dl>
-      <dt>时间：</dt><dd>未定</dd>
-      <dt>地点：</dt><dd>东直门国华投资大厦11层</dd>
-    </dl>
-    <div class="event-poster" style="background-image: url(/media/upload/null-event-1.jpg)">
-      <img src="/media/upload/null-event-1.jpg" alt="下次活动海报" width="240" height="160" />
+<div id="content">
+  <div class="container_16">
+    <div class="next-event grid_8">
+      <h2>下次活动 / Next event</h2>
+      <dl>
+        <dt>时间：</dt><dd>未定</dd>
+        <dt>地点：</dt><dd>东直门国华投资大厦11层</dd>
+      </dl>
+      <div class="event-poster" style="background-image: url(/media/upload/null-event-1.jpg)">
+        <img src="/media/upload/null-event-1.jpg" alt="下次活动海报" width="460" height="252" />
+      </div>
+    </div>
+    <div class="grid_7 prefix_1">
+      <div class="join-us">
+        <h2>加入活动 / Join us</h2>
+        <ul>
+          <li class="inactive sign-up"><a href="#">报名参加下次活动</a></li>
+          <li class="contribute-topic"><a href="#">准备贡献话题？</a></li>
+          <li class="google-groups"><a href="#">参与Google Groups讨论</a></li>
+          <li class="blog-us">写博客报道您参加Open Party的感想</li>
+          <li class="rss"><a href="#">社区活动信息RSS订阅</a></li>
+          <li class="twitter">Follow Twitter <strong>@openparty</strong></li>
+          <li class="twitter-tag">关注和使用Twitter Tag <strong>#openparty</strong></li>
+        </ul>
+      </div>
+      <div class="top-sponsors">
+        <h2>钻石赞助商</h2>
+        <ul>
+          <li><a href="http://www.thoughtworks.com">ThoughtWorks</a></li>
+          <li><a href="http://www.db4objects.com">DB4Objects</a></li>
+          <li><a href="http://www.matrix.org.cn">Matrix.org.cn</a></li>
+          <li><a href="http://www.jetbrains.com">JetBrains</a></li>
+        </ul>
+      </div>
     </div>
   </div>
-  <div class="grid_8">
-    
-  </div>
-  <div class="grid_11">
-    {% for event in event_list %}
-      {% ifequal event.is_upcoming 1%}
-        <h2>即将开始：<span class="yellow"><a href="/event/{{event.id}}">{{ event.name }}</a></span></h2>
-        <p>{{ event.description }}</p>
-        <p><a href="/event/{{ event.id }}">查看更多</a></p>
-      {% else %}
-        <div class="left_articles">
-          <h2><a href="/event/{{event.id}}">{{ event.name }}</a></h2>
-          <p>{{ event.description }} </p>
-          <p> <a href="/event/{{ event.id }}">查看更多</a></p>
-        </div>
-      {% endifequal %}
-    {% endfor %}
-  </div>
-  <div class="grid_4 push_1">
-    <h1>热门话题：</h1>
-    {% for topic in topic_list %}
-      <div id="hot-topics">
-        <h4><a href="/topic/{{topic.id}}"><strong>{{ topic.name }}</strong></a></h4>
-        <p>{{ topic.description }} <a href="/topic/{{topic.id}}">查看更多</a></p>
-      </div>
-    {% endfor %}
+  <div class="container_12">
+    <div class="past-events grid_4">
+      <h2>以往活动</h2>
+      <ul>
+      {% for event in event_list %}
+          <li>
+            <h4><a href="/event/{{event.id}}">{{ event.name }}</a></h4>
+            <p>{{ event.description }} <span class="more"><a href="/event/{{ event.id }}">查看更多</a></span></p>
+          </li>
+      {% endfor %}
+      </ul>
+    </div>
+    <div class="grid_4">
+      <h2>以往精彩演讲话题</h2>
+      <ul>
+        {% for topic in topic_list %}
+          <li>
+            <h4><a href="/topic/{{topic.id}}">{{ topic.name }}</a></h4>
+            <p>{{ topic.description }} <span class="more"><a href="/topic/{{topic.id}}">查看更多</a></span></p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="grid_4">
+      <h2>社区活动广播</h2>
+    </div>
   </div>
 {% endblock %}
