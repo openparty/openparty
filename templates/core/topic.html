@@ -1,6 +1,8 @@
 {% extends "core/base.html" %}
 {% block content %}
-        {% load markup %}
+    {% load markup %}
+    <div id="content">
+      <div class="container_16">
         <div class="left">
             <h1>话题详情：</h1><a href="/topics">返回话题列表</a>
             <div class="lt"></div>
@@ -43,5 +45,7 @@
                 <h3>评论此活动：</h3>
                 {% render_comment_form for this_topic %}
             {% endif %}
-        </div>	
+        </div>
+      </div>	
+    </div>
 {% endblock %}
