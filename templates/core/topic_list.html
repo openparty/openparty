@@ -1,6 +1,8 @@
 {% extends "core/base.html" %}
 {% block content %}
-        {% load markup %}
+    {% load markup %}
+    <div id="content">
+      <div class="container_16">
         <div class="left">
         <h1>话题列表：</h1>
         {% for topic in topic_list %}
@@ -29,6 +31,7 @@
             <a href="{% url submit_new_topic %}">来OpenParty分享话题</a>
         </div>
 
-
+      </div>
+    </div>
 
 {% endblock %}
