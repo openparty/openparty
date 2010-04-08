@@ -103,3 +103,34 @@ def submit_topic(request):
         return render_to_response('core/submit_topic.html',
                                     context,
                                     context_instance=RequestContext(request))
+@login_required
+def edit_topic(request, id):
+    try:
+        this_topic = Topic.objects.get(pk = id)
+    except:
+        #TODO redirect to an error page
+        return HttpResponseRedirect("/")
+
+    if request.method == 'GET':
+        context = {
+                    'form': ArticleForm(instance = this_topic)
+                  }
+        return render_to_response('core/edit_topic.html', 
+                                    context,
+                                    context_instance=RequestContext(request))
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, instance=this_topic)
+        topic = form.save(commit=False)
+        topic.set_author(request.user)
+        topic.save()
+
+        context = {
+            'form': form,
+            'topic': topic,
+            'edit_success': True
+        }
+        
+        return render_to_response('core/edit_topic.html',
+                                    context,
+                                    context_instance=RequestContext(request))

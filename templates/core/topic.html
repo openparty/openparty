@@ -9,6 +9,10 @@
             <div class="lbox">
                 <h2><span class="yellow">{{ this_topic.name }}</span></h2>
                 <p> {{ this_topic.content|restructuredtext }}</p>
+                <p> 建立者：{{ this_topic.author.nickname }} 建立时间：{{ this_topic.created|date }}</p>
+                {% if request.user == this_topic.author.user %}
+                    <p><a href="/topic/edit/{{ this_topic.id }}">编辑此话题</a></p>
+                {% endif %}
                 <p> 所属活动：<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a> 日期：{{this_topic.in_event.begin_time|date}}</p>
                 {% ifequal this_topic.in_event.is_off 1%}
                 <p>网络投票数：{{ this_topic.total_votes }} </p>

@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+{% block content %}
+        <div class="left">
+            <h1>话题详情：</h1><a href="/topics">返回话题列表</a>
+            <div class="lbox">
+                {% if edit_success %}
+                    话题编辑成功，系统会根据接下来活动场次的情况以及用户的投票来安排您的话题，期待您精彩的演讲
+                    <a href="/topic/{{ topic.id }}">返回话题</a>
+                {% else %}
+                <form action="{% url edit_topic form.instance.id %}" method="POST">
+                <table>
+                    <tr>
+                        <td>{{form.name.label}}:{{form.name}}</td>
+                    </tr>
+                    <tr><td>{{form.description.label}}</td></tr>
+                        <tr><td>{{form.description}}</td></tr>
+                    <tr><td>{{form.content.label}}</td></tr>
+                    <tr>
+                        <td>请使用<a href="http://en.wikipedia.org/wiki/ReStructuredText" target="_blank">reStructuredText</a>进行编辑</td>
+                    </tr>
+                        <tr><td>{{form.content}}</td></tr>
+                </table>
+                <input type="submit" value="提交">
+                </form>
+                {% endif %}
+            </div>
+       </div>	
+{% endblock %}

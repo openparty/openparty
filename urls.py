@@ -32,6 +32,7 @@ urlpatterns += patterns('openparty.apps.core.views',
     (r'^topic/(?P<id>\d+)$', 'topic'),
     (r'^vote/topic/(?P<id>\d+)$', 'vote'),
     url(r'^topic/submit/?$', 'submit_topic', name='submit_new_topic'),
+    url(r'^topic/edit/(?P<id>\d+)/?$', 'edit_topic', name='edit_topic'),
 )
 
 urlpatterns += patterns('openparty.apps.member.views',
