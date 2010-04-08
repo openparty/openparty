@@ -51,6 +51,9 @@ def topic(request, id):
     except:
         pass
 
+    modified = False
+    if this_topic.created != this_topic.last_modified:
+        modified = True
 
     return render_to_response('core/topic.html', locals(), context_instance=RequestContext(request))
 

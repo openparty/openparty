@@ -10,6 +10,9 @@
                 <h2><span class="yellow">{{ this_topic.name }}</span></h2>
                 <p> {{ this_topic.content|restructuredtext }}</p>
                 <p> 建立者：{{ this_topic.author.nickname }} 建立时间：{{ this_topic.created|date }}</p>
+                {% if modified %}
+                <p> 最近修改者：{{ this_topic.last_modified_by.nickname }} 于：{{ this_topic.last_modified|timesince }} 前</p>
+                {% endif %}
                 {% if request.user == this_topic.author.user %}
                     <p><a href="/topic/edit/{{ this_topic.id }}">编辑此话题</a></p>
                 {% endif %}
