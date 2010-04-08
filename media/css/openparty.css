@@ -1,5 +1,6 @@
 body {
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "STHeiti", "Microsoft YaHei", serif;
+  text-align: justify;
   line-height:1.7;
 }
 form p {
@@ -109,7 +110,7 @@ form p {
 }
 
 .gutter {
-  padding: 20px 0;
+  padding: 12px 0;
 }
 
 #logo {
@@ -124,7 +125,7 @@ form p {
   background-color: #bbb;
   border-top:1px solid #bfbfbf;
   border-bottom:1px solid #aaa;
-  padding: 0.75em 0;
+  padding: 0.25em 0;
 }
 
 .main-navigator {
@@ -150,4 +151,21 @@ form p {
 .main-navigator a:link,
 .main-navigator a:visited {
   color: white;
+}
+
+.whats-open-party {
+  padding: 12px 0;
+}
+.whats-open-party h2,
+.whats-open-party p {
+  display: inline;
+  font-family: "STKaiti", "Kai";
+  font-size: 18px;
+  padding: 0.25em 0;
+  font-weight: normal;
+  color: #666;
+}
+.whats-open-party strong {
+  font-weight: normal;
+  color: black;
 }
