@@ -1,13 +1,27 @@
 {% extends "core/base.html" %}
 {% block content %}
-<div class="whats-open-party article container_16">
-  <h2>OpenParty是什么？</h2>
-  <p>OpenParty是由北京的多个技术社区共同举办的社交活动。本着自由、开放、分享、互动的宗旨，采用“非会议（Unconference）”的形式， 为参与人员创建一个表达和交流的平台。本活动的目标<strong>给参与者提供一个平等、自由的分享与获取知识的机会</strong>。活动话题不仅仅局限于技术，还包括生活、旅游、艺术、创业、商务、投资、营销等各方面的话题。</p>
+<div class="article container_16">
+  <div class="whats-open-party grid_14">
+    <h2>OpenParty是什么？</h2>
+    <p>OpenParty是由北京的多个技术社区共同举办的社交活动。本着自由、开放、分享、互动的宗旨，采用“非会议（Unconference）”的形式， 为参与人员创建一个表达和交流的平台。本活动的目标<strong>给参与者提供一个平等、自由的分享与获取知识的机会</strong>。活动话题不仅仅局限于技术，还包括生活、旅游、艺术、创业、商务、投资、营销等各方面的话题。</p>
+  </div>
 </div>
 
 <div id="content" class="container_16">
+  <div class="next-event grid_8">
+    <h2>下次活动</h2>
+    <dl>
+      <dt>时间：</dt><dd>未定</dd>
+      <dt>地点：</dt><dd>东直门国华投资大厦11层</dd>
+    </dl>
+    <div class="event-poster" style="background-image: url(/media/upload/null-event-1.jpg)">
+      <img src="/media/upload/null-event-1.jpg" alt="下次活动海报" width="240" height="160" />
+    </div>
+  </div>
+  <div class="grid_8">
+    
+  </div>
   <div class="grid_11">
-    <h1>活动列表：</h1>
     {% for event in event_list %}
       {% ifequal event.is_upcoming 1%}
         <h2>即将开始：<span class="yellow"><a href="/event/{{event.id}}">{{ event.name }}</a></span></h2>

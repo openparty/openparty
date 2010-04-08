@@ -155,6 +155,7 @@ form p {
 
 .whats-open-party {
   padding: 12px 0;
+  border-bottom: 3px dashed #f4f4f4;
 }
 .whats-open-party h2,
 .whats-open-party p {
@@ -168,4 +169,34 @@ form p {
 .whats-open-party strong {
   font-weight: normal;
   color: black;
+}
+.next-event {
+  margin: 12px 0 0 0 ;
+}
+.next-event h2 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+  display: inline;
+}
+.event-poster {
+  margin: 6px 0;
+  width: 480px;
+  height: 320px;
+  -webkit-box-shadow: 6px 6px 6px #ccccc5;
+  -moz-box-shadow: 6px 6px 6px #ccccc5;
+}
+.event-poster img {
+  display: none;
+}
+.next-event dl {
+  display: inline;
+  margin: 12px 0;
+}
+.next-event dt,
+.next-event dd {
+  display: inline;
+}
+.next-event dt {
+  padding-left: 12px;
 }
