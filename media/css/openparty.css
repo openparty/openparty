@@ -123,6 +123,8 @@ form p {
 
 .navigator-wrap {
   background-color: #bbb;
+  background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#ccc));
+  background: -moz-gradient(linear, left top, left bottom, from(#999), to(#ccc));
   border-top:1px solid #bfbfbf;
   border-bottom:1px solid #aaa;
   padding: 0.25em 0;
