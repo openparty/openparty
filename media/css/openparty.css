@@ -179,7 +179,7 @@ form p {
   margin: 12px 0 0 0 ;
   font-size: 14px;
   font-weight: bold;
-  color: #666;
+  color: #15355F;
   border-bottom: 2px solid #f5f5f5;
 }
 .event-poster {
@@ -208,11 +208,11 @@ form p {
   font-size: 18px;
   font-weight: bold;
   text-shadow:0 -1px rgba(0, 0, 0, 0.1);
-  color: black;
+  color: rgb(66, 147, 195);
 }
 .join-us a:link,
 .join-us a:visited {
-  color: black;
+  color: rgb(66, 147, 195);
   text-decoration: underline;
 }
 .join-us .inactive a:link {
@@ -224,42 +224,64 @@ form p {
 .top-sponsors {
   text-align: left;
 }
-.top-sponsors li {
-  display: inline;
-  padding: 0.25em 0.5em 0.25em 0;
-  font-size: 22px;
-  font-weight: bold;
-  letter-spacing:-0.02em;
-  text-shadow:0 -1px rgba(0, 0, 0, 0.3);
-}
-.top-sponsors a:link,
-.top-sponsors a:visited {
-  color: black;
-}
+  .top-sponsors li {
+    display: inline;
+    padding: 0.25em 0.5em 0.25em 0;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing:-0.02em;
+    text-shadow:0 -1px rgba(0, 0, 0, 0.3);
+  }
+  .top-sponsors a:link,
+  .top-sponsors a:visited {
+    color: black;
+  }
 #footer {
   margin-top: 3em;
   font-size: 11px;
 }
-#footer p {
-  text-align: center;
-}
-#footer a:link,
-#footer a:visited {
-  text-decoration: underline;
-  color: black;
-}
-#footer .links {
-  text-align: center;
-}
-#footer .links li {
-  display: inline;
-  padding: 0 1em;
-}
+  #footer p {
+    text-align: center;
+  }
+  #footer a:link,
+  #footer a:visited {
+    text-decoration: underline;
+    color: black;
+  }
+  #footer .links {
+    text-align: center;
+  }
+    #footer .links li {
+      display: inline;
+      padding: 0 1em;
+    }
 #debug {
   font-family: Monaco, Consolas;
   font-size: 10px;
 }
-#debug td {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
+  #debug td {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+/*.entries*/
+  .entries a:link,
+  .entries a:visited {
+    color: #15355F;
+  }
+  .entries h4 {
+    color: #15355F;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 12px 0px 0px;
+  }
+  .entries p {
+    text-align: justify;
+    line-height: 2;
+    margin: 0;
+    color: #333;
+  }
+  .entries a:link.more,
+  .entries a:visited.more {
+    color: #999;
+    text-decoration: underline;
+  }

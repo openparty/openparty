@@ -45,24 +45,24 @@
   </div>
   <div class="clear"></div>
   <div class="container_12">
-    <div class="past-events grid_4">
+    <div class="entries events grid_4">
       <h2>以往活动</h2>
       <ul>
       {% for event in event_list %}
           <li>
             <h4><a href="/event/{{event.id}}">{{ event.name }}</a></h4>
-            <p>{{ event.description }} <span class="more"><a href="/event/{{ event.id }}">查看更多</a></span></p>
+            <p>{{ event.description }} <a href="/event/{{ event.id }}" class="more">查看更多</a></p>
           </li>
       {% endfor %}
       </ul>
     </div>
-    <div class="grid_4">
+    <div class="entries topics grid_4">
       <h2>以往精彩演讲话题</h2>
       <ul>
         {% for topic in topic_list %}
           <li>
             <h4><a href="/topic/{{topic.id}}">{{ topic.name }}</a></h4>
-            <p>{{ topic.summary }} <span class="more"><a href="/topic/{{topic.id}}">查看更多</a></span></p>
+            <p>{{ topic.summary }} <a href="/topic/{{topic.id}}" class="more">查看更多</a></p>
           </li>
         {% endfor %}
       </ul>
