@@ -16,11 +16,16 @@ from models import Vote
 def index(request):
     event_list = Event.objects.all().order_by('-begin_time')[:5]
     topic_list = Topic.objects.all().order_by('-total_votes')[:5]
+
+    event_list = Event.past.all()
+
+    next_event = Event.objects.next_event()
+
     ctx = {
         'request': request,
         'event_list': event_list,
         'topic_list': topic_list,
-        'next_event': Event.objects.next_event(),
+        'next_event': next_event, 
     }
     return render_to_response('core/index.html', ctx, context_instance=RequestContext(request))
 

@@ -6,9 +6,21 @@ from openparty.apps.member.models import Member
 from openparty.apps.core.models import Base
 
 
-class EventManger(models.Manager):
+class EventManager(models.Manager):
     def next_event(self):
-        return NullEvent()
+        upcoming_events = super(EventManager, self).get_query_set().filter(begin_time__gte=datetime.now())
+        if upcoming_events.count() >= 1:
+            return upcoming_events.order_by("-begin_time")[0]
+        else:
+            return NullEvent()
+
+class UpcomingManager(models.Manager):
+    def get_query_set(self):
+        return super(UpcomingManager, self).get_query_set().filter(begin_time__gte=datetime.now())
+
+class PastManager(models.Manager):
+    def get_query_set(self):
+        return super(PastManager, self).get_query_set().filter(end_time__lte=datetime.now())
 
 class NullEvent(object):
     '''空的项目，保持接口的一致'''
@@ -48,4 +60,6 @@ class Event(Base):
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.begin_time)
     
-    objects = EventManger()
+    objects = EventManager()
+    upcoming = UpcomingManager()
+    past = PastManager()
