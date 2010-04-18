@@ -43,6 +43,14 @@ class Topic(Base):
                 return False
         else:
             return False
+    
+    @property
+    def summary(self):
+        unicode_content = self.content.decode('utf-8')
+        if len(unicode_content) > 15:
+            return '%s...' % unicode_content[:15]
+        else:
+            return unicode_content
 
     def __unicode__(self):
             return self.name
