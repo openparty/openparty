@@ -46,11 +46,15 @@ class Topic(Base):
     
     @property
     def summary(self):
-        unicode_content = self.content.decode('utf-8')
-        if len(unicode_content) > 15:
-            return '%s...' % unicode_content[:15]
+        try:
+            content = self.content.decode('utf-8')
+        except UnicodeEncodeError:
+            content = self.content
+        
+        if len(content) > 15:
+            return '%s...' % content[:15]
         else:
-            return unicode_content
+            return content
 
     def __unicode__(self):
             return self.name
