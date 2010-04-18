@@ -1,5 +1,5 @@
 body {
-  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "STHeiti", "Microsoft YaHei", serif;
+  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "STHeiti", "黑体", "Microsoft YaHei", serif;
   text-align: justify;
   line-height:1.7;
 }
@@ -162,7 +162,7 @@ form p {
 .whats-open-party h2,
 .whats-open-party p {
   display: inline;
-  font-family: "STKaiti", "Kai";
+  font-family: "STKaiti", "楷体", "Kai", "Kaiti";
   font-size: 18px;
   padding: 0.25em 0;
   font-weight: normal;
@@ -205,7 +205,7 @@ form p {
 }
 .join-us ul {
   margin: 0 0 20px 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   text-shadow:0 -1px rgba(0, 0, 0, 0.1);
   color: rgb(66, 147, 195);
