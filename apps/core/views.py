@@ -19,6 +19,7 @@ def index(request):
     ctx = {
         'event_list': event_list,
         'topic_list': topic_list,
+        'next_event': Event.objects.next_event(),
     }
     return render_to_response('core/index.html', ctx, context_instance=RequestContext(request))
 

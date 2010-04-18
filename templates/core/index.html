@@ -12,11 +12,11 @@
     <div class="next-event grid_8">
       <h2>下次活动 / Next event</h2>
       <dl>
-        <dt>时间：</dt><dd>未定</dd>
-        <dt>地点：</dt><dd>东直门国华投资大厦11层</dd>
+        <dt>时间：</dt><dd>{{next_event.begin_time}}</dd>
+        <dt>地点：</dt><dd>{{next_event.address}}</dd>
       </dl>
-      <div class="event-poster" style="background-image: url(/media/upload/null-event-1.jpg)">
-        <img src="/media/upload/null-event-1.jpg" alt="下次活动海报" width="460" height="252" />
+      <div class="event-poster" style="background-image: url({{next_event.poster}})">
+        <img src="{{next_event.poster}}" alt="下次活动海报" width="460" height="252" />
       </div>
     </div>
     <div class="grid_7 prefix_1">
