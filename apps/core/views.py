@@ -41,6 +41,7 @@ def topic_list(request):
 
 def event(request, id):
     this_event = Event.objects.get(pk = id)
+    topics_shown_in = this_event.topic_shown_in.filter(accepted=True)
     return render_to_response('core/event.html', locals(), context_instance=RequestContext(request))
 
 def topic(request, id):
