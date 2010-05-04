@@ -7,6 +7,7 @@
         <h1>话题列表：</h1>
         {% for topic in topic_list %}
         {% ifequal topic.in_event.is_upcoming 1%}
+            {% ifequal topic.accepted 1%}
             <div class="lt"></div>
             <div class="lbox">
                 <h2>即将开始：<span class="yellow"><a href="/topic/{{ topic.id }}">{{ topic.name }}</a></span></h2>
@@ -14,12 +15,13 @@
                 <p> {{ topic.description|restructuredtext }}</p>
                 <p> <a href="/topic/{{ topic.id }}">查看更多</a></p>
             </div>
-        {% else %}
+            {% else %}
             <div class="left_articles">
                 <h2><a href="/topic/{{ topic.id }}">{{ topic.name }}</a></h2>
                 <p>{{ topic.description }}</p>
                    <p> <a href="/topic/{{ topic.id }}">查看更多</a></p>
-            </div>
+               </div>
+            {% endifequal %}    
         {% endifequal %}
 
         {% endfor %}
