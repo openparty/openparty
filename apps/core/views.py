@@ -97,7 +97,9 @@ def submit_topic(request):
         form = ArticleForm()
         form.fields['in_event'].queryset = Event.upcoming.all()
 
-        context = {'form': form}
+        context = {'form': form,
+                'request': request,
+                }
         return render_to_response('core/submit_topic.html',
                                     context,
                                     context_instance=RequestContext(request))
@@ -109,6 +111,7 @@ def submit_topic(request):
         topic.save()
         
         context = {
+            'request': request,
             'form': form,
             'topic': topic,
             'save_success': True
@@ -140,6 +143,7 @@ def edit_topic(request, id):
         topic.save()
 
         context = {
+            'request': request,
             'form': form,
             'topic': topic,
             'edit_success': True
