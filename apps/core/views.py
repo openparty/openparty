@@ -93,7 +93,10 @@ def vote(request, id):
 @login_required
 def submit_topic(request):
     if request.method == 'GET':
-        context = {'form': ArticleForm()}
+        form = ArticleForm()
+        form.fields['in_event'].queryset = Event.upcoming.all()
+
+        context = {'form': form}
         return render_to_response('core/submit_topic.html',
                                     context,
                                     context_instance=RequestContext(request))
