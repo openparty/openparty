@@ -65,7 +65,7 @@ def topic(request, id):
 
     return render_to_response('core/topic.html', locals(), context_instance=RequestContext(request))
 
-#@authenticated:
+@login_required
 def vote(request, id):
 
     this_topic = Topic.objects.get(pk = id)

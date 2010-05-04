@@ -15,13 +15,13 @@
                 <p> {{ topic.description|restructuredtext }}</p>
                 <p> <a href="/topic/{{ topic.id }}">查看更多</a></p>
             </div>
-            {% else %}
+            {% endifequal %}    
+        {% else %}
             <div class="left_articles">
                 <h2><a href="/topic/{{ topic.id }}">{{ topic.name }}</a></h2>
                 <p>{{ topic.description }}</p>
                    <p> <a href="/topic/{{ topic.id }}">查看更多</a></p>
                </div>
-            {% endifequal %}    
         {% endifequal %}
 
         {% endfor %}
