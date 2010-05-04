@@ -5,7 +5,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
 
 from apps.member.models import Member
 from forms import ArticleForm
@@ -40,7 +41,7 @@ def topic_list(request):
     return render_to_response('core/topic_list.html', locals(), context_instance=RequestContext(request))
 
 def event(request, id):
-    this_event = Event.objects.get(pk = id)
+    this_event = get_object_or_404(Event, pk = id)
     topics_shown_in = this_event.topic_shown_in.filter(accepted=True)
     return render_to_response('core/event.html', locals(), context_instance=RequestContext(request))
 

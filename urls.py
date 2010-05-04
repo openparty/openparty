@@ -1,6 +1,10 @@
 from django.conf.urls.defaults import patterns, include, url
 from openparty.settings import MEDIA_ROOT
 
+from django.conf.urls.defaults import handler404, handler500
+#not adding above line may cause a 'handler404, 500 not found' problem in testcase.
+#http://code.djangoproject.com/ticket/11013#comment:1
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
