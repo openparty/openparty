@@ -11,7 +11,7 @@ admin.site.register(Event, Event_Admin)
 
 class Topic_Admin(admin.ModelAdmin):
 	list_display = ('name', 'author', 'total_votes', 'in_event', 'accepted')
-	#list_filter = ['total_votes', 'author', 'in_event', 'accepted']
+	list_filter = ['author', 'in_event', 'accepted']
 
 admin.site.register(Topic, Topic_Admin)
 
