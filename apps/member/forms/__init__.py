@@ -1,2 +1,3 @@
 from login_form import LoginForm
 from signup_form import SignupForm
+from change_password_form import ChangePasswordForm

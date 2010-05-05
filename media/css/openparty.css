@@ -79,6 +79,7 @@ form p {
 /* login styles */
 #login,
 #signup,
+#change-password,
 #verification-sent {
   background: url(../images/logo_300.png) transparent left top no-repeat;
   margin: 10em auto;

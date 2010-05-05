@@ -4,8 +4,9 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
 
-from openparty.apps.member.forms import LoginForm, SignupForm
+from openparty.apps.member.forms import LoginForm, SignupForm, ChangePasswordForm
 from openparty.apps.member.models import Member
 
 def login(request):
@@ -42,3 +43,16 @@ def activate(request, activation_key):
     else:
         messages.error(request, u'对不起，您所的激活号码已经过期或者根本就不存在？')
     return redirect('/login')
+
+@login_required
+def change_password(request):
+    if request.method == 'POST' and request.user.is_authenticated():
+        form = ChangePasswordForm(request.user, request.POST)
+        if form.save():
+            print '您的密码已经修改'
+            messages.success(request, u'您的密码已经修改')
+            return redirect('/')
+    else:
+        form = ChangePasswordForm(request)
+    ctx = { 'form': form, }
+    return render_to_response('member/change_password.html', ctx, context_instance=RequestContext(request))

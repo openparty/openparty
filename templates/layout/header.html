@@ -12,6 +12,15 @@
 </head>
 <body>
   <div id="header">
+    {% if messages %}
+    <ul class="messages" class="grid_12">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    <div class="clear"></div>
+    {% endif %}
+    
     <div class="gutter">
       <div class="container_16">
         <h1 id="logo" class="grid_7">
@@ -22,6 +31,7 @@
         <ul id="toolbar" class="grid_9">
           {% if request.user.is_authenticated %}
             <li>欢迎 <em>{{request.user.username}}</em></li>
+            <li><a title="修改密码" href="/change_password">[改密码]</a></li>
             <li><a title="登出" href="/logout">[登出]</a></li>
           {% else %}
             <li>欢迎来到Open Party，您还没有登录</li>

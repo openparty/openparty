@@ -43,5 +43,6 @@ urlpatterns += patterns('openparty.apps.member.views',
     (r'^signup$', 'signup'),
     (r'^login$', 'login'),
     (r'^logout$', 'logout'),
+    (r'^change_password$', 'change_password'),
     (r'^activate/(?P<activation_key>\w+)/$', 'activate'),
 )
