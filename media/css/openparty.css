@@ -255,6 +255,26 @@ dl.pair {
 .join-us strong {
   color: red;
 }
+.join-us .hot {
+  font-size: 28px;
+  margin: 0.5em 0 0.5em -5px;
+}
+.join-us .hot a:link,
+.join-us .hot a:visited {
+  background-color: #EFEFEF;
+  padding: 0.25em 0.75em;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  -webkit-box-shadow: 6px 6px 4px #ccccc5;
+  -moz-box-shadow: 6px 6px 4px #ccccc5;
+}
+.join-us .hot a:hover,
+.join-us .hot a:active {
+  background-color: #fffca6;
+  -webkit-box-shadow: 2px 2px 4px #ccccc5;
+  -moz-box-shadow: 2px 2px 4px #ccccc5;
+}
 .top-sponsors {
   text-align: left;
 }
