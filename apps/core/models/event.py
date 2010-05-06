@@ -40,6 +40,8 @@ class Event(Base):
     end_time    = models.DateTimeField(u"结束时间", auto_now_add=False, auto_now=False, blank=False, null=False)
     description = models.TextField(u"简介", max_length=200, blank=False)
     content     = models.TextField(u"介绍", blank=False)
+    address     = models.TextField(u"活动地点", blank=False)
+    poster      = models.CharField(u"招贴画", default='/media/upload/null-event-1.jpg', blank=True, max_length=255)
 
     #englishname?
     #url_path = models.SlugField(_('url path'),max_length=250, db_index=True, blank=True)
