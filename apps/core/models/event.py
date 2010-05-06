@@ -10,7 +10,9 @@ class EventManager(models.Manager):
     def next_event(self):
         upcoming_events = super(EventManager, self).get_query_set().filter(begin_time__gte=datetime.now())
         if upcoming_events.count() >= 1:
-            return upcoming_events.order_by("-begin_time")[0]
+            next_event = upcoming_events.order_by("-begin_time")[0]
+            next_event.css_class = 'hot'
+            return next_event
         else:
             return NullEvent()
 
@@ -35,6 +37,8 @@ class NullEvent(object):
     poster      = '/media/upload/null-event-1.jpg'
     participants = set()
     
+    css_class   = 'inactive'
+    
     def save():
         raise NullEventException()
     
@@ -50,6 +54,8 @@ class Event(Base):
     address     = models.TextField(u"活动地点", blank=False)
     poster      = models.CharField(u"招贴画", default='/media/upload/null-event-1.jpg', blank=True, max_length=255)
     participants = models.ManyToManyField(Member)
+    
+    css_class   = ''
 
     #englishname?
     #url_path = models.SlugField(_('url path'),max_length=250, db_index=True, blank=True)

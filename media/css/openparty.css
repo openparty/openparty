@@ -249,16 +249,6 @@ dl.pair {
   color: rgb(66, 147, 195);
   text-decoration: underline;
 }
-.join-us .inactive a:link {
-  text-decoration: none;
-}
-.join-us strong {
-  color: red;
-}
-.join-us .hot {
-  font-size: 28px;
-  margin: 0.5em 0 0.5em -5px;
-}
 .join-us .hot a:link,
 .join-us .hot a:visited {
   background-color: #EFEFEF;
@@ -274,6 +264,18 @@ dl.pair {
   background-color: #fffca6;
   -webkit-box-shadow: 2px 2px 4px #ccccc5;
   -moz-box-shadow: 2px 2px 4px #ccccc5;
+}
+.join-us .inactive a:link,
+.join-us .inactive a:visited {
+  text-decoration: none;
+  color: #aaa;
+}
+.join-us strong {
+  color: red;
+}
+.join-us .hot {
+  font-size: 28px;
+  margin: 0.5em 0 0.5em -5px;
 }
 .top-sponsors {
   text-align: left;
