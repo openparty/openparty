@@ -59,7 +59,7 @@ def join_event(request):
     else:
         form = ProfileForm(request.user)
 
-    ctx = { 'form': form, }
+    ctx = { 'form': form, 'request': request, }
     return render_to_response('core/join_evnet.html', ctx, context_instance=RequestContext(request))
 
 def event(request, id):
