@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth import authenticate, login
+from django.core.validators import validate_email
 
 
 class LoginForm(forms.Form):
@@ -10,8 +11,13 @@ class LoginForm(forms.Form):
     
     user = None
     
+    def clean_email(self):
+        email=self.cleaned_data.get('email','')
+        validate_email(email)
+    
     def clean(self):
-        credential = { 'username': self.cleaned_data['email'], 'password': self.cleaned_data['password'] }
+        super(LoginForm,self).clean()
+        credential = { 'username': self.cleaned_data.get('email',''), 'password': self.cleaned_data.get('password','')}
         user = authenticate(**credential)
         if user:
             if user.is_active:

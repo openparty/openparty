@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-import json
+try:
+    import json
+except:
+    from django.utils import simplejson as json
+
 from django import forms
 from openparty.apps.member.models import Member
 
