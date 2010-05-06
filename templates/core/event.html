@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% block content %}
+    {% load markup %}
     <div id="content">
       <div class="container_16">
         <div class="left">
@@ -8,7 +9,7 @@
             <div class="lt"></div>
             <div class="lbox">
                 <h2><span class="yellow">{{ this_event.name }}</span></h2>{% ifequal this_event.is_off 1 %}<p>本活动已结束</p>{% endifequal %}
-                <p> {{ this_event.content }}</p>
+                <p> {{ this_event.content|restructuredtext }}</p>
                 <p> 开始时间：{{ this_event.begin_time }}</p>
                 <p> 结束时间：{{ this_event.end_time }}</p>
                 <p> 已报名人数：</p>
@@ -20,7 +21,7 @@
             {% for event_topic in topics_shown_in %}
             <div class="left_articles">
                 <h2><a href="/topic/{{ event_topic.id }}">{{ event_topic.name }}</a></h2>
-                <p>{{ event_topic.description }}</p>
+                <p>{{ event_topic.description|restructuredtext }}</p>
                 <p> <a href="/topic/{{ event_topic.id }}">查看更多</a></p>
             </div>
             {% endfor %}

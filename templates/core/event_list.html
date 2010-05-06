@@ -1,5 +1,6 @@
 {% extends "core/base.html" %}
 {% block content %}
+    {% load markup %}
     <div id="content">
       <div class="container_16">
         <div class="left">
@@ -9,7 +10,7 @@
             <div class="lt"></div>
             <div class="lbox">
                 <h2>即将开始：<span class="yellow"><a href="/event/{{ event.id }}">{{ event.name }}</a></span></h2>
-                <p> {{ event.description }}</p>
+                <p> {{ event.description|restructuredtext }}</p>
                 <p>
                 <ul>
                     {% for event_topic in event.topic_shown_in.all %}
@@ -22,7 +23,7 @@
         {% else %}
             <div class="left_articles">
                 <h2><a href="/event/{{ event.id }}">{{ event.name }}</a></h2>
-                <p>{{ event.description }}</p>
+                <p>{{ event.description|restructuredtext }}</p>
                 <p>
                 <ul>
                     {% for event_topic in event.topic_shown_in.all %}
