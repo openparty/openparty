@@ -57,7 +57,17 @@ def join_event(request):
             messages.success(request, u'您已经成功报名参加《%s》活动，您是第%s名参加者' % (next_event.name, next_event.participants.count()))
             return redirect('/')
     else:
-        form = ProfileForm(request.user)
+        try:
+            this_user = Member.objects.get(user = request.user)
+        except:
+            return redirect('/signup')
+        
+        next_event = Event.objects.next_event()
+        if this_user in next_event.participants.all():
+            messages.success(request, u'感谢您的参与，您已经成功报名参加了 %s 活动 - 点击<a href="/event/%s">查看活动详情</a>' % (next_event.name, next_event.id))
+            return redirect('/event/%s' % (next_event.id))
+        else: 
+            form = ProfileForm(request.user)
 
     ctx = { 'form': form, 'request': request, }
     return render_to_response('core/join_evnet.html', ctx, context_instance=RequestContext(request))
