@@ -8,14 +8,14 @@ from django import forms
 from openparty.apps.member.models import Member
 
 class ProfileForm(forms.Form):
-    realname = forms.CharField(label=u'真实姓名/Realname', required=True, max_length=20, widget=forms.TextInput(attrs={'tabindex': '1'}))
+    realname = forms.CharField(label=u'真实姓名/Name', required=True, max_length=20, widget=forms.TextInput(attrs={'tabindex': '1'}))
     gender = forms.ChoiceField(label=u'性别/Gender', required=True, choices=((u'男', u'男'), (u'女', u'女'), (u'中性', u'中性')), widget=forms.Select(attrs={'tabindex': '2'}))
-    career_years = forms.ChoiceField(label=u'工作年限/Career in years', required=True, choices=((u'1-3年', u'1-3年'), (u'3-5年', u'3-5年'), (u'5年以上', u'5年以上')), widget=forms.Select(attrs={'tabindex': '3'}))
+    career_years = forms.ChoiceField(label=u'工作年限/Career', required=True, choices=((u'1-3年', u'1-3年'), (u'3-5年', u'3-5年'), (u'5年以上', u'5年以上')), widget=forms.Select(attrs={'tabindex': '3'}))
 
     company = forms.CharField(label=u'公司/Company', required=False, max_length=40, widget=forms.TextInput(attrs={'tabindex': '4'}))
     position = forms.CharField(label=u'职位/Position', required=False, max_length=30, widget=forms.TextInput(attrs={'tabindex': '5'}))
     blog = forms.CharField(label=u'博客/Blog', required=False, max_length=255, widget=forms.TextInput(attrs={'tabindex': '6'}))
-    phone = forms.CharField(label=u'手机/Phone number', required=False, max_length=255, widget=forms.TextInput(attrs={'tabindex': '6'}))
+    phone = forms.CharField(label=u'手机/Phone', required=False, max_length=255, widget=forms.TextInput(attrs={'tabindex': '6'}))
 
     hobby = forms.CharField(label=u'兴趣/hobby', required=False, max_length=255, widget=forms.TextInput(attrs={'tabindex': '6'}))
 

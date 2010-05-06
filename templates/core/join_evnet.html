@@ -1,12 +1,25 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-<div id="update-profile">
-  <form action="/event/join" method="post">
-    <h2>报名表格</h2>
-    {{ form.as_p }}
-    {{ form.non_field_errors }}
-    <input type="submit" value="提交报名表格" tabindex="5"/>
-  </form>
+<div id="content">
+  <div class="container_16">
+    <div class="grid_6">
+      <h2><a href="/event/{{next_event.id}}">{{next_event.name}}</a></h2>
+      <dl class="pair">
+        <dt>时间：</dt><dd>{{next_event.begin_time}}</dd>
+        <dt>地点：</dt><dd>{{next_event.address}}</dd>
+        <div class="clear"></div>
+      </dl>
+      <img src="{{next_event.poster}}" alt="下次活动海报" width="300" height="236.7" class="shadow"/>
+    </div>
+    <div id="join-event" class="grid_10">
+      <form action="/event/join" method="post" class="wide">
+        <h2>报名表格</h2>
+        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        <input type="submit" value="提交报名表格" tabindex="5"/>
+      </form>
+    </div>
+  </div>
 </div>
 {% endblock %}

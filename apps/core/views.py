@@ -68,8 +68,9 @@ def join_event(request):
             return redirect('/event/%s' % (next_event.id))
         else: 
             form = ProfileForm(request.user)
+            next_event = Event.objects.next_event()
 
-    ctx = { 'form': form, 'request': request, }
+    ctx = { 'form': form, 'next_event': next_event, 'request': request, }
     return render_to_response('core/join_evnet.html', ctx, context_instance=RequestContext(request))
 
 def event(request, id):

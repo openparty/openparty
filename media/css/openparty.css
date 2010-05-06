@@ -51,26 +51,42 @@ form p {
   color:#264409;
 }
 /* may be commons */
+.wide p {
+  margin: 0.75em 0;
+}
+
 .narrow label {
   display: inline-block;
   text-align: right;
   width: 4em;
 }
 
+.wide label {
+  display: inline-block;
+  text-align: left;
+  width: 8em;
+}
+
 .narrow input[type='submit'] {
   margin-left: 4em;
 }
 
-.narrow .hint {
+.wide input[type='submit'] {
+  margin-left: 8em;
+}
+
+form .hint {
   display: block;
   margin-left: 5.2em;
 }
 
-.narrow a {
+.narrow a,
+.wide a {
   text-decoration: underline;
 }
 
-.narrow .errorlist {
+.narrow .errorlist,
+.wide .errorlist {
   color: #CC0000;
   margin-left: 4.1em;
   list-style: disc;
@@ -193,15 +209,32 @@ form p {
 .event-poster img {
   display: none;
 }
-.next-event dl {
+.shadow {
+  -webkit-box-shadow: 6px 6px 6px #ccccc5;
+  -moz-box-shadow: 6px 6px 6px #ccccc5;
+}
+dl.flat {
   display: inline;
   margin: 12px 0;
 }
-.next-event dt,
-.next-event dd {
+.flat dt,
+.flat dd {
   display: inline;
 }
-.next-event dd {
+.flat dd {
+  padding-right: 12px;
+}
+dl.pair {
+  margin: 12px 0;
+}
+.pair dt,
+.pair dd {
+  float: left;
+}
+.pair dt {
+  clear: left;
+}
+.pair dd {
   padding-right: 12px;
 }
 .join-us ul {
