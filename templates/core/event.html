@@ -12,7 +12,15 @@
                 <p> {{ this_event.content|restructuredtext }}</p>
                 <p> 开始时间：{{ this_event.begin_time }}</p>
                 <p> 结束时间：{{ this_event.end_time }}</p>
-                <p> 已报名人数：</p>
+                <p> 已报名人数：{{ this_event.participants.count }}</p>
+                <p> 
+                <table border=0><tr>
+                        {% for each_participant in this_event.participants.all %}<td>
+                            <img width=48 height=48 src="{{ each_participant.avatar }}">{{ each_participant.nickname}}</td>
+                {% endfor %}
+                </tr>
+                </table>
+                </p>
                 
             </div>
 
