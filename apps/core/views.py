@@ -68,7 +68,7 @@ def event(request, id):
     return render_to_response('core/event.html', locals(), context_instance=RequestContext(request))
 
 def topic(request, id):
-    this_topic = Topic.objects.get(pk = id)
+    this_topic = get_object_or_404(Topic, pk = id)
 
     if this_topic.is_arranged:
         can_vote = True 

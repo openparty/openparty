@@ -39,6 +39,17 @@ class StatusCheckTest(TestCase):
         response = self.client.get("/event/19999")
         self.failUnlessEqual(response.status_code, 404)
 
+    def test_statuscheck_topicdetail_page(self):
+        response = self.client.get("/topic/1")
+        self.failUnlessEqual(response.status_code, 200)
+        response = self.client.get("/topic/19999")
+        self.failUnlessEqual(response.status_code, 404)
+
     def statuscheck_topicsubmit_page(self):
         response = self.client.get(reverse('submit_new_topic'))
         self.failUnlessEqual(response.status_code, 200)
+
+    def statuscheck_eventjoin_page(self):
+        response = self.client.get('/event/join')
+        self.failUnlessEqual(response.status_code, 200)
+
