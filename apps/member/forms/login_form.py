@@ -14,6 +14,7 @@ class LoginForm(forms.Form):
     def clean_email(self):
         email=self.cleaned_data.get('email','')
         validate_email(email)
+        return email
     
     def clean(self):
         super(LoginForm,self).clean()
