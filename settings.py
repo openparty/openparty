@@ -21,7 +21,7 @@ DATABASE_ENGINE = 'mysql'   # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sql
 DATABASE_NAME = 'openparty' # Or path to database file if using sqlite3.
 DATABASE_USER = 'root'      # Not used with sqlite3.
 DATABASE_PASSWORD = ''      # Not used with sqlite3.
-DATABASE_HOST = '127.0.0.1' # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_HOST = 'localhost' # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''          # Set to empty string for default. Not used with sqlite3.
 
 EMAIL_HOST = ''
@@ -112,7 +112,7 @@ INSTALLED_APPS = (
 
 # One-week activation window; you may, of course, use a different value.
 ACCOUNT_ACTIVATION_DAYS = 7
-SITE_URL = 'http://localhost:8000'
+SITE_URL = 'http://app.beijing-open-party.org'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')

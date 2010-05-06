@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 
-from openparty.apps.member.forms import LoginForm, SignupForm, ChangePasswordForm
+from openparty.apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm
 from openparty.apps.member.models import Member
 
 def login(request):
@@ -49,10 +49,21 @@ def change_password(request):
     if request.method == 'POST' and request.user.is_authenticated():
         form = ChangePasswordForm(request.user, request.POST)
         if form.save():
-            print '您的密码已经修改'
             messages.success(request, u'您的密码已经修改')
             return redirect('/')
     else:
         form = ChangePasswordForm(request)
     ctx = { 'form': form, }
     return render_to_response('member/change_password.html', ctx, context_instance=RequestContext(request))
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST' and request.user.is_authenticated():
+        form = ProfileForm(request.user, request.POST)
+        if form.save():
+            messages.success(request, u'您的个人信息已经修改')
+            return redirect('/')
+    else:
+        form = ProfileForm(request.user)
+    ctx = { 'form': form, }
+    return render_to_response('member/update_profile.html', ctx, context_instance=RequestContext(request))
