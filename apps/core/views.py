@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 
 from apps.member.models import Member
+from apps.member.forms import ProfileForm
+
 from forms import ArticleForm
 from models import Event, Topic
 from models import Vote
@@ -39,6 +42,25 @@ def topic_list(request):
     topic_list = Topic.objects.all().order_by('-total_votes').order_by('-in_event__begin_time')
     #需注意排序顺序
     return render_to_response('core/topic_list.html', locals(), context_instance=RequestContext(request))
+
+def join_event(request):
+    if not request.user.is_authenticated():
+        messages.info(request, u'对不起，您需要先登录才能报名参加活动，如果没有帐号可以选择<a href="/signup">注册</a>')
+        return redirect('/login')
+
+    if request.method == 'POST':
+        form = ProfileForm(request.user, request.POST)
+        member = form.save()
+        if member:
+            next_event = Event.objects.next_event()
+            next_event.participants.add(member)
+            messages.success(request, u'您已经成功报名参加《%s》活动，您是第%s名参加者' % (next_event.name, next_event.participants.count()))
+            return redirect('/')
+    else:
+        form = ProfileForm(request.user)
+
+    ctx = { 'form': form, }
+    return render_to_response('core/join_evnet.html', ctx, context_instance=RequestContext(request))
 
 def event(request, id):
     this_event = get_object_or_404(Event, pk = id)

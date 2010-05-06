@@ -22,6 +22,9 @@ class PastManager(models.Manager):
     def get_query_set(self):
         return super(PastManager, self).get_query_set().filter(end_time__lte=datetime.now())
 
+class NullEventException(Exception):
+    pass
+
 class NullEvent(object):
     '''空的项目，保持接口的一致'''
     begin_time  = u'未定'
@@ -30,6 +33,10 @@ class NullEvent(object):
     content     = u'本次活动正在计划中'
     address     = u'东直门国华投资大厦11层'
     poster      = '/media/upload/null-event-1.jpg'
+    participants = set()
+    
+    def save():
+        raise NullEventException()
     
     is_running  = False
     is_off      = False
@@ -42,6 +49,7 @@ class Event(Base):
     content     = models.TextField(u"介绍", blank=False)
     address     = models.TextField(u"活动地点", blank=False)
     poster      = models.CharField(u"招贴画", default='/media/upload/null-event-1.jpg', blank=True, max_length=255)
+    participants = models.ManyToManyField(Member)
 
     #englishname?
     #url_path = models.SlugField(_('url path'),max_length=250, db_index=True, blank=True)

@@ -31,7 +31,7 @@ form p {
   color:#8a1f11;
   border-color:#FBC2C4;
 }
-.messages .notice {
+.messages .info {
   background:#FFF6BF;
   color:#514721;
   border-color:#FFD324;
@@ -44,7 +44,7 @@ form p {
 .messages .error a {
   color:#8a1f11;
 }
-.messages .notice a {
+.messages .info a {
   color:#514721;
 }
 .messages .success a {

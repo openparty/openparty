@@ -63,6 +63,13 @@ class Member(models.Model):
         return self.user.username
     
     @property
+    def display_name(self):
+        if self.nickname:
+            return self.nickname
+        else:
+            return self.user.username
+    
+    @property
     def avatar(self):
         default = 'http://userserve-ak.last.fm/serve/64s/9907065.png'
         size = 40
