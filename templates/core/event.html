@@ -3,21 +3,27 @@
     {% load markup %}
     <div id="content">
       <div class="container_16">
-        <a href="/events">返回活动列表</a>
-        <h2>{{ this_event.name }}{% ifequal this_event.is_off 1 %}<span>本活动已结束</span>{% endifequal %}</h2>
-        <div>{{ this_event.content|restructuredtext }}</div>
-        <dl>
-          <dt> 开始时间</dt><dd>{{ this_event.begin_time }}</dd>
-          <dt> 结束时间</dt><dd>{{ this_event.end_time }}</dd>
-          <dt> 已报名人数</dt><dd>{{ this_event.participants.count }}</dd>
+        <p><a href="/events">< 返回活动列表</a></p>
+        <h1>{{ this_event.name }}{% ifequal this_event.is_off 1 %}<span>本活动已结束</span>{% endifequal %}</h1>
+        <dl class="flat">
+          <dt> 开始时间：</dt><dd>{{ this_event.begin_time }}</dd>
+          <dt> 结束时间：</dt><dd>{{ this_event.end_time }}</dd>
+          <dt> 已报名人数：</dt><dd><strong>{{ this_event.participants.count }}</strong></dd>
         </dl>
+        
+        <p><img src="{{this_event.poster}}" alt="{{ this_event.name }}活动海报" width="460" height="363" class="shadow"/></p>
+
+        <div class="textile">{{ this_event.content|restructuredtext }}</div>
+        
         <div class="users">
+          <h2>报名参加这次活动的朋友</h2>
           {% for participant in this_event.participants.all %}
             <dl>
               <dt><img width=48 height=48 src="{{ participant.avatar }}"></dt>
               <dd>{{ participant.nickname}}</dd>
             </dl>
           {% endfor %}
+          <div class="clear"></div>
         </div>
 
         <h2>本次活动已经提交的话题</h2>

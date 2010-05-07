@@ -199,6 +199,9 @@ form .hint {
   color: #15355F;
   border-bottom: 2px solid #f5f5f5;
 }
+#content p {
+  margin: 1em 0;
+}
 .event-poster {
   margin: 6px 0;
   width: 460px;
@@ -341,3 +344,38 @@ dl.pair {
     color: #999;
     text-decoration: underline;
   }
+.users dl {
+  float: left;
+  width: 76px;
+  margin: 10px 0;
+  text-align: center;
+}
+  .users dt {
+    display: block;
+    height: 30px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .users dt {
+    display: block;
+    height: 56px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .users dt img {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+.textile h1 {
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+}
+.textile h2,
+.textile h3 {
+  font-size: 14px;
+}
+.textile .section {
+  margin-bottom: 2em;
+}
