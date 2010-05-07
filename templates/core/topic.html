@@ -38,24 +38,6 @@
                 <p>此话题已报名参与{{this_topic.in_event.begin_time|date}}的<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a>活动</p><p>等待管理员审核中，审核完毕后即可开始投票</p> 
                 {% endif %}
                 </div>
-                {% load comments %}
-                
-                {% get_comment_list for this_topic as comment_list %}
-                <dl id="comments">
-                  {% for comment in comment_list %}
-                    <dt id="c{{ comment.id }}">
-                        {{ comment.name }}, {{ comment.submit_date|timesince }}之前:
-                    </dt>
-                    <dd>
-                        <p>{{ comment.comment }}</p>
-                    </dd>
-                  {% endfor %}
-                </dl>
-
-            {% if request.user.is_authenticated %}
-                <h3>评论此活动：</h3>
-                {% render_comment_form for this_topic %}
-            {% endif %}
         </div>
       </div>	
     </div>
