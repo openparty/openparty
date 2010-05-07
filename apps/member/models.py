@@ -71,7 +71,7 @@ class Member(models.Model):
     
     @property
     def avatar(self):
-        default = 'http://userserve-ak.last.fm/serve/64s/9907065.png'
+        default = 'http://app.beijing-open-party.org/media/images/default_gravatar.png'
         size = 40
         gravatar_url = "http://www.gravatar.com/avatar.php?"
         gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(self.user.username).hexdigest(),

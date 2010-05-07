@@ -3,38 +3,29 @@
     {% load markup %}
     <div id="content">
       <div class="container_16">
-        <div class="left">
-            <a href="/events">返回活动列表</a>
-            <h1>活动详情：</h1>
-            <div class="lt"></div>
-            <div class="lbox">
-                <h2><span class="yellow">{{ this_event.name }}</span></h2>{% ifequal this_event.is_off 1 %}<p>本活动已结束</p>{% endifequal %}
-                <p> {{ this_event.content|restructuredtext }}</p>
-                <p> 开始时间：{{ this_event.begin_time }}</p>
-                <p> 结束时间：{{ this_event.end_time }}</p>
-                <p> 已报名人数：{{ this_event.participants.count }}</p>
-                <p> 
-                <table border=0><tr>
-                        {% for each_participant in this_event.participants.all %}<td>
-                            <img width=48 height=48 src="{{ each_participant.avatar }}">{{ each_participant.nickname}}</td>
-                {% endfor %}
-                </tr>
-                </table>
-                </p>
-                
-            </div>
+        <a href="/events">返回活动列表</a>
+        <h2>{{ this_event.name }}{% ifequal this_event.is_off 1 %}<span>本活动已结束</span>{% endifequal %}</h2>
+        <div>{{ this_event.content|restructuredtext }}</div>
+        <dl>
+          <dt> 开始时间</dt><dd>{{ this_event.begin_time }}</dd>
+          <dt> 结束时间</dt><dd>{{ this_event.end_time }}</dd>
+          <dt> 已报名人数</dt><dd>{{ this_event.participants.count }}</dd>
+        </dl>
+        <div class="users">
+          {% for participant in this_event.participants.all %}
+            <dl>
+              <dt><img width=48 height=48 src="{{ participant.avatar }}"></dt>
+              <dd>{{ participant.nickname}}</dd>
+            </dl>
+          {% endfor %}
+        </div>
 
-            <h1>活动话题列表：</h1>
-            <br />
-            {% for event_topic in topics_shown_in %}
-            <div class="left_articles">
-                <h2><a href="/topic/{{ event_topic.id }}">{{ event_topic.name }}</a></h2>
-                <p>{{ event_topic.description|restructuredtext }}</p>
-                <p> <a href="/topic/{{ event_topic.id }}">查看更多</a></p>
-            </div>
-            {% endfor %}
-
-		</div>	
-      </div>
+        <h2>本次活动已经提交的话题</h2>
+        {% for event_topic in topics_shown_in %}
+            <h3><a href="/topic/{{ event_topic.id }}">{{ event_topic.name }}</a></h3>
+            <p>{{ event_topic.description|restructuredtext }}</p>
+            <p><a href="/topic/{{ event_topic.id }}">查看更多</a></p>
+        {% endfor %}
+      </div>  
     </div>
 {% endblock %}
