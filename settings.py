@@ -86,6 +86,8 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.csrf.CsrfViewMiddleware',
 )
 
+LOGIN_URL = '/login'
+
 ROOT_URLCONF = 'openparty.urls'
 
 TEMPLATE_DIRS = (
@@ -94,6 +96,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_PATH, 'templates'),
 )
+
 
 INSTALLED_APPS = (
     'django.contrib.admin',
