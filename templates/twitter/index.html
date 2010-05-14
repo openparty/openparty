@@ -8,7 +8,7 @@
             <li>
               <dl>
                 <dt><a href="http://twitter.com/{{ tweet.tweet_user_id }}">{{ tweet.tweet_user_name }}</a></dt>
-                <dd><img src="{{ tweet.profile_image }}" alt="{{ tweet.tweet_user_name }}' Profile image" /></dd>
+                <dd><img width="48" height="48" src="{{ tweet.profile_image }}" alt="{{ tweet.tweet_user_name }}' Profile image" /></dd>
               </dl>
               <p>{{ tweet.text|safe }} (from {{ tweet.source }})</p>
             </li>

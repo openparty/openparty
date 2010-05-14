@@ -8,7 +8,7 @@ from django.db import models
 class TweetManager(models.Manager):
     def search(self, query='#openparty', limit=5, since=None, page=1):
         tweets = tweepy.api.search(q=query, rpp=limit, since_id=since, page=page)
-        return [self.model(tweet=tweet) for tweet in tweets]
+        return [self.model.create_from_tweepy_tweet(tweet=tweet) for tweet in tweets]
     
     def sync(self, query='#openparty', since=None):
         if since:
@@ -35,7 +35,7 @@ class TweetManager(models.Manager):
             if len(tweets) == 0:
                 break
             for tweet in tweets:
-                t = self.model(tweet=tweet)
+                t = self.model.create_from_tweepy_tweet(tweet=tweet)
                 t.query = query
                 t.save()
                 count += 1
@@ -60,28 +60,28 @@ class Tweet(models.Model):
     
     objects = TweetManager()
     
-    def __init__(self, tweet, *args, **kwargs):
-        super(Tweet, self).__init__(*args, **kwargs)
-        if isinstance(tweet, tweepy.models.SearchResult):
-            self.tweet_id = tweet.id
-            self.profile_image = tweet.profile_image_url
-            self.text = tweet.text
-            self.language = tweet.iso_language_code
-            self.geo = tweet.geo
-            self.tweet_user_id = tweet.from_user_id
-            self.tweet_user_name = tweet.from_user
-            self.created_at = tweet.created_at
-            self.source = tweet.source
-            d = tweet.__dict__.copy()
-            d.pop('created_at')
-            self.dump = json.dumps(d)
-
     class Meta:
         ordering = []
         verbose_name, verbose_name_plural = "Tweet", "s"
 
     def __unicode__(self):
         return u"Tweet"
+    
+    @classmethod
+    def create_from_tweepy_tweet(cls, tweet):
+        my_tweet = cls()
+        my_tweet.tweet_id = tweet.id
+        my_tweet.profile_image = tweet.profile_image_url
+        my_tweet.text = tweet.text
+        my_tweet.language = tweet.iso_language_code
+        my_tweet.geo = tweet.geo
+        my_tweet.tweet_user_id = tweet.from_user_id
+        my_tweet.tweet_user_name = tweet.from_user
+        my_tweet.created_at = tweet.created_at
+        my_tweet.source = tweet.source
+        d = tweet.__dict__.copy()
+        d.pop('created_at')
+        my_tweet.dump = json.dumps(d)
 
     @models.permalink
     def get_absolute_url(self):
