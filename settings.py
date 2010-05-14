@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     # 'openparty.dependencies.ameba.django.unittest',
     'openparty.apps.core',
     'openparty.apps.member',
+    'openparty.apps.twitter',
 )
 
 # One-week activation window; you may, of course, use a different value.
