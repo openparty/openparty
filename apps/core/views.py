@@ -39,7 +39,7 @@ def event_list(request):
     return render_to_response('core/event_list.html', locals(), context_instance=RequestContext(request))
 
 def topic_list(request):
-    topic_list = Topic.objects.all().order_by('-total_votes').order_by('-in_event__begin_time')
+    topic_list = Topic.objects.all().order_by('-accepted', '-total_votes', '-in_event__begin_time')
     #需注意排序顺序
     return render_to_response('core/topic_list.html', locals(), context_instance=RequestContext(request))
 
