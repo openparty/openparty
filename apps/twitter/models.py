@@ -8,20 +8,30 @@ class TweetManager(models.Manager):
     def search(self, query='#openparty', limit=5, since=None, page=1):
         tweets = tweepy.api.search(q=query, rpp=limit, since_id=since, page=page)
         return [self.model(tweet=tweet) for tweet in tweets]
+    
+    def sync(self, query='#openparty'):
+        max_tweet_id = self.all().aggregate(models.Max('tweet_id'))
+        new_tweets = self.search(query=query, limit=100, since=max_tweet_id)
+        if len(new_tweets):
+            for tweet in new_tweets:
+                tweet.save()
+            return new_tweets
+        else:
+            return []
 
 # Create your models here.
 class Tweet(models.Model):
     """(A model represent the tweets of twitter.com)"""
-    tweet_id = models.PositiveIntegerField(blank=True, null=True)
-    profile_image = models.CharField(blank=True, max_length=255)
-    text = models.CharField(blank=True, max_length=512)
-    language = models.CharField(blank=True, max_length=16)
-    geo = models.CharField(blank=True, max_length=80)
-    tweet_user_id = models.PositiveIntegerField(blank=True, null=True)
-    tweet_user_name = models.CharField(blank=True, max_length=128)
-    craeted_at = models.DateField(blank=False, null=False)
-    source = models.CharField(blank=True, max_length=80)
-    dump = models.TextField(blank=True)
+    tweet_id = models.BigIntegerField(blank=True, null=False)
+    profile_image = models.CharField(blank=True, null=True, max_length=255)
+    text = models.CharField(blank=True, null=False, max_length=512)
+    language = models.CharField(blank=True, null=True, max_length=16)
+    geo = models.CharField(blank=True, null=True, max_length=80)
+    tweet_user_id = models.BigIntegerField(blank=True, null=False)
+    tweet_user_name = models.CharField(blank=True, null=True, max_length=128)
+    craeted_at = models.DateField(blank=False, null=True)
+    source = models.CharField(blank=True, null=True, max_length=80)
+    dump = models.TextField(blank=True, null=False)
     
     objects = TweetManager()
     

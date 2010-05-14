@@ -14,6 +14,14 @@ class TweetTest(TestCase):
         t = tweets[0]
         self.assertTrue(t.text)
     
-
+    def test_sync(self):
+        tweets = Tweet.objects.search(query='#openparty', limit=2)
+        new = tweets[0]
+        old = tweets[1]
+        old.save()
+        self.assertEquals(1, Tweet.objects.count())
+        new_tweets = Tweet.objects.sync(query='#openparty')
+        self.assertTrue(new_tweets)
+        self.assertTrue(Tweet.objects.count() > 1)
 
 __test__ = {}
