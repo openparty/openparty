@@ -28,6 +28,7 @@ class NullEventException(Exception):
     pass
 
 class NullEvent(object):
+    id = 0
     '''空的项目，保持接口的一致'''
     begin_time  = u'未定'
     end_time    = u'未定'
