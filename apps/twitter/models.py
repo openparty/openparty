@@ -5,7 +5,7 @@ import tweepy
 from django.db import models
 
 class TweetManager(models.Manager):
-    def search(query='#openparty', limit=5, since=None, page=1):
+    def search(self, query='#openparty', limit=5, since=None, page=1):
         tweets = tweepy.api.search(q=query, rpp=limit, since_id=since, page=page)
         return [self.model(tweet=tweet) for tweet in tweets]
 
@@ -25,10 +25,9 @@ class Tweet(models.Model):
     
     objects = TweetManager()
     
-    def __init__(self, *args, **kwargs):
+    def __init__(self, tweet, *args, **kwargs):
         super(Tweet, self).__init__(*args, **kwargs)
-        if 'tweet' in kwargs:
-            tweet = kwargs['tweet']
+        if tweet:
             self.tweet_id = tweet.id
             self.profile_image = tweet.profile_image_url
             self.text = tweet.text
@@ -38,7 +37,9 @@ class Tweet(models.Model):
             self.tweet_user_name = tweet.from_user
             self.created_at = tweet.created_at
             self.source = tweet.source
-            self.dump = json.dumps(tweet.__dict__)
+            d = tweet.__dict__.copy()
+            d.pop('created_at')
+            self.dump = json.dumps(d)
 
     class Meta:
         ordering = []

@@ -9,10 +9,11 @@ from django.test import TestCase
 from openparty.apps.twitter.models import Tweet
 
 class TweetTest(TestCase):
-    def test_search_(self):
+    def test_search(self):
         tweets = Tweet.objects.search(query='#openparty', limit=1)
         t = tweets[0]
-        print t.text
         self.assertTrue(t.text)
+    
+
 
 __test__ = {}
