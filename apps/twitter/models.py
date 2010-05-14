@@ -53,7 +53,7 @@ class Tweet(models.Model):
     geo = models.CharField(blank=True, null=True, max_length=80)
     tweet_user_id = models.BigIntegerField(blank=True, null=False)
     tweet_user_name = models.CharField(blank=True, null=True, max_length=128)
-    craeted_at = models.DateField(blank=False, null=True)
+    craeted_at = models.DateTimeField(blank=True, null=True)
     source = models.CharField(blank=True, null=True, max_length=80)
     dump = models.TextField(blank=True, null=False)
     query = models.CharField(blank=True, null=True, max_length=127)
@@ -82,6 +82,7 @@ class Tweet(models.Model):
         d = tweet.__dict__.copy()
         d.pop('created_at')
         my_tweet.dump = json.dumps(d)
+        return my_tweet
 
     @models.permalink
     def get_absolute_url(self):
