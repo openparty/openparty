@@ -48,3 +48,7 @@ urlpatterns += patterns('openparty.apps.member.views',
     (r'^update_profile$', 'update_profile'),
     (r'^activate/(?P<activation_key>\w+)/$', 'activate'),
 )
+
+urlpatterns += patterns('openparty.apps.twitter.views',
+    (r'^tweets$', 'index'),
+)

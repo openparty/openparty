@@ -1,0 +1,19 @@
+{% extends "layout/base.html" %}
+{% block content %}
+    <div id="content">
+      <div class="container_16">
+        <h2>Tweets about <em>#openparty</em></h2>
+        <ul class="tweets">
+          {% for tweet in tweets %}
+            <li>
+              <dl>
+                <dt><a href="http://twitter.com/{{ tweet.tweet_user_id }}">{{ tweet.tweet_user_name }}</a></dt>
+                <dd><img src="{{ tweet.profile_image }}" alt="{{ tweet.tweet_user_name }}' Profile image" /></dd>
+              </dl>
+              <p>{{ tweet.text|safe }} (from {{ tweet.source }})</p>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>  
+    </div>
+{% endblock %}
