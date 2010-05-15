@@ -12,7 +12,7 @@
               <span class="avatar"><a href="http://twitter.com/{{ tweet.tweet_user_id }}"><img width="48" height="48" src="{{ tweet.profile_image }}" alt="{{ tweet.tweet_user_name }}' Profile image" /></a></span>
               <span class="username"><a href="http://twitter.com/{{ tweet.tweet_user_id }}">{{ tweet.tweet_user_name }}</a></span>
               <span class="message">{{ tweet.text|safe }}</span>
-              <span class="source">(at {{tweet.created_at}} from {{ tweet.source }})</p>
+              <span class="source">(from {{ tweet.source }})</p>
             </li>
           {% endfor %}
         </ul>
