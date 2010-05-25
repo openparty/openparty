@@ -1,5 +1,8 @@
 body {
-  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "STHeiti", "黑体", "Microsoft YaHei", serif;
+  /*  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "STHeiti", "黑体", "Microsoft YaHei", serif;*/
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  /* http://www.awayback.com/revised-font-stack/ */
+  /*  font-family: Baskerville, Garamond, Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", serif;*/
   text-align: justify;
   line-height:1.7;
 }
