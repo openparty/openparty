@@ -4,8 +4,8 @@ from datetime import datetime
 from django.db import models
 from django.contrib.contenttypes import generic
 
-from openparty.apps.member.models import Member
-from openparty.apps.core.models import Base, Event
+from apps.member.models import Member
+from apps.core.models import Base, Event
 
 
 class Topic(Base):

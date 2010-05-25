@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
-from openparty.apps.member.models import Member
+from apps.member.models import Member
 
 
 class ChangePasswordForm(forms.Form):

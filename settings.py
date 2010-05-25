@@ -109,9 +109,10 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     #TODO: take the unittest framework back
     # 'openparty.dependencies.ameba.django.unittest',
-    'openparty.apps.core',
-    'openparty.apps.member',
-    'openparty.apps.twitter',
+    'south',
+    'apps.core',
+    'apps.member',
+    'apps.twitter',
 )
 
 # One-week activation window; you may, of course, use a different value.

@@ -2,8 +2,8 @@
 from datetime import datetime
 
 from django.db import models
-from openparty.apps.member.models import Member
-from openparty.apps.core.models import Base
+from apps.member.models import Member
+from apps.core.models import Base
 
 
 class EventManager(models.Manager):

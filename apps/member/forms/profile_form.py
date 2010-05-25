@@ -5,7 +5,7 @@ except:
     from django.utils import simplejson as json
 
 from django import forms
-from openparty.apps.member.models import Member
+from apps.member.models import Member
 
 class ProfileForm(forms.Form):
     realname = forms.CharField(label=u'真实姓名/Name', required=True, max_length=20, widget=forms.TextInput(attrs={'tabindex': '1'}))

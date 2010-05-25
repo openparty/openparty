@@ -2,7 +2,7 @@ import sys
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from openparty.apps.twitter.models import Tweet
+from apps.twitter.models import Tweet
 
 
 class Command(BaseCommand):

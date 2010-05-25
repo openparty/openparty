@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from openparty.apps.core.models import Topic
+from apps.core.models import Topic
 
 class TopicTest(unittest.TestCase):
     def test_topic_summary(self):

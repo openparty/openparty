@@ -7,7 +7,7 @@ Replace these with more appropriate tests for your application.
 
 from django.test import TestCase
 from django.db import models
-from openparty.apps.twitter.models import Tweet
+from apps.twitter.models import Tweet
 
 class TweetTest(TestCase):
     def test_search(self):

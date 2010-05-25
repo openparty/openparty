@@ -2,7 +2,7 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 
-from openparty.apps.twitter.models import Tweet
+from apps.twitter.models import Tweet
 
 def index(request):
     tweets = Tweet.objects.order_by('-tweet_id')[:100]

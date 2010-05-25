@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
-from openparty.apps.member.models import Member
-from openparty.apps.core.models import Attachable
+from apps.member.models import Member
+from apps.core.models import Attachable
 
 
 class Vote(Attachable):

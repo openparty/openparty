@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from openparty.apps.member.models import Member
-from openparty.apps.member.forms import SignupForm, LoginForm
-import openparty.apps.member.test_helper as helper
+from apps.member.models import Member
+from apps.member.forms import SignupForm, LoginForm
+import apps.member.test_helper as helper
 
 class MemberTest(TestCase):
     def test_save_member_though_form(self):

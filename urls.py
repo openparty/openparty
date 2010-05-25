@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
-from openparty.settings import MEDIA_ROOT
+from settings import MEDIA_ROOT
 
 from django.conf.urls.defaults import handler404, handler500
 #not adding above line may cause a 'handler404, 500 not found' problem in testcase.
@@ -11,7 +11,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
-    # (r'^openparty/', include('openparty.foo.urls')),
+    # (r'^openparty/', include('foo.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
@@ -27,7 +27,7 @@ urlpatterns += patterns('',
     (r'^comments/', include('django.contrib.comments.urls')),
 )
 
-urlpatterns += patterns('openparty.apps.core.views',
+urlpatterns += patterns('apps.core.views',
     (r'^index$', 'index'),
     (r'^/?$', 'index'),
     (r'^events$', 'event_list'),
@@ -40,7 +40,7 @@ urlpatterns += patterns('openparty.apps.core.views',
     url(r'^topic/edit/(?P<id>\d+)/?$', 'edit_topic', name='edit_topic'),
 )
 
-urlpatterns += patterns('openparty.apps.member.views',
+urlpatterns += patterns('apps.member.views',
     (r'^signup$', 'signup'),
     (r'^login$', 'login'),
     (r'^logout$', 'logout'),
@@ -49,6 +49,6 @@ urlpatterns += patterns('openparty.apps.member.views',
     (r'^activate/(?P<activation_key>\w+)/$', 'activate'),
 )
 
-urlpatterns += patterns('openparty.apps.twitter.views',
+urlpatterns += patterns('apps.twitter.views',
     (r'^tweets$', 'index'),
 )

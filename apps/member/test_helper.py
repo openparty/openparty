@@ -1,4 +1,4 @@
-from openparty.apps.member.forms import SignupForm
+from apps.member.forms import SignupForm
 
 def create_user(email='tin@domain.com', password='123', nickname='tin', activate=True):
     signup_form = SignupForm({ 'email': email, 'password1': password, 'nickname': nickname, 'password2': password })

@@ -4,8 +4,8 @@ import csv
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
-from openparty.apps.member.forms import ProfileForm
-from openparty.apps.core.models import Event
+from apps.member.forms import ProfileForm
+from apps.core.models import Event
 
 class Command(BaseCommand):
 

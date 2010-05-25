@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 
-from openparty.apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm
-from openparty.apps.member.models import Member
+from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm
+from apps.member.models import Member
 
 def login(request):
     if request.method == 'POST':

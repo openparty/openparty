@@ -3,7 +3,7 @@ import re
 import random
 from django import forms
 from django.contrib.auth.models import User
-from openparty.apps.member.models import Member
+from apps.member.models import Member
 
 class SignupForm(forms.Form):
     email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput(attrs={'tabindex': '1'}))
