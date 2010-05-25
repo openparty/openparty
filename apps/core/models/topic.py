@@ -13,6 +13,8 @@ class Topic(Base):
     in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name=u"已安排在此活动中") 
     description = models.TextField(u"简介", max_length=200, blank=False)
     content = models.TextField(u"内容", blank=False)
+    html = models.TextField(u'HTML', blank=True, null=True)
+    content_type = models.CharField(blank=False, default='restructuredtext', max_length=30)
     accepted = models.BooleanField(default=False)  #该话题是否已经被管理员接受,True才能在活动正式的公布页面显示, 同时in_event才能显示
     
     def set_author(self, user):
