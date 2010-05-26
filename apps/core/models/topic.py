@@ -3,6 +3,7 @@ from datetime import datetime
 
 from django.db import models
 from django.contrib.contenttypes import generic
+from django.contrib.markup.templatetags.markup import restructuredtext
 
 from apps.member.models import Member
 from apps.core.models import Base, Event
@@ -22,6 +23,15 @@ class Topic(Base):
         self.last_modified_by = author # last_modified_by 总是author？
         self.author = author
         return self
+    
+    @property
+    def rendered_content(self):
+        if self.content_type == 'restructuredtext':
+            return restructuredtext(self.content)
+        elif self.content_type == 'html':
+            return self.html
+        else:
+            return restructuredtext(self.content)
 
     @property
     def is_shown(self):
