@@ -7,6 +7,8 @@ PROJECT_PATH = os.path.dirname(__file__)
 import sys
 if not 'vendor' in sys.path:
     sys.path.append('vendor')
+if not '.' in sys.path:
+    sys.path.append('.')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
