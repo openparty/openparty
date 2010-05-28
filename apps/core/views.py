@@ -30,17 +30,20 @@ def index(request):
         'event_list': event_list,
         'topic_list': topic_list,
         'next_event': next_event, 
+        'tab': 'index',
     }
     return render_to_response('core/index.html', ctx, context_instance=RequestContext(request))
 
 def event_list(request):
     event_list = Event.objects.all().order_by('-begin_time')
     topic_list = Topic.objects.all().order_by('-total_votes')
+    tab = 'event'
     return render_to_response('core/event_list.html', locals(), context_instance=RequestContext(request))
 
 def topic_list(request):
     topic_list = Topic.objects.all().order_by('-accepted', '-total_votes', '-in_event__begin_time')
     #需注意排序顺序
+    tab = 'topic'
     return render_to_response('core/topic_list.html', locals(), context_instance=RequestContext(request))
 
 def join_event(request):
@@ -70,12 +73,15 @@ def join_event(request):
             form = ProfileForm(request.user)
             next_event = Event.objects.next_event()
 
-    ctx = { 'form': form, 'next_event': next_event, 'request': request, }
+    ctx = { 'form': form, 'next_event': next_event, 'request': request,
+            'tab': 'event',
+          }
     return render_to_response('core/join_evnet.html', ctx, context_instance=RequestContext(request))
 
 def event(request, id):
     this_event = get_object_or_404(Event, pk = id)
     topics_shown_in = this_event.topic_shown_in.filter(accepted=True)
+    tab = 'event'
     return render_to_response('core/event.html', locals(), context_instance=RequestContext(request))
 
 def topic(request, id):
@@ -97,6 +103,7 @@ def topic(request, id):
     if this_topic.created != this_topic.last_modified:
         modified = True
 
+    tab = 'topic'
     return render_to_response('core/topic.html', locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -133,6 +140,7 @@ def submit_topic(request):
 
         context = {'form': form,
                 'request': request,
+                'tab': 'topic',
                 }
         return render_to_response('core/submit_topic.html',
                                     context,
@@ -164,7 +172,8 @@ def edit_topic(request, id):
 
     if request.method == 'GET':
         context = {
-                    'form': ArticleForm(instance = this_topic)
+                    'form': ArticleForm(instance = this_topic),
+                    'tab': 'topic',
                   }
         return render_to_response('core/edit_topic.html', 
                                     context,
@@ -180,7 +189,8 @@ def edit_topic(request, id):
             'request': request,
             'form': form,
             'topic': topic,
-            'edit_success': True
+            'edit_success': True,
+            'tab': 'topic',
         }
         
         return render_to_response('core/edit_topic.html',
