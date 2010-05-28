@@ -32,6 +32,47 @@
             <p>{{ event_topic.description|restructuredtext }}</p>
             <p><a href="/topic/{{ event_topic.id }}">查看更多</a></p>
         {% endfor %}
+
+         {% load comments %}
+            
+            {% get_comment_list for this_event as comment_list %}
+            <dl id="comments">
+              {% for comment in comment_list %}
+                <dt id="c{{ comment.id }}">
+                    {{ comment.name }}, {{ comment.submit_date|timesince }}之前:
+                </dt>
+                <dd>
+                    <p>{{ comment.comment }}</p>
+                </dd>
+              {% endfor %}
+          </dl>
+          
+        {% if user.is_authenticated %} 
+           {% get_comment_form for this_event as form %}  
+           <form action="{% comment_form_target %}" method="POST">  
+           {% csrf_token %} 
+           {{ form.comment }}  
+           {{ form.honeypot }}  
+           {{ form.content_type }}  
+           {{ form.object_pk }}  
+           {{ form.timestamp }}  
+           {{ form.security_hash }}  
+           <input type="hidden" name="next" value="" /> 
+           <input type="submit" value="Add comment" id="id_submit" />  
+           </form>  
+       {% else %} 
+           <p>Please <a href="">log in</a> to leave a comment.</p> 
+       {% endif %} 
+
+           <br />
+           <div class="left_articles">
+                <h2><a href="/topic/{{ event_topic.id }}">{{ event_topic.name }}</a></h2>
+                <p>{{ event_topic.description }}</p>
+           </div>
+ 
+
+
+
       </div>  
     </div>
 {% endblock %}
