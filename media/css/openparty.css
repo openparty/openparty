@@ -143,36 +143,37 @@ form .hint {
 
 .navigator-wrap {
   background-color: #bbb;
-  background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#ccc));
-  background: -moz-gradient(linear, left top, left bottom, from(#999), to(#ccc));
+  background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#c9c9c9));
+  background: -moz-gradient(linear, left top, left bottom, from(#aaa), to(#c9c9c9));
   border-top:1px solid #bfbfbf;
   border-bottom:1px solid #aaa;
-  padding: 0.25em 0;
+  padding: 0.6em 0 0;
 }
 
 .main-navigator {
   margin: 0;
 }
 
-.main-navigator li {
+.main-navigator li{float: left;margin: 0 2.5em 0 0;}
+
+.main-navigator a {
+  color: white;
   display: block;
-  float: left;
-  padding: 0.5em 1em;
-  margin: 0 3em 0 0;
+  padding: 0.2em 1.2em 0.3em;
   font-weight: bold;
   color: white;
-  -moz-border-radius: 14px;
-  -webkit-border-radius: 14px;
-  border-radius: 14px;
+  -moz-border-radius: 8px 8px 0 0;
+  -webkit-border-radius: 8px 8px 0 0;
+  border-radius: 8px 8px 0 0;
+  text-decoration:none;
 }
 
-.main-navigator li.active {
-  background: #888;
+.main-navigator a.active {
+  background-color: #909090;
 }
-
-.main-navigator a:link,
-.main-navigator a:visited {
-  color: white;
+.main-navigator a:hover {
+  background-color: #ee8822;
+  text-decoration:none;
 }
 
 .whats-open-party {
