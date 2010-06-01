@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends "core/base_core.html" %}
 {% block content %}
       <div class="container_16">
         <div class="left">
@@ -7,7 +7,7 @@
                 {% if save_success %}
                     感谢您的话题提交，系统会根据接下来活动场次的情况以及用户的投票来安排您的话题，期待您精彩的演讲
                     {% else %}
-                请首先了解OpenParty对于话题的一些要求、时间、等等    
+                请首先了解OpenParty对于话题的一些要求、时间、等等
                 <form action="{% url submit_new_topic %}" method="POST">
                 <table>
                     <tr>
@@ -27,6 +27,6 @@
                 </form>
                 {% endif %}
             </div>
-         </div>	
-       </div>	
+         </div>
+       </div>
 {% endblock %}

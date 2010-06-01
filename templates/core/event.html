@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends "core/base_core.html" %}
 {% block content %}
     {% load markup %}
     <div id="content">
@@ -10,11 +10,11 @@
           <dt> 结束时间：</dt><dd>{{ this_event.end_time }}</dd>
           <dt> 已报名人数：</dt><dd><strong>{{ this_event.participants.count }}</strong></dd>
         </dl>
-        
+
         <p><img src="{{this_event.poster}}" alt="{{ this_event.name }}活动海报" width="460" height="363" class="shadow"/></p>
 
         <div class="textile">{{ this_event.content|restructuredtext }}</div>
-        
+
         <div class="users">
           <h2>报名参加这次活动的朋友</h2>
           {% for participant in this_event.participants.all %}
@@ -34,7 +34,7 @@
         {% endfor %}
 
          {% load comments %}
-            
+
             {% get_comment_list for this_event as comment_list %}
             <dl id="comments">
               {% for comment in comment_list %}
@@ -46,33 +46,33 @@
                 </dd>
               {% endfor %}
           </dl>
-          
-        {% if user.is_authenticated %} 
-           {% get_comment_form for this_event as form %}  
-           <form action="{% comment_form_target %}" method="POST">  
-           {% csrf_token %} 
-           {{ form.comment }}  
-           {{ form.honeypot }}  
-           {{ form.content_type }}  
-           {{ form.object_pk }}  
-           {{ form.timestamp }}  
-           {{ form.security_hash }}  
-           <input type="hidden" name="next" value="" /> 
-           <input type="submit" value="Add comment" id="id_submit" />  
-           </form>  
-       {% else %} 
-           <p>Please <a href="">log in</a> to leave a comment.</p> 
-       {% endif %} 
+
+        {% if user.is_authenticated %}
+           {% get_comment_form for this_event as form %}
+           <form action="{% comment_form_target %}" method="POST">
+           {% csrf_token %}
+           {{ form.comment }}
+           {{ form.honeypot }}
+           {{ form.content_type }}
+           {{ form.object_pk }}
+           {{ form.timestamp }}
+           {{ form.security_hash }}
+           <input type="hidden" name="next" value="" />
+           <input type="submit" value="Add comment" id="id_submit" />
+           </form>
+       {% else %}
+           <p>Please <a href="">log in</a> to leave a comment.</p>
+       {% endif %}
 
            <br />
            <div class="left_articles">
                 <h2><a href="/topic/{{ event_topic.id }}">{{ event_topic.name }}</a></h2>
                 <p>{{ event_topic.description }}</p>
            </div>
- 
 
 
 
-      </div>  
+
+      </div>
     </div>
 {% endblock %}

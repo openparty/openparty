@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends "core/base_core.html" %}
 {% block content %}
     {% load markup %}
     <div id="content">
@@ -18,7 +18,7 @@
                 {% if request.user == this_topic.author.user %}
                     <p><a href="/topic/edit/{{ this_topic.id }}">编辑此话题</a></p>
                 {% endif %}
-                {% if this_topic.accepted %}    
+                {% if this_topic.accepted %}
                 <p>所属活动：<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a> 日期：{{this_topic.in_event.begin_time|date}}</p>
                 {% ifequal this_topic.in_event.is_off 1%}
                 <p>网络投票数：{{ this_topic.total_votes }} </p>
@@ -33,14 +33,14 @@
                             已经投过票了
                         {% endif %}
                     {% else %}
-                        <p>该话题尚未加入任何活动，无法开始投票</p> 
+                        <p>该话题尚未加入任何活动，无法开始投票</p>
                     {% endif %}
                 {% endifequal %}
                 {% else %}
-                <p>此话题已报名参与{{this_topic.in_event.begin_time|date}}的<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a>活动</p><p>等待管理员审核中，审核完毕后即可开始投票</p> 
+                <p>此话题已报名参与{{this_topic.in_event.begin_time|date}}的<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a>活动</p><p>等待管理员审核中，审核完毕后即可开始投票</p>
                 {% endif %}
                 </div>
         </div>
-      </div>	
+      </div>
     </div>
 {% endblock %}
