@@ -8,12 +8,16 @@ from django.contrib.auth.decorators import login_required
 
 from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm
 from apps.member.models import Member
+from django.core.urlresolvers import reverse
 
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.login(request):
-            return HttpResponseRedirect('index')
+            next = request.GET.get("next", "")
+            if next:
+                return redirect(next)
+            return redirect('/')
     else:
         form = LoginForm()
 
@@ -29,7 +33,8 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.save():
             ctx = { 'email': form.cleaned_data['email'], }
-            return render_to_response('member/verification_sent.html', ctx, context_instance=RequestContext(request))
+            return render_to_response('member/verification_sent.html', ctx,
+                context_instance=RequestContext(request))
     else:
         form = SignupForm()
 
@@ -42,7 +47,7 @@ def activate(request, activation_key):
         messages.success(request, u'您的帐号已经成功激活，请尝试登录吧')
     else:
         messages.error(request, u'对不起，您所的激活号码已经过期或者根本就不存在？')
-    return redirect('/login')
+    return redirect(reverse('login'))
 
 @login_required
 def change_password(request):
@@ -54,7 +59,8 @@ def change_password(request):
     else:
         form = ChangePasswordForm(request)
     ctx = { 'form': form, }
-    return render_to_response('member/change_password.html', ctx, context_instance=RequestContext(request))
+    return render_to_response('member/change_password.html', ctx,
+        context_instance=RequestContext(request))
 
 @login_required
 def update_profile(request):
@@ -66,4 +72,5 @@ def update_profile(request):
     else:
         form = ProfileForm(request.user)
     ctx = { 'form': form, }
-    return render_to_response('member/update_profile.html', ctx, context_instance=RequestContext(request))
+    return render_to_response('member/update_profile.html', ctx,
+        context_instance=RequestContext(request))

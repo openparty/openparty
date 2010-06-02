@@ -2,7 +2,7 @@
 
 {% block content %}
   <div id="login" class="narrow">
-    <form action="/login" method="post">
+    <form action="" method="post">
       <p>
         {{ form.email.errors }}
         <label>{{ form.email.label }}</label>
@@ -19,7 +19,7 @@
       </p>
       <p>
         <label class="invisible"></label>
-        还没有注册？<a href="/signup">现在就注册</a>
+        还没有注册？<a href="{% url signup %}">现在就注册</a>
       </p>
       {{ form.non_field_errors }}
       <input type="submit" value="登陆" tabindex="4"/>

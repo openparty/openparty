@@ -1,14 +1,6 @@
 # Django settings for openparty project.
 import os.path
-PROJECT_PATH = os.path.dirname(__file__)
-
-# Add all third party vendor dependencies to project's path:
-# so we can load it without install them
-import sys
-if not 'vendor' in sys.path:
-    sys.path.append('vendor')
-if not '.' in sys.path:
-    sys.path.append('.')
+PROJECT_ROOT = os.path.dirname(__file__)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -50,7 +42,7 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -96,7 +88,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_PATH, 'templates'),
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 
 
