@@ -1,5 +1,6 @@
 {% extends "core/base_core.html" %}
 {% block content %}
+      <div class="container_16">
         <div class="left">
             <h1>话题详情：</h1><a href="/topics">返回话题列表</a>
             <div class="lbox">
@@ -19,10 +20,16 @@
                         <td>请使用<a href="http://en.wikipedia.org/wiki/ReStructuredText" target="_blank">reStructuredText</a>进行编辑</td>
                     </tr>
                         <tr><td>{{form.content}}</td></tr>
+
+                    {% if not topic.is_shown %}
+                    <tr><td>申请在以下活动进行话题宣讲:(需管理员审核)</td></tr>
+                        <tr><td>{{form.in_event}}</td></tr>
+                    {% endif %}
                 </table>
                 <input type="submit" value="保存">
                 </form>
                 {% endif %}
             </div>
+        </div>
        </div>
 {% endblock %}
