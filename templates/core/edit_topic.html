@@ -9,6 +9,7 @@
                     <a href="/topic/{{ topic.id }}">返回话题</a>
                 {% else %}
                 <form action="{% url edit_topic form.instance.id %}" method="POST">
+                {% csrf_token %}
                 <table>
                     <tr>
                         <td>{{form.name.label}}:{{form.name}}</td>

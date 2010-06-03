@@ -3,6 +3,7 @@
 {% block content %}
   <div id="update-profile">
     <form action="" method="post">
+      {% csrf_token %}
       {{ form.as_p }}
       {{ form.non_field_errors }}
       <input type="submit" value="保存个人信息" tabindex="5"/>

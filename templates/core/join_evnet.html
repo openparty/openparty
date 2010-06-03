@@ -14,6 +14,7 @@
     </div>
     <div id="join-event" class="grid_10">
       <form action="/event/join" method="post" class="wide">
+        {% csrf_token %}
         <h2>报名表格</h2>
         {{ form.as_p }}
         {{ form.non_field_errors }}

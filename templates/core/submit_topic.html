@@ -9,6 +9,7 @@
                     {% else %}
                 请首先了解OpenParty对于话题的一些要求、时间、等等
                 <form action="{% url submit_new_topic %}" method="POST">
+                {% csrf_token %}
                 <table>
                     <tr>
                         <td>{{form.name.label}}:{{form.name}}</td>

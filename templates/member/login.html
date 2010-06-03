@@ -3,6 +3,7 @@
 {% block content %}
   <div id="login" class="narrow">
     <form action="" method="post">
+    {% csrf_token %}
       <p>
         {{ form.email.errors }}
         <label>{{ form.email.label }}</label>
