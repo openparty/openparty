@@ -15,7 +15,7 @@ from apps.member.forms import ProfileForm
 from forms import ArticleForm
 from models import Event, Topic
 from models import Vote
-
+from django.core.urlresolvers import reverse
 
 def index(request):
     event_list = Event.objects.all().order_by('-begin_time')[:5]
@@ -130,7 +130,7 @@ def vote(request, id):
     #update vote count
     this_topic.save()
     
-    return HttpResponseRedirect("/")
+    return HttpResponseRedirect(reverse(topic, args=[this_topic.id]))
 
 @login_required
 def submit_topic(request):
