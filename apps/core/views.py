@@ -48,7 +48,7 @@ def topic_list(request):
 
 def join_event(request):
     if not request.user.is_authenticated():
-        messages.info(request, u'对不起，您需要先登录才能报名参加活动，如果没有帐号可以选择<a href="/signup">注册</a>')
+        messages.info(request, u'对不起，您需要先登录才能报名参加活动，如果没有帐号可以选择<a href="/member/signup">注册</a>')
         return redirect(reverse('login'))
 
     if request.method == 'POST':
@@ -58,12 +58,12 @@ def join_event(request):
             next_event = Event.objects.next_event()
             next_event.participants.add(member)
             messages.success(request, u'您已经成功报名参加《%s》活动，您是第%s名参加者' % (next_event.name, next_event.participants.count()))
-            return redirect('/')
+            return redirect('/event/%s' % (next_event.id))
     else:
         try:
             this_user = Member.objects.get(user = request.user)
         except:
-            return redirect('/signup')
+            return redirect(reverse('signup'))
         
         next_event = Event.objects.next_event()
         if this_user in next_event.participants.all():
