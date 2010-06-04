@@ -3,6 +3,7 @@ from django.test import TestCase
 from apps.member.models import Member
 from apps.member.forms import SignupForm, LoginForm
 import apps.member.test_helper as helper
+from django.core.urlresolvers import reverse
 
 class MemberTest(TestCase):
     def test_save_member_though_form(self):
@@ -36,17 +37,17 @@ class MemberTest(TestCase):
 
     def test_login(self):
         helper.create_user()
-        response = self.client.post('/login', {'email': 'tin@domain.com', 'password': '123'})
-        self.assertRedirects(response, '/index')
+        response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
+        self.assertRedirects(response, '/')
     
     def test_login_should_failed_when_password_is_wrong(self):
         helper.create_user()
-        response = self.client.post('/login', {'email': 'tin@domain.com', 'password': 'wrong-password'})
+        response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': 'wrong-password'})
         self.assertFormError(response, 'form', '', u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号')
     
     def test_login_should_failed_before_activate(self):
         helper.create_user(activate=False)
-        response = self.client.post('/login', {'email': 'tin@domain.com', 'password': '123'})
+        response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
         self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
 
     def test_avatar_of_member(self):

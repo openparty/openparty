@@ -61,7 +61,7 @@
            <input type="submit" value="Add comment" id="id_submit" />
            </form>
        {% else %}
-           <p>Please <a href="">log in</a> to leave a comment.</p>
+           <p>Please <a href="{% url login %}">log in</a> to leave a comment.</p>
        {% endif %}
 
            <br />

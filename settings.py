@@ -80,7 +80,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
 )
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/member/login'
 
 ROOT_URLCONF = 'openparty.urls'
 

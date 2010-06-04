@@ -49,7 +49,7 @@ def topic_list(request):
 def join_event(request):
     if not request.user.is_authenticated():
         messages.info(request, u'对不起，您需要先登录才能报名参加活动，如果没有帐号可以选择<a href="/signup">注册</a>')
-        return redirect('/login')
+        return redirect(reverse('login'))
 
     if request.method == 'POST':
         form = ProfileForm(request.user, request.POST)

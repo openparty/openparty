@@ -3,6 +3,6 @@
 {% block content %}
 <div id="verification-sent">
   <p>已经向{{email}}发送了email</p>
-  <p>请您登录邮箱确认再回来<a href="/login" title="去登录页面">登录</a></p>
+  <p>请您登录邮箱确认再回来<a href="{% url login %}" title="去登录页面">登录</a></p>
 </div>
 {% endblock %}
