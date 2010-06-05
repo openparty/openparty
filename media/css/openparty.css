@@ -154,13 +154,13 @@ form .hint {
 
   .main-navigator li{
     float: left;
-    margin: 0 2.5em 0 0;
+    margin: 0.15em 2.5em 0.15em 0;
   }
 
   .main-navigator a {
     color: #333;
     display: block;
-    padding: 0 1.2em 0.1em;
+    padding: 0.1em 1.2em 0.2em;
     font-weight: bold;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -171,7 +171,7 @@ form .hint {
 
     .main-navigator a.active {
       color: white;
-      background-color: #777;
+      background-color: #555;
       text-shadow: 0 1px 1px #333;
     }
     .main-navigator a:hover {
@@ -408,3 +408,115 @@ dl.pair {
   color: #999;
   display: block;
 }
+
+.bread-crumb {
+  margin: 0.5em 0 !important;
+}
+  .bread-crumb a:link,
+  .bread-crumb a:visited {
+    color: #777;
+    border-bottom: 1px solid #999;
+  }
+
+.topic {
+  
+}
+  .topic .topic-name {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    margin: 0.5em 0;
+    display: inline-block;
+    position: relative;
+  }
+    .topic .topic-name_0 {
+      background: #e6d870;
+      color: #3f4305;
+    }
+    .topic .topic-name_1 {
+      background: #a5c8eb;
+      color: #27456e;
+    }
+    .topic .topic-name_2 {
+      background: #b3dd6a;
+      color: #345a00;
+    }
+    .topic .topic-name_3 {
+      background: #d19f7d;
+      color: #491e1e;
+    }
+  .topic .topic-name .tail {
+    background-image: url(../images/popup_tails.gif);
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 25px;
+    height: 24px;
+    bottom: -24px;
+    left: 15px;
+  }
+    .topic .topic-name_0 .tail {
+      background-position: -75px top;
+      
+    }
+    .topic .topic-name_1 .tail {
+      background-position: -50px top;
+    }
+    .topic .topic-name_2 .tail {
+      background-position: -25px top;
+    }
+    .topic .topic-name_3 .tail {
+      background-position: left top;
+    }
+  .topic .meta {
+    color: #999;
+    margin-left: 1.6em !important;
+  }
+  .topic .poll {
+    display: block;
+    float: right;
+    background-color: #555;
+/*    background: #fff url(../images/gradient_top.png) repeat-x left top;*/
+    color: #eee;
+    margin: 1em;
+    padding: 1em;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+  }
+  .topic .poll dt {
+    display: none;
+  }
+    .topic .poll dt.visiable {
+      display: block;
+    }
+  .topic .poll .votes {
+    text-align: center;
+    font-family: verdana;
+    color: #eee;
+    margin: -0.15em 0;
+    font-size: 35px;
+    font-weight: bold;
+  }
+    .topic .poll a.vote:link,
+    .topic .poll a.vote:visited {
+      color: white;
+      display: block;
+      background: #666 url(../images/thumb_up.png) 0.5em center no-repeat;
+      padding: 0.5em 1em 0.5em 2.2em;
+      font-weight: bold;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+    .topic .poll a.vote:hover,
+    .topic .poll a.vote:active {
+      background-color: #fff;
+      color: #597eac;
+    }
+  .topic .poll .voted {
+    background: url(../images/medal_bronze_3.png) left center no-repeat;
+    padding-left: 20px;
+  }

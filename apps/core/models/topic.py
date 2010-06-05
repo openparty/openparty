@@ -69,6 +69,10 @@ class Topic(Base):
             return '%s...' % content[:15]
         else:
             return content
+    
+    def style_seed(self, range=4):
+        '''用来显示一些随机的样式'''
+        return self.id % range
 
     def __unicode__(self):
             return self.name

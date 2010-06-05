@@ -4,35 +4,34 @@
     {% load markup %}
     <div id="content" class="topic">
       <div class="container_16">
-        <p><a href="/topics">返回话题列表</a></p>
+        <p class="bread-crumb"><a href="/topics">返回话题列表</a></p>
         
-        <h1 class="topic-name">{{ this_topic.name }}</h1>
+        <dl class="poll">
+          <dt>状态</dt><dd>{{ this_topic.poll_status }}</dd>
+          {% if this_topic.accepted and this_topic.in_event %}
+            <dt class="visiable">网络投票数</dt><dd class="votes">{{ this_topic.total_votes }}</dd>
+          {% endif %}
+          {% if this_topic.is_arranged and this_topic.accepted %}
+            <dt>投票</dt>
+            <dd>
+              {% if not is_voted %}
+                <a class="vote" href="/vote/topic/{{this_topic.id}}">我想听</a>
+              {% else %}
+                <span class="voted">已经投过票了</span>
+              {% endif %}
+            </dd>
+          {% endif %}
+        </dl>
+
+        <h1 class="topic-name topic-name_{{this_topic.style_seed}}">{{ this_topic.name }}<span class="tail"></span></h1>
         
         {% if request.user == this_topic.author.user %}
             <p><a href="/topic/edit/{{ this_topic.id }}">编辑此话题</a></p>
         {% endif %}
         
         <p class="meta">
-          <span class="topic-author">{{ this_topic.author.nickname }}</span>于“<span class="topic-created-at">{{ this_topic.created|date }}</span>”创建了这个话题，{% if this_topic.accepted %}计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”{% endif %}活动中演讲
+          <span class="topic-author">{{ this_topic.author.nickname }}</span>于“<span class="topic-created-at">{{ this_topic.created|date:'Y年m月d日' }}</span>”创建了这个话题，{% if this_topic.accepted %}计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date:'Y年m月d日'}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”{% endif %}活动中演讲
         </p>
-        
-        
-        <dl class="poll">
-          <dt>状态</dt><dd>{{ this_topic.poll_status }}</dd>
-          {% if this_topic.accepted and this_topic.in_event %}
-            <dt>网络投票数</dt><dd>{{ this_topic.total_votes }}</dd>
-          {% endif %}
-          {% if this_topic.is_arranged and this_topic.accepted %}
-            <dt>投票</dt>
-            <dd>
-              {% if not is_voted %}
-                <a href="/vote/topic/{{this_topic.id}}">我想听这个话题</a>
-              {% else %}
-                已经投过票了
-              {% endif %}
-            </dd>
-          {% endif %}
-        </dl>
         
         <div>
           {{ this_topic.rendered_content|safe }}
