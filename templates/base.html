@@ -14,12 +14,11 @@
         <div id="header">
             {% if messages %}
             <ul class="messages" class="grid_12">
-            {% for message in messages %}<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}
-            </li>
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
             {% endfor %}
             </ul>
-            <div class="clear">
-            </div>
+            <div class="clear"></div>
             {% endif %}
         <div class="gutter">
             <div class="container_16">
