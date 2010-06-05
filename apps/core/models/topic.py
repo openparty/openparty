@@ -36,26 +36,12 @@ class Topic(Base):
     @property
     def is_shown(self):
         '''该话题所属活动是否正在进行或已经结束'''
-        if self.in_event is not None:
-            if self.in_event.is_off == True:
-                return True
-            elif self.in_event.is_running == True:
-                return True
-            else:
-                return False
-        else:
-            return False
+        return (self.in_event is not None) and (self.in_event.is_off or self.in_event.is_running)
 
     @property
     def is_arranged(self):
         '''该话题是否已经加入到活动，并且活动尚未开始'''
-        if self.in_event is not None:
-            if self.in_event.is_upcoming == True:
-                return True
-            else:
-                return False
-        else:
-            return False
+        return (self.in_event is not None) and (self.in_event.is_upcoming == True)
     
     @property
     def summary(self):

@@ -1,18 +1,10 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls.defaults import patterns, include, url, handler500, handler404
 from settings import MEDIA_ROOT
 from django.contrib import admin
 import member
 
 admin.autodiscover()
 urlpatterns = patterns('',
-    # Example:
-    # (r'^openparty/', include('foo.urls')),
-
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs'
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
     (r'^member/', include('member.urls')),
 )
