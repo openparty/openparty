@@ -1,60 +1,62 @@
 {% extends "core/base_core.html" %}
+
 {% block content %}
     {% load markup %}
-    <div id="content">
+    <div id="content" class="topic">
       <div class="container_16">
-        <div class="left">
-            <h1>话题详情：</h1><a href="/topics">返回话题列表</a>
-            <div class="lt"></div>
-            <div class="lbox">
-                <h2><span class="yellow">{{ this_topic.name }}</span></h2>
-                <div>
-                  {{ this_topic.rendered_content|safe }}
-                </div>
-                <p> 建立者：{{ this_topic.author.nickname }} 建立时间：{{ this_topic.created|date }}</p>
-                {% if modified %}
-                <p> 最近修改者：{{ this_topic.last_modified_by.nickname }} 于：{{ this_topic.last_modified|timesince }} 前</p>
-                {% endif %}
-                {% if request.user == this_topic.author.user %}
-                    <p><a href="/topic/edit/{{ this_topic.id }}">编辑此话题</a></p>
-                {% endif %}
+        <p><a href="/topics">返回话题列表</a></p>
+        
+        <h1 class="topic-name">{{ this_topic.name }}</h1>
+        
+        {% if request.user == this_topic.author.user %}
+            <p><a href="/topic/edit/{{ this_topic.id }}">编辑此话题</a></p>
+        {% endif %}
+        
+        <p class="meta">
+          {% if this_topic.accepted %}计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”{% endif %}活动中演讲，<span class="topic-author">{{ this_topic.author.nickname }}</span>于“<span class="topic-created-at">{{ this_topic.created|date }}</span>”创建了这个话题
+        </p>
+        
+        <div>
+          {{ this_topic.rendered_content|safe }}
+        </div>
 
-                {% if this_topic.accepted %}
-                <p>所属活动：<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a> 日期：{{this_topic.in_event.begin_time|date}}</p>
+        {% if modified %}
+          <p> 最近修改者：{{ this_topic.last_modified_by.nickname }} 于：{{ this_topic.last_modified|timesince }} 前</p>
+        {% endif %}
 
-                    {% if this_topic.in_event.is_off %}
-                    <p>网络投票数：{{ this_topic.total_votes }} </p>
-                    <p>本话题所属活动已经结束</p>
-                    <p>现场投票：</p>
-                    {% else %}
-                        {% if can_vote %}
-                            <p>网络投票进行中：{{ this_topic.total_votes }} </p>
-                            {% if not is_voted %}
-                                <a href="/vote/topic/{{this_topic.id}}">投票</a>
-                            {% else %}
-                                已经投过票了
-                            {% endif %}
-                        {% else %}
-
-                            {% ifequal this_topic.in_event None %}
-                                <p>该话题尚未加入任何活动，无法开始投票</p>
-                            {% endifequal %}
-                                
-                        {% endif %}
-
-                     {% endif %}
-                      
+        {% if this_topic.accepted %}
+              {% if this_topic.in_event.is_off %}
+              <p>网络投票数：{{ this_topic.total_votes }} </p>
+              <p>本话题所属活动已经结束</p>
+              <p>现场投票：</p>
+              {% else %}
+                  {% if can_vote %}
+                      <p>网络投票进行中：{{ this_topic.total_votes }} </p>
+                      {% if not is_voted %}
+                          <a href="/vote/topic/{{this_topic.id}}">投票</a>
+                      {% else %}
+                          已经投过票了
+                      {% endif %}
                   {% else %}
 
-                    {% ifequal this_topic.in_event None %}
-                    <p>该话题尚未加入任何活动，无法开始投票</p>
-                    {% else %}
-                    <p>此话题已报名参与{{this_topic.in_event.begin_time|date}}的<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a>活动</p><p>等待管理员审核中，审核完毕后即可开始投票</p>
-                    {% endifequal %}
-
+                      {% ifequal this_topic.in_event None %}
+                          <p>该话题尚未加入任何活动，无法开始投票</p>
+                      {% endifequal %}
+                          
                   {% endif %}
-                </div>
-        </div>
+
+               {% endif %}
+                
+            {% else %}
+
+              {% ifequal this_topic.in_event None %}
+              <p>该话题尚未加入任何活动，无法开始投票</p>
+              {% else %}
+              <p>此话题已报名参与{{this_topic.in_event.begin_time|date}}的<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a>活动</p><p>等待管理员审核中，审核完毕后即可开始投票</p>
+              {% endifequal %}
+
+            {% endif %}
+          </div>
       </div>
     </div>
 {% endblock %}
