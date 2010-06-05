@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from apps.core.models import Topic
+from apps.core.tests import test_helper
 
 class TopicTest(TestCase):
     def test_topic_summary(self):
@@ -18,5 +19,9 @@ class TopicTest(TestCase):
         t = Topic(html=html, content_type='html')
         self.assertEquals(html, t.rendered_content)
     
-    def test_topic_status(self):
-        pass
+    def test_topic_poll_status(self):
+        event = test_helper.create_upcoming_event()
+        topic = Topic(name='test', content='test', description='', in_event=event, author=event.last_modified_by)
+        topic.last_modified_by=event.last_modified_by
+        topic.save()
+        self.assertEquals(u'网络投票进行中', topic.poll_status)

@@ -25,6 +25,12 @@ class Topic(Base):
         return self
     
     @property
+    def poll_status(self):
+        if self.is_arranged:
+            return u'网络投票进行中'
+        return u'我们也不知道怎么了'
+    
+    @property
     def rendered_content(self):
         if self.content_type == 'restructuredtext':
             return restructuredtext(self.content)
