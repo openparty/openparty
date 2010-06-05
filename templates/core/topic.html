@@ -16,6 +16,40 @@
           {% if this_topic.accepted %}计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”{% endif %}活动中演讲，<span class="topic-author">{{ this_topic.author.nickname }}</span>于“<span class="topic-created-at">{{ this_topic.created|date }}</span>”创建了这个话题
         </p>
         
+        
+        <dl class="poll">
+          {% if this_topic.accepted %}
+            {% if this_topic.in_event.is_off %}
+              <dt>状态</dt><dd>本话题所属活动已经结束</dd>
+              <dt>网络投票数</dt><dd>{{ this_topic.total_votes }}</dd>
+              <dt>现场投票</dt><dd>还没有统计</dd>
+            {% else %}
+              {% if can_vote %}
+                <dt>状态</dt><dd>网络投票进行中</dd>
+                <dt>网络投票数</dt><dd>{{ this_topic.total_votes }}</dd>
+                <dt>投票</dt>
+                <dd>
+                  {% if not is_voted %}
+                    <a href="/vote/topic/{{this_topic.id}}">我想听这个话题</a>
+                  {% else %}
+                    已经投过票了
+                  {% endif %}
+                </dd>
+              {% else %}
+                {% ifequal this_topic.in_event None %}
+                  <dt>状态</dt><dd>该话题尚未加入任何活动，无法开始投票</dd>
+                {% endifequal %}
+              {% endif %}
+            {% endif %}
+          {% else %}
+            {% ifequal this_topic.in_event None %}
+              <dt>状态</dt><dd>该话题尚未加入任何活动，无法开始投票</dd>
+            {% else %}
+              <dt>状态</dt><dd>此话题已报名参与{{this_topic.in_event.begin_time|date}}的<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a>活动，等待管理员审核中，审核完毕后即可开始投票</dd>
+            {% endifequal %}
+          {% endif %}
+        </dl>
+        
         <div>
           {{ this_topic.rendered_content|safe }}
         </div>
@@ -23,40 +57,6 @@
         {% if modified %}
           <p> 最近修改者：{{ this_topic.last_modified_by.nickname }} 于：{{ this_topic.last_modified|timesince }} 前</p>
         {% endif %}
-
-        {% if this_topic.accepted %}
-              {% if this_topic.in_event.is_off %}
-              <p>网络投票数：{{ this_topic.total_votes }} </p>
-              <p>本话题所属活动已经结束</p>
-              <p>现场投票：</p>
-              {% else %}
-                  {% if can_vote %}
-                      <p>网络投票进行中：{{ this_topic.total_votes }} </p>
-                      {% if not is_voted %}
-                          <a href="/vote/topic/{{this_topic.id}}">投票</a>
-                      {% else %}
-                          已经投过票了
-                      {% endif %}
-                  {% else %}
-
-                      {% ifequal this_topic.in_event None %}
-                          <p>该话题尚未加入任何活动，无法开始投票</p>
-                      {% endifequal %}
-                          
-                  {% endif %}
-
-               {% endif %}
-                
-            {% else %}
-
-              {% ifequal this_topic.in_event None %}
-              <p>该话题尚未加入任何活动，无法开始投票</p>
-              {% else %}
-              <p>此话题已报名参与{{this_topic.in_event.begin_time|date}}的<a href="/event/{{this_topic.in_event.id}}">{{this_topic.in_event.name}}</a>活动</p><p>等待管理员审核中，审核完毕后即可开始投票</p>
-              {% endifequal %}
-
-            {% endif %}
-          </div>
       </div>
     </div>
 {% endblock %}
