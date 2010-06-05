@@ -9,7 +9,7 @@
         <dl class="poll">
           <dt>状态</dt><dd>{{ this_topic.poll_status }}</dd>
           {% if this_topic.accepted and this_topic.in_event %}
-            <dt class="visiable">网络投票数</dt><dd class="votes">{{ this_topic.total_votes }}</dd>
+            <dt class="visiable">投票数</dt><dd class="votes">{{ this_topic.total_votes }}</dd>
           {% endif %}
           {% if this_topic.is_arranged and this_topic.accepted %}
             <dt>投票</dt>
