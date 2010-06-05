@@ -142,39 +142,44 @@ form .hint {
 }
 
 .navigator-wrap {
-  background-color: #bbb;
-  background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#c9c9c9));
-  background: -moz-gradient(linear, left top, left bottom, from(#aaa), to(#c9c9c9));
-  border-top:1px solid #bfbfbf;
-  border-bottom:1px solid #aaa;
-  padding: 0.6em 0 0;
+  background-color: #999;
+  border-top:1px solid #909090;
+  border-bottom:1px solid #888;
+  padding: 0.3em 0;
 }
 
 .main-navigator {
   margin: 0;
 }
 
-.main-navigator li{float: left;margin: 0 2.5em 0 0;}
+  .main-navigator li{
+    float: left;
+    margin: 0 2.5em 0 0;
+  }
 
-.main-navigator a {
-  color: white;
-  display: block;
-  padding: 0.2em 1.2em 0.3em;
-  font-weight: bold;
-  color: white;
-  -moz-border-radius: 8px 8px 0 0;
-  -webkit-border-radius: 8px 8px 0 0;
-  border-radius: 8px 8px 0 0;
-  text-decoration:none;
-}
+  .main-navigator a {
+    color: #333;
+    display: block;
+    padding: 0 1.2em 0.1em;
+    font-weight: bold;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px #CCCCCC;
+    text-decoration:none;
+  }
 
-.main-navigator a.active {
-  background-color: #909090;
-}
-.main-navigator a:hover {
-  background-color: #ee8822;
-  text-decoration:none;
-}
+    .main-navigator a.active {
+      color: white;
+      background-color: #777;
+      text-shadow: 0 1px 1px #333;
+    }
+    .main-navigator a:hover {
+      color: white;
+      background-color: #777;
+      text-decoration:none;
+      text-shadow: 0 1px 1px #333;
+    }
 
 .whats-open-party {
   padding: 12px 0 0 0;
