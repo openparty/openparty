@@ -1,43 +1,32 @@
 {% extends "core/base_core.html" %}
+
 {% block content %}
-    {% load markup %}
-    <div id="content">
-      <div class="container_16">
-        <div class="left">
-        <h1>话题列表：</h1>
+  {% load markup %}
+  <div id="content">
+    <div class="container_16">
+      <p class="bread-crumb">这是现在OpenParty所的有话题。当听众不过瘾？<a href="{% url submit_new_topic %}">来OpenParty分享话题吧</a></p>
+      <ul class="topics">
         {% for topic in topic_list %}
-        {% ifequal topic.in_event.is_upcoming 1%}
-            <div class="lt"></div>
-            <div class="lbox">
-                <h2>即将开始：<span class="yellow"><a href="/topic/{{ topic.id }}">{{ topic.name }}</a></span></h2>
-                <p>
-                {% ifequal topic.accepted 1%}
-                得票数：{{ topic.total_votes }}
-                {% else %}
+          <li class="topic">
+            <h2 class="topic-name topic-name_{{ topic.style_seed }}">
+              <a href="/topic/{{ topic.id }}">{{ topic.name }}</a>
+              {% if topic.in_event.is_upcoming %}<span class="upcoming">即将开始</span>{% endif %}
+              <span class="tail"></span>
+            </h2>
+            <p class="meta">
+              {% if topic.accepted %}
+                得票数：<span class="votes">{{ topic.total_votes }}</span>
+              {% else %}
                 等待管理员审核中，审核完毕后即可开始投票
-                {% endifequal %}
-                所属活动：<a href="/event/{{topic.in_event.id}}">{{topic.in_event.name}}</a> 日期：{{topic.in_event.begin_time|date}}</p>
-                <p> {{ topic.description|restructuredtext }}</p>
-                <p> <a href="/topic/{{ topic.id }}">查看更多</a></p>
-            </div>
-        {% else %}
-            <div class="left_articles">
-                <h2><a href="/topic/{{ topic.id }}">{{ topic.name }}</a></h2>
-                <p>{{ topic.description }}</p>
-                   <p> <a href="/topic/{{ topic.id }}">查看更多</a></p>
-               </div>
-        {% endifequal %}
-
+              {% endif %}
+               所属活动：<a href="/event/{{topic.in_event.id}}">{{topic.in_event.name}}</a> 日期：{{topic.in_event.begin_time|date}}
+            </p>
+            
+            <div class="description">{{ topic.description|restructuredtext }}</div>
+          </li>
         {% endfor %}
-
-		</div>
-
-		<div class="right">
-            <h1>当听众不过瘾？</h1>
-            <a href="{% url submit_new_topic %}">来OpenParty分享话题</a>
-        </div>
-
-      </div>
+      </ul>
     </div>
+  </div>
 
 {% endblock %}

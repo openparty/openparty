@@ -415,12 +415,17 @@ dl.pair {
   .bread-crumb a:link,
   .bread-crumb a:visited {
     color: #777;
+    text-decoration: none;
     border-bottom: 1px solid #999;
   }
 
 .topic {
   
 }
+  .topics .topic {
+    margin: 0.5em 0 1em 0;
+    padding-bottom: 1em;
+  }
   .topic .topic-name {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -432,22 +437,50 @@ dl.pair {
     display: inline-block;
     position: relative;
   }
+      .topics .topic .topic-name a {
+        background-image: url(../images/bullet_go.png);
+        background-position: right center;
+        background-repeat: no-repeat;
+        padding-right: 18px;
+      }
     .topic .topic-name_0 {
       background: #e6d870;
       color: #3f4305;
     }
+      .topic .topic-name_0 a:link,
+      .topic .topic-name_0 a:visited {
+        color: #3f4305;
+      }
     .topic .topic-name_1 {
       background: #a5c8eb;
       color: #27456e;
     }
+      .topic .topic-name_1 a:link,
+      .topic .topic-name_1 a:visited {
+        color: #27456e;
+      }
     .topic .topic-name_2 {
       background: #b3dd6a;
       color: #345a00;
     }
+      .topic .topic-name_2 a:link,
+      .topic .topic-name_2 a:visited {
+        color: #345a00;
+      }
     .topic .topic-name_3 {
       background: #d19f7d;
       color: #491e1e;
     }
+      .topic .topic-name_3 a:link,
+      .topic .topic-name_3 a:visited {
+        color: #491e1e;
+      }
+  .topic .topic-name .upcoming {
+    font-size: 12px;
+    font-style: italic;
+    color: #333;
+    padding-left: 1em;
+  }
   .topic .topic-name .tail {
     background-image: url(../images/popup_tails.gif);
     background-repeat: no-repeat;
@@ -474,6 +507,15 @@ dl.pair {
     color: #999;
     margin-left: 1.6em !important;
   }
+    .topics .topic .meta {
+      margin-top: 0.25em !important;
+      margin-bottom: 0.25em !important;
+      margin-left: 4em !important;
+    }
+    .topic .meta a:link,
+    .topic .meta a:visited {
+      color: #999;
+    }
   .topic .poll {
     display: block;
     float: right;
@@ -519,4 +561,9 @@ dl.pair {
   .topic .poll .voted {
     background: url(../images/medal_bronze_3.png) left center no-repeat;
     padding-left: 20px;
+  }
+  .topic .description {
+    padding-left: 1em;
+    border-left: 5px solid #eee;
+    margin-top: -0.25em;
   }
