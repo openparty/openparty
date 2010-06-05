@@ -87,11 +87,6 @@ def event(request, id):
 def topic(request, id):
     this_topic = get_object_or_404(Topic, pk = id)
 
-    if this_topic.is_arranged:
-        can_vote = True 
-    else:
-        can_vote = False
-
     is_voted = False
     try:
         vote_thistopic = this_topic.votes.get(user = Member.objects.get(user=request.user))

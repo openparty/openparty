@@ -26,8 +26,17 @@ class Topic(Base):
     
     @property
     def poll_status(self):
-        if self.is_arranged:
-            return u'网络投票进行中'
+        if self.in_event:
+            if self.accepted:
+                if self.in_event.is_upcoming:
+                    return u'网络投票进行中'
+                elif self.in_event.is_off:
+                    return u'本话题所属活动已经结束'
+            else:
+                return u'活动等待管理员审核中，审核完毕后即可开始投票'
+        else:
+            return u'该话题尚未加入任何活动，无法开始投票'
+
         return u'我们也不知道怎么了'
     
     @property
@@ -42,12 +51,12 @@ class Topic(Base):
     @property
     def is_shown(self):
         '''该话题所属活动是否正在进行或已经结束'''
-        return (self.in_event is not None) and (self.in_event.is_off or self.in_event.is_running)
+        return self.in_event and (self.in_event.is_off or self.in_event.is_running)
 
     @property
     def is_arranged(self):
         '''该话题是否已经加入到活动，并且活动尚未开始'''
-        return (self.in_event is not None) and (self.in_event.is_upcoming == True)
+        return self.in_event and (self.in_event.is_upcoming == True)
     
     @property
     def summary(self):
