@@ -198,3 +198,4 @@ def edit_topic(request, id):
         return render_to_response('core/edit_topic.html',
                                     context,
                                     context_instance=RequestContext(request))
+

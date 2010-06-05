@@ -23,13 +23,14 @@ urlpatterns += patterns('',
     (r'^comments/', include('django.contrib.comments.urls')),
 )
 
+
 urlpatterns += patterns('apps.core.views',
     (r'^index$', 'index'),
     (r'^/?$', 'index'),
     (r'^events$', 'event_list'),
     (r'^topics$', 'topic_list'),
     (r'^event/join$', 'join_event'),
-    (r'^event/(?P<id>\d+)$', 'event'),
+    url(r'^event/(?P<id>\d+)$', 'event', name='event'),
     (r'^topic/(?P<id>\d+)$', 'topic'),
     (r'^vote/topic/(?P<id>\d+)$', 'vote'),
     url(r'^topic/submit/?$', 'submit_topic', name='submit_new_topic'),
