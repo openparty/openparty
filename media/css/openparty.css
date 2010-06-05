@@ -183,7 +183,10 @@ form .hint {
 
 .whats-open-party {
   padding: 12px 0 0 0;
-/*  border-bottom: 3px dashed #f4f4f4;*/
+/*  border-top: 1px solid white;
+  background: -webkit-gradient(linear, left top, left bottom, from(#dddede), to(#f8f8f8));
+  background: -moz-linear-gradient(-90deg, #dddede, #f8f8f8);
+*/
 }
 .whats-open-party h2,
 .whats-open-party p {
