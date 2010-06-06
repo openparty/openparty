@@ -1,17 +1,34 @@
 {% extends "core/base_core.html" %}
+
 {% block content %}
     {% load markup %}
     <div id="content">
-      <div class="container_16">
-        <p><a href="/events">< 返回活动列表</a></p>
-        <h1>{{ this_event.name }}{% ifequal this_event.is_off 1 %}<span>本活动已结束</span>{% endifequal %}</h1>
+      <div class="container_16" itemscope itemtype="http://data-vocabulary.org/Event">
+        <p class="bread-crumb"><a href="/events">返回活动列表</a></p>
+
+        <h1>
+          <a itemprop="url" href="/event/{{ this_event.id }}">
+            <span itemprop="summary">{{ this_event.name }}</span>
+          </a>
+          {% if this_event.is_off %}<span>本活动已结束</span>{% endif %}
+        </h1>
+
         <dl class="flat">
-          <dt> 开始时间：</dt><dd>{{ this_event.begin_time }}</dd>
-          <dt> 结束时间：</dt><dd>{{ this_event.end_time }}</dd>
+          <dt> 开始时间：</dt><dd itemprop="startDate" datetime="{{ this_event.begin_time|date:'Y-m-d\TH:i:sO' }}">{{ this_event.begin_time }}</dd>
+          <dt> 结束时间：</dt><dd itemprop="endDate" datetime="{{ this_event.end_time|date:'Y-m-d\TH:i:sO' }}" }}>{{ this_event.end_time }}</dd>
           <dt> 已报名人数：</dt><dd><strong>{{ this_event.participants.count }}</strong></dd>
+          <dt class="invisiable">地点：</dt>
+            <dd class="invisiable" itemprop="location">{{ this_event.address }}
+              <span itemprop="geo" itemscope itemtype="http://data-vocabulary.org/​Geo">
+                <meta itemprop="latitude" content="39.944358"></meta>
+                <meta itemprop="longitude" content="116.421025"></meta>
+              </span>
+            </dd>
+          <dt class="invisiable">活动简介</dt><dd class="invisiable" temprop="description">{{ this_event.description }}</dd>
+          <dt class="invisiable">活动类型</dt><dd class="invisiable" itemprop="eventType">Unconference, conference, party</dd>
         </dl>
 
-        <p><img src="{{this_event.poster}}" alt="{{ this_event.name }}活动海报" width="460" height="363" class="shadow"/></p>
+        <p><img itemprop="photo" src="{{this_event.poster}}" alt="{{ this_event.name }}活动海报" width="460" height="363" class="shadow"/></p>
 
         <div class="textile">{{ this_event.content|restructuredtext }}</div>
 

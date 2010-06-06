@@ -16,6 +16,9 @@ form p {
   font-size: 0.8em;
   color: #999;
 }
+.invisiable {
+  display: none !important;
+}
 .messages li {
   margin: 0.5em auto;
   padding: 0.5em 1em;
