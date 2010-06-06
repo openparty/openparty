@@ -523,7 +523,6 @@ dl.pair {
 /*    background: #fff url(../images/gradient_top.png) repeat-x left top;*/
     color: #eee;
     margin: 1em;
-    padding: 1em;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
@@ -531,41 +530,62 @@ dl.pair {
   .topic .poll dt {
     display: none;
   }
+  .topic .poll dd {
+    margin: 10px;
+  }
+    .topic .poll .poll-status {
+      color: #999;
+      font-size: 12px;
+    }
+    .topic .poll .unit {
+      font-size: 12px;
+      color: #999;
+      padding-left: 0.2em;
+    }
     .topic .poll dt.visiable {
       display: block;
     }
+    .topic .poll .vote-actions {
+      margin: 0;
+    }
   .topic .poll .votes {
     text-align: center;
-    font-family: verdana;
-    color: #eee;
-    margin: -0.15em 0;
-    font-size: 35px;
-    font-weight: bold;
+    margin: -1em 0 0 1em;
   }
+    .topic .poll .votes .number {
+      font-family: monaco, verdana;
+      color: #eee;
+      font-size: 35px;
+    }
     .topic .poll a.vote:link,
     .topic .poll a.vote:visited {
       color: white;
       display: block;
-      background: #666 url(../images/thumb_up.png) 0.5em center no-repeat;
-      padding: 0.5em 1em 0.5em 2.2em;
+      background: #777 url(../images/thumb_up.png) 1.5em center no-repeat;
+      padding: 0.5em 1em 0.5em 3em;
       font-weight: bold;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px;
+      -webkit-border-radius: 0 0 15px 15px;
+      -moz-border-radius:  0 0 15px 15px;
+      border-radius: 15px;
     }
     .topic .poll a.vote:hover,
     .topic .poll a.vote:active {
-      background-color: #fff;
-      color: #597eac;
+      background-color: #ccc;
+      color: #000;
+      text-decoration: none;
+      -moz-box-shadow: 3px 5px 5px #888;
     }
   .topic .poll .voted {
     background: url(../images/medal_bronze_3.png) left center no-repeat;
     padding-left: 20px;
+    margin: 5px 10px;
+    display: block;
   }
-  .topic .poll .gary_link {
-    position:absolute;
-    margin-top:20px;
+  .topic .poll .who-voted {
+    padding-top: 0.5em;
+    font-size: 12px;
     color:#999;
+    position: absolute;
   }
   .topic .description {
     padding-left: 1em;

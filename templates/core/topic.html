@@ -7,21 +7,24 @@
         <p class="bread-crumb"><a href="/topics">返回话题列表</a></p>
         
         <dl class="poll">
-          <dt>状态</dt><dd>{{ this_topic.poll_status }}</dd>
+          <dt>状态</dt><dd class="poll-status">{{ this_topic.poll_status }}</dd>
           {% if this_topic.accepted and this_topic.in_event %}
-            <dt class="visiable">投票数</dt><dd class="votes">{{ this_topic.total_votes }}</dd>
+            <dt>投票数</dt>
+            <dd class="votes">
+              <span class="number">{{ this_topic.total_votes }}</span><span class="unit">票</span>
+            </dd>
           {% endif %}
           {% if this_topic.is_arranged and this_topic.accepted %}
             <dt>投票</dt>
-            <dd>
+            <dd class="vote-actions">
               {% if not is_voted %}
                 <a class="vote" href="/vote/topic/{{this_topic.id}}">我想听</a>
               {% else %}
-                <span class="voted">已经投过票了</span>
+                <span class="voted">您投过票了</span>
               {% endif %}
             </dd>
           {% endif %}
-          <a class="gary_link" href="/topic/{{this_topic.id}}/votes">看看都有谁投票了？</a>
+          <a class="who-voted" href="/topic/{{this_topic.id}}/votes">看看都有谁投票了？</a>
         </dl>
         
 
