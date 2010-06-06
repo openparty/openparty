@@ -633,8 +633,8 @@ dl.pair {
     }
     .event .meta dt {
       -moz-border-radius: 10px 0 0 10px;
-      -webkit-border-radius: 10px 10px 0 0;
-      border-radius:  10px 10px 0 0;
+      -webkit-border-radius: 10px 0 0 10px;
+      border-radius: 10px 0 0 10px;
       background-color: #ccc;
       text-shadow: 0 1px 1px #fff;
       color: black;
@@ -642,8 +642,8 @@ dl.pair {
     }
     .event .meta dd {
       -moz-border-radius: 0 10px 10px 0;
-      -webkit-border-radius: 10px 10px 0 0;
-      border-radius:  10px 10px 0 0;
+      -webkit-border-radius: 0 10px 10px 0;
+      border-radius: 0 10px 10px 0;
       background-color: #777;
       color: white;
       text-shadow: 0 1px 1px #000;
