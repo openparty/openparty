@@ -595,3 +595,66 @@ dl.pair {
     border-left: 5px solid #eee;
     margin-top: -0.25em;
   }
+
+.event {
+  
+}
+    #content .event .component-title {
+      font-size: 20px;
+      color: #15355F;
+      margin: 10px 0 15px 0;
+      border-bottom: 5px solid #eee;
+    }
+  .event .event-name {
+    font-size: 25px;
+    margin: 10px 0 15px 0;
+    border-bottom: 5px solid #eee;
+  }
+    .event .event-name a:link,
+    .event .event-name a:visited {
+      color: #15355F;
+      font-weight: bold;
+      padding-bottom: 5px;
+    }
+  .event .event-status {
+    color: #999;
+    font-size: 13px;
+    font-weight: normal;
+    vertical-align: bottom;
+    line-height: 32px;
+    padding-left: 1em;
+  }
+  .event .meta {
+    margin: 1em 0;
+  }
+    .event .meta dt,
+    .event .meta dd {
+      display: inline;
+    }
+    .event .meta dt {
+      -moz-border-radius: 10px 0 0 10px;
+      -webkit-border-radius: 10px 10px 0 0;
+      border-radius:  10px 10px 0 0;
+      background-color: #ccc;
+      text-shadow: 0 1px 1px #fff;
+      color: black;
+      padding: 0.4em 0.5em 0.4em 1em;
+    }
+    .event .meta dd {
+      -moz-border-radius: 0 10px 10px 0;
+      -webkit-border-radius: 10px 10px 0 0;
+      border-radius:  10px 10px 0 0;
+      background-color: #777;
+      color: white;
+      text-shadow: 0 1px 1px #000;
+      padding: 0.4em 1em 0.4em 0.5em;
+      margin-right: 0.5em;
+    }
+  .event .poster {
+    margin: 2em 0 !important;
+  }
+    .event .poster img {
+      -webkit-box-shadow: 5px 8px 8px #ccccc5;
+      -moz-box-shadow: 5px 8px 8px #ccccc5;
+    }
+    

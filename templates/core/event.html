@@ -2,90 +2,101 @@
 
 {% block content %}
     {% load markup %}
-    <div id="content">
-      <div class="container_16" itemscope itemtype="http://data-vocabulary.org/Event">
-        <p class="bread-crumb"><a href="/events">返回活动列表</a></p>
+  <div id="content">
+    <div class="container_16 event" itemscope itemtype="http://data-vocabulary.org/Event">
+      <p class="bread-crumb"><a href="/events">返回活动列表</a></p>
 
-        <h1>
-          <a itemprop="url" href="/event/{{ this_event.id }}">
-            <span itemprop="summary">{{ this_event.name }}</span>
-          </a>
-          {% if this_event.is_off %}<span>本活动已结束</span>{% endif %}
-        </h1>
+      <h1 class="event-name">
+        <a itemprop="url" href="/event/{{ this_event.id }}">
+          “<span itemprop="summary">{{ this_event.name }}</span>”
+        </a>
+        {% if this_event.is_off %}<span class="event-status">本活动已结束</span>{% endif %}
+        {% if this_event.is_upcoming %}<span class="event-status">即将开始</span>{% endif %}
+      </h1>
 
-        <dl class="flat">
-          <dt> 开始时间：</dt><dd itemprop="startDate" datetime="{{ this_event.begin_time|date:'Y-m-d\TH:i:sO' }}">{{ this_event.begin_time }}</dd>
-          <dt> 结束时间：</dt><dd itemprop="endDate" datetime="{{ this_event.end_time|date:'Y-m-d\TH:i:sO' }}" }}>{{ this_event.end_time }}</dd>
-          <dt> 已报名人数：</dt><dd><strong>{{ this_event.participants.count }}</strong></dd>
-          <dt class="invisiable">地点：</dt>
-            <dd class="invisiable" itemprop="location">{{ this_event.address }}
-              <span itemprop="geo" itemscope itemtype="http://data-vocabulary.org/​Geo">
-                <meta itemprop="latitude" content="39.944358"></meta>
-                <meta itemprop="longitude" content="116.421025"></meta>
-              </span>
-            </dd>
-          <dt class="invisiable">活动简介</dt><dd class="invisiable" temprop="description">{{ this_event.description }}</dd>
-          <dt class="invisiable">活动类型</dt><dd class="invisiable" itemprop="eventType">Unconference, conference, party</dd>
-        </dl>
+      <dl class="meta">
+        <dt> 开始时间</dt><dd itemprop="startDate" datetime="{{ this_event.begin_time|date:'Y-m-d\TH:i:sO' }}">{{ this_event.begin_time }}</dd>
+        <dt> 结束时间</dt><dd itemprop="endDate" datetime="{{ this_event.end_time|date:'Y-m-d\TH:i:sO' }}" }}>{{ this_event.end_time }}</dd>
+        <dt> 已报名人数</dt><dd><strong>{{ this_event.participants.count }}</strong></dd>
+      </dl>
+      <dl class="meta">
+        <dt class="address">地点</dt><dd itemprop="location">
+            {{ this_event.address }}
+            <span itemprop="geo" itemscope itemtype="http://data-vocabulary.org/​Geo">
+              <meta itemprop="latitude" content="39.944358"></meta>
+              <meta itemprop="longitude" content="116.421025"></meta>
+            </span>
+          </dd>
+        <dt class="invisiable">活动简介</dt><dd class="invisiable" temprop="description">{{ this_event.description }}</dd>
+        <dt class="invisiable">活动类型</dt><dd class="invisiable" itemprop="eventType">Unconference, conference, party</dd>
+      </dl>
 
-        <p><img itemprop="photo" src="{{this_event.poster}}" alt="{{ this_event.name }}活动海报" width="460" height="363" class="shadow"/></p>
+      <p class="poster"><img itemprop="photo" src="{{this_event.poster}}" alt="{{ this_event.name }}活动海报" /></p>
 
-        <div class="textile">{{ this_event.content|restructuredtext }}</div>
-
-        <div class="users">
-          <h2>报名参加这次活动的朋友</h2>
-          {% for participant in this_event.participants.all %}
-            <dl>
-              <dt><img width=48 height=48 src="{{ participant.avatar }}"></dt>
-              <dd>{{ participant.nickname}}</dd>
-            </dl>
-          {% endfor %}
-          <div class="clear"></div>
-        </div>
-
-        <h2>本次活动已经提交的话题</h2>
-        {% for event_topic in topics_shown_in %}
-            <h3><a href="/topic/{{ event_topic.id }}">{{ event_topic.name }}</a></h3>
-            <p>{{ event_topic.description|restructuredtext }}</p>
-            <p><a href="/topic/{{ event_topic.id }}">查看更多</a></p>
+      <div class="textile">{{ this_event.content|restructuredtext }}</div>
+      
+      <h2 class="component-title">本次活动已经提交的话题</h2>
+      <ul class="topics">
+        {% for topic in topics_shown_in %}
+          <li class="topic">
+            <h2 class="topic-name topic-name_{{ topic.style_seed }}">
+              <a href="/topic/{{ topic.id }}">{{ topic.name }}</a>
+              <span class="tail"></span>
+            </h2>
+            <p class="meta">
+              {% if topic.accepted %}
+                得票数：<span class="votes">{{ topic.total_votes }}</span>
+              {% endif %}
+            </p>
+            <div class="description">{{ topic.description|restructuredtext }}</div>
+          </li>
         {% endfor %}
+      </ul>
 
-
-        <h2>评论</h2>
-         {% load comments %}
-
-            {% get_comment_list for this_event as comment_list %}
-            <dl id="comments">
-              {% for comment in comment_list %}
-                <dt id="c{{ comment.id }}">
-                    {{ comment.name }} 在 {{ comment.submit_date|timesince }}之前:
-                </dt>
-                <dd>
-                    <p>{{ comment.comment }}</p>
-                </dd>
-              {% endfor %}
+      <h2 class="component-title">报名参加这次活动的朋友</h2>
+      <div class="users">
+        {% for participant in this_event.participants.all %}
+          <dl>
+            <dt><img width=48 height=48 src="{{ participant.avatar }}"></dt>
+            <dd>{{ participant.nickname}}</dd>
           </dl>
-
-        {% if user.is_authenticated %}
-           {% get_comment_form for this_event as form %}
-           <form action="{% comment_form_target %}" method="POST">
-           {% csrf_token %}
-           {{ form.comment }}
-           <div style="display:none">{{ form.honeypot }}</div>
-           {{ form.content_type }}
-           {{ form.object_pk }}
-           {{ form.timestamp }}
-           {{ form.security_hash }}
-           <input type="hidden" name="next" value="{% url event this_event.id %}" /><br />
-           <input type="submit" value="发表评论" id="id_submit" />
-           </form>
-       {% else %}
-           <p>如要发表评论，请先 <a href="{% url login %}">登录</a></p>
-       {% endif %}
-
-        <br />
-
-
+        {% endfor %}
+        <div class="clear"></div>
       </div>
+
+      <h2 class="component-title">评论</h2>
+      {% load comments %}
+      {% get_comment_list for this_event as comment_list %}
+      <dl id="comments">
+        {% for comment in comment_list %}
+          <dt id="c{{ comment.id }}">
+            {{ comment.name }} 在 {{ comment.submit_date|timesince }}之前:
+          </dt>
+          <dd>
+            <p>{{ comment.comment }}</p>
+          </dd>
+        {% endfor %}
+      </dl>
+
+      {% if user.is_authenticated %}
+        {% get_comment_form for this_event as form %}
+        <form action="{% comment_form_target %}" method="POST">
+          {% csrf_token %}
+          {{ form.comment }}
+          <div class="invisiable">
+            {{ form.honeypot }}
+          </div>
+          {{ form.content_type }}
+          {{ form.object_pk }}
+          {{ form.timestamp }}
+          {{ form.security_hash }}
+          <input type="hidden" name="next" value="{% url event this_event.id %}" /><br />
+          <input type="submit" value="发表评论" id="id_submit" />
+        </form>
+     {% else %}
+      <p>如要发表评论，请先 <a href="{% url login %}">登录</a></p>
+     {% endif %}
+
     </div>
+  </div>
 {% endblock %}
