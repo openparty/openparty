@@ -1,0 +1,20 @@
+{% extends "core/base_core.html" %}
+
+{% block content %}
+    {% load markup %}
+    <div id="content" class="topic">
+      <div class="container_16">
+        <p class="bread-crumb"><a href="/topic/{{this_topic.id}}">返回话题：{{ this_topic.name }}</a></p>
+        <div class="users">
+            <h2>为话题"{{ this_topic.name }}"投票的朋友</h2>
+            {% for vote in votes_list %}
+            <dl>
+                <dt><img width=48 height=48 src="{{vote.user.avatar }}"></dt>
+                <dd>{{ vote.user.display_name}}</dd>
+            </dl>
+            {% endfor %}
+            <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

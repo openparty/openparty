@@ -101,6 +101,12 @@ def topic(request, id):
     tab = 'topic'
     return render_to_response('core/topic.html', locals(), context_instance=RequestContext(request))
 
+def votes_for_topic(request, id):
+    this_topic = get_object_or_404(Topic, pk = id)
+    votes_list = this_topic.votes.all().order_by('-id')
+    tab = 'topic'
+    return render_to_response('core/votes_for_topic.html', locals(), context_instance=RequestContext(request))
+
 @login_required
 def vote(request, id):
 

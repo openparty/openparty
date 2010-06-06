@@ -562,6 +562,11 @@ dl.pair {
     background: url(../images/medal_bronze_3.png) left center no-repeat;
     padding-left: 20px;
   }
+  .topic .poll .gary_link {
+    position:absolute;
+    margin-top:20px;
+    color:#999;
+  }
   .topic .description {
     padding-left: 1em;
     border-left: 5px solid #eee;
