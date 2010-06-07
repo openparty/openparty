@@ -440,6 +440,9 @@ dl.pair {
     display: inline-block;
     position: relative;
   }
+    .topics .topic .topic-name {
+      font-size: 15px !important;
+    }
       .topics .topic .topic-name a {
         background-image: url(../images/bullet_go.png);
         background-position: right center;
@@ -672,7 +675,7 @@ dl.pair {
       display: inline;
     }
     .event .event-topics .topic-name {
-      font-size: 15px;
+      font-size: 13px !important;
       font-weight: normal;
       padding: 0.25em 1em;
     }
