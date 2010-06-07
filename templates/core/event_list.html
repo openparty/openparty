@@ -1,44 +1,27 @@
 {% extends "core/base_core.html" %}
 {% block content %}
-    {% load markup %}
-    <div id="content">
-      <div class="container_16">
-        <div class="left">
-        <h1>活动列表：</h1>
-        {% for event in event_list %}
-        {% ifequal event.is_upcoming 1%}
-            <div class="lt"></div>
-            <div class="lbox">
-                <h2>即将开始：<span class="yellow"><a href="/event/{{ event.id }}">{{ event.name }}</a></span></h2>
-                <p> {{ event.description|restructuredtext }}</p>
-                <p>
-                <ul>
-                    {% for event_topic in event.topic_shown_in.all %}
-                    <li>{{ event_topic.name }}</li>
-                    {% endfor %}
-                </ul>
-                </p>
-                <p> <a href="/event/{{ event.id }}">查看更多</a></p>
-            </div>
-        {% else %}
-            <div class="left_articles">
-                <h2><a href="/event/{{ event.id }}">{{ event.name }}</a></h2>
-                <p>{{ event.description|restructuredtext }}</p>
-                <p>
-                <ul>
-                    {% for event_topic in event.topic_shown_in.all %}
-                    <li>{{ event_topic.name }}</li>
-                    {% endfor %}
-                </ul>
-                </p>
-            <p> <a href="/event/{{ event.id }}">查看更多</a></p>
-
-            </div>
-        {% endifequal %}
-
-        {% endfor %}
-
-		</div>
-      </div>
-    </div>
+  {% load markup %}
+  <div class="container_16">
+    <h1>OpenParty活动</h1>
+    <ul class="events">
+      {% for event in event_list %}
+        <li class="event">
+          <h2 class="event-name">
+            <a href="/event/{{ event.id }}">{{ event.name }}</a>
+            {% if event.is_off %}<span class="event-status">本活动已结束</span>{% endif %}
+            {% if event.is_upcoming %}<span class="event-status">即将开始</span>{% endif %}
+          </h2>
+          <div class="textile">{{ event.description|restructuredtext }}</div>
+          <div class="event-topics">
+            <h3>{{ event.name }}的话题</h3>
+            <ul class="topics">
+              {% for event_topic in event.topic_shown_in.all %}
+                <li class="topic"><a class="topic-name topic-name_{{ event_topic.style_seed }}" href="/event/{{ event.id }}">{{ event_topic.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}
