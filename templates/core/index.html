@@ -7,13 +7,14 @@
   </div>
 </div>
 
-<div id="content">
+<div id="content" class="content">
   <div class="container_16">
-    <div class="next-event grid_8">
-      <h2>下次活动 / Next event</h2>
-      <dl class="flat">
-          <dt></dt><dd><a href="/event/{{next_event.id}}">{{next_event.name}}</a></dd>
+    <div class="next-event event grid_8" itemscope itemtype="http://data-vocabulary.org/Event">
+      <h2>本月活动 <span class="event-name"><a href="/event/{{next_event.id}}">{{next_event.name}}</a></span></h2>
+      <dl class="meta">
         <dt>时间：</dt><dd>{{next_event.begin_time}}</dd>
+      </dl>
+      <dl class="meta">
         <dt>地点：</dt><dd>{{next_event.address}}</dd>
       </dl>
       <div class="event-poster" style="background-image: url({{next_event.poster}})">

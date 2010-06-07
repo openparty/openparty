@@ -207,18 +207,18 @@ form .hint {
   font-weight: normal;
   color: black;
 }
-#content h2 {
+.content h2 {
   margin: 12px 0 0 0 ;
   font-size: 14px;
   font-weight: bold;
   color: #15355F;
   border-bottom: 2px solid #f5f5f5;
 }
-#content p {
+.content p {
   margin: 1em 0;
 }
 .event-poster {
-  margin: 6px 0;
+  margin: 10px 0;
   width: 460px;
   height: 320px;
   -webkit-box-shadow: 6px 6px 6px #ccccc5;
@@ -269,19 +269,24 @@ dl.pair {
 }
 .join-us .hot a:link,
 .join-us .hot a:visited {
-  background-color: #EFEFEF;
+  background-color: #777;
+  color: white;
   padding: 0.25em 0.75em;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
-  -webkit-box-shadow: 6px 6px 4px #ccccc5;
-  -moz-box-shadow: 6px 6px 4px #ccccc5;
+  text-shadow: 1px 1px #333;
+  text-decoration: none;
+  -webkit-box-shadow: 4px 4px 6px #ccccc5;
+  -moz-box-shadow: 4px 4px 6px #ccccc5;
+  box-shadow: 4px 4px 6px #ccccc5;
 }
 .join-us .hot a:hover,
 .join-us .hot a:active {
-  background-color: #fffca6;
-  -webkit-box-shadow: 2px 2px 4px #ccccc5;
-  -moz-box-shadow: 2px 2px 4px #ccccc5;
+  background-color: #666;
+  -webkit-box-shadow: 6px 6px 6px #ccccc5;
+  -moz-box-shadow: 6px 6px 6px #ccccc5;
+  box-shadow: 6px 6px 6px #ccccc5;
 }
 .join-us .inactive a:link,
 .join-us .inactive a:visited {
@@ -602,7 +607,7 @@ dl.pair {
 .event {
   margin-bottom: 2em;
 }
-    #content .event .component-title {
+    .event .component-title {
       font-size: 20px;
       color: #15355F;
       margin: 10px 0 15px 0;
@@ -619,6 +624,9 @@ dl.pair {
       font-weight: bold;
       padding-bottom: 5px;
     }
+  .next-event h2 {/* for index page */
+    border-bottom: none;
+  }
   .event .event-status {
     color: #999;
     font-size: 13px;
@@ -653,6 +661,20 @@ dl.pair {
       padding: 0.4em 1em 0.4em 0.5em;
       margin-right: 0.5em;
     }
+    .next-event .meta {
+      margin: 0.5em 0;
+    }
+      .next-event .meta dt,
+      .next-event .meta dd {
+        background-color: transparent;
+        color: black;
+        text-shadow: none;
+        padding: 0;
+        display: inline;
+      }
+      .next-event .meta dt {
+        color: #666;
+      }
   .event .poster {
     margin: 2em 0 !important;
   }
