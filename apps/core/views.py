@@ -37,14 +37,23 @@ def index(request):
 def event_list(request):
     event_list = Event.objects.all().order_by('-begin_time')
     topic_list = Topic.objects.all().order_by('-total_votes')
-    tab = 'event'
-    return render_to_response('core/event_list.html', locals(), context_instance=RequestContext(request))
+    
+    ctx = {
+        'event_list': event_list,
+        'topic_list': topic_list,
+        'tab': 'event',
+    }
+    return render_to_response('core/event_list.html', ctx, context_instance=RequestContext(request))
 
 def topic_list(request):
     topic_list = Topic.objects.all().order_by('-in_event__begin_time','-accepted', '-total_votes')
     #需注意排序顺序
-    tab = 'topic'
-    return render_to_response('core/topic_list.html', locals(), context_instance=RequestContext(request))
+    
+    ctx = {
+        'topic_list': topic_list,
+        'tab': 'topic',
+    }
+    return render_to_response('core/topic_list.html', ctx, context_instance=RequestContext(request))
 
 def join_event(request):
     if not request.user.is_authenticated():
@@ -81,8 +90,13 @@ def join_event(request):
 def event(request, id):
     this_event = get_object_or_404(Event, pk = id)
     topics_shown_in = this_event.topic_shown_in.filter(accepted=True)
-    tab = 'event'
-    return render_to_response('core/event.html', locals(), context_instance=RequestContext(request))
+    
+    ctx = {
+        'this_event': this_event,
+        'topics_shown_in': topics_shown_in,
+        'tab': 'event',
+    }
+    return render_to_response('core/event.html', ctx, context_instance=RequestContext(request))
 
 def topic(request, id):
     this_topic = get_object_or_404(Topic, pk = id)
@@ -98,14 +112,21 @@ def topic(request, id):
     if this_topic.created != this_topic.last_modified:
         modified = True
 
-    tab = 'topic'
-    return render_to_response('core/topic.html', locals(), context_instance=RequestContext(request))
+    ctx = {
+        'this_topic': this_topic,
+        'is_voted': is_voted,
+        'modified': modified,
+        'tab': 'topic',
+    }
+    return render_to_response('core/topic.html', ctx, context_instance=RequestContext(request))
 
 def votes_for_topic(request, id):
     this_topic = get_object_or_404(Topic, pk = id)
     votes_list = this_topic.votes.all().order_by('-id')
     tab = 'topic'
-    return render_to_response('core/votes_for_topic.html', locals(), context_instance=RequestContext(request))
+    
+    
+    return render_to_response('core/votes_for_topic.html', ctx, context_instance=RequestContext(request))
 
 @login_required
 def vote(request, id):
