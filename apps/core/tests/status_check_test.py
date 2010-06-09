@@ -53,3 +53,10 @@ class StatusCheckTest(TestCase):
         response = self.client.get('/event/join')
         self.failUnlessEqual(response.status_code, 200)
 
+    def test_statuscheck_topicvotedetail_page(self):
+        response = self.client.get("/topic/1/votes")
+        self.failUnlessEqual(response.status_code, 200)
+        response = self.client.get("/topic/19999/votes")
+        self.failUnlessEqual(response.status_code, 404)
+
+
