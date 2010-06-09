@@ -26,7 +26,6 @@ def index(request):
     next_event = Event.objects.next_event()
 
     ctx = {
-        'request': request,
         'event_list': event_list,
         'topic_list': topic_list,
         'next_event': next_event, 
@@ -82,7 +81,8 @@ def join_event(request):
             form = ProfileForm(request.user)
             next_event = Event.objects.next_event()
 
-    ctx = { 'form': form, 'next_event': next_event, 'request': request,
+    ctx = { 'form': form,
+            'next_event': next_event,
             'tab': 'event',
           }
     return render_to_response('core/join_evnet.html', ctx, context_instance=RequestContext(request))
@@ -164,8 +164,7 @@ def submit_topic(request):
         form.fields['in_event'].queryset = Event.upcoming.all()
 
         context = {'form': form,
-                'request': request,
-                'tab': 'topic',
+                   'tab': 'topic',
                 }
         return render_to_response('core/submit_topic.html',
                                     context,
@@ -178,7 +177,6 @@ def submit_topic(request):
         topic.save()
         
         context = {
-            'request': request,
             'form': form,
             'topic': topic,
             'save_success': True
@@ -198,7 +196,6 @@ def edit_topic(request, id):
     if request.method == 'GET':
         context = {
                     'form': ArticleForm(instance = this_topic),
-                    'request': request,
                     'topic': this_topic,
                     'tab': 'topic',
                   }
@@ -213,7 +210,6 @@ def edit_topic(request, id):
         topic.save()
 
         context = {
-            'request': request,
             'form': form,
             'topic': topic,
             'edit_success': True,

@@ -21,7 +21,7 @@ def login(request):
     else:
         form = LoginForm()
 
-    ctx = { 'form': form, 'request':request }
+    ctx = { 'form': form,  }
     return render_to_response('member/login.html', ctx, context_instance=RequestContext(request))
 
 def logout(request):
@@ -38,7 +38,7 @@ def signup(request):
     else:
         form = SignupForm()
 
-    ctx = { 'form': form, 'request':request }
+    ctx = { 'form': form,  }
     return render_to_response('member/signup.html', ctx, context_instance=RequestContext(request))
 
 def activate(request, activation_key):
@@ -58,7 +58,7 @@ def change_password(request):
             return redirect('/')
     else:
         form = ChangePasswordForm(request)
-    ctx = { 'form': form, 'request':request }
+    ctx = { 'form': form,  }
     return render_to_response('member/change_password.html', ctx,
         context_instance=RequestContext(request))
 
@@ -71,6 +71,6 @@ def update_profile(request):
             return redirect('/')
     else:
         form = ProfileForm(request.user)
-    ctx = { 'form': form, 'request':request }
+    ctx = { 'form': form,  }
     return render_to_response('member/update_profile.html', ctx,
         context_instance=RequestContext(request))

@@ -8,6 +8,5 @@ def index(request):
     tweets = Tweet.objects.order_by('-tweet_id')[:100]
     ctx = {'tweets': tweets,
            'tab': 'tweet',
-           'request': request,
           }
     return render_to_response('twitter/index.html', ctx, context_instance=RequestContext(request))

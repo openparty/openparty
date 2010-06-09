@@ -24,9 +24,9 @@
             <div class="container_16">
                 <h1 id="logo" class="grid_7"><a href="/"><img width="300" height="62" src="{{ MEDIA_URL }}images/logo_300.png" alt="Open Party" title="Open Party - IT community unconference" /></a></h1>
                 <ul id="toolbar" class="grid_9">
-                    {% if request.user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <li>
-                        欢迎 <em>{{request.user.username}}</em>
+                        欢迎 <em>{{user.username}}</em>
                     </li>
                     <li>
                         <a title="修改密码" href="{% url change_password %}">[改密码]</a>

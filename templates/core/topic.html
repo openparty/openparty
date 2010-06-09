@@ -30,7 +30,7 @@
 
         <h1 class="topic-name topic-name_{{this_topic.style_seed}}">{{ this_topic.name }}<span class="tail"></span></h1>
         
-        {% if request.user == this_topic.author.user %}
+        {% if user == this_topic.author.user %}
             <p><a href="/topic/edit/{{ this_topic.id }}">编辑此话题</a></p>
         {% endif %}
         
