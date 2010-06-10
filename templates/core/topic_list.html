@@ -19,7 +19,10 @@
               {% else %}
                 等待管理员审核中，审核完毕后即可开始投票
               {% endif %}
+
+              {% if topic.accepted %}
                所属活动：<a href="/event/{{topic.in_event.id}}">{{topic.in_event.name}}</a> 日期：{{topic.in_event.begin_time|date}}
+              {% endif %}
             </p>
             
             <div class="description">{{ topic.description|restructuredtext }}</div>
