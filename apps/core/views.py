@@ -187,11 +187,10 @@ def submit_topic(request):
                                     context_instance=RequestContext(request))
 @login_required
 def edit_topic(request, id):
-    try:
-        this_topic = Topic.objects.get(pk = id)
-    except:
-        #TODO redirect to an error page
-        return HttpResponseRedirect("/")
+
+    this_topic = get_object_or_404(Topic, pk = id)
+    if this_topic.author.user != request.user:
+        return HttpResponseRedirect(reverse('topic', args=[this_topic.id]))
 
     if request.method == 'GET':
         context = {
