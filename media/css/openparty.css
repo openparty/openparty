@@ -575,9 +575,15 @@ dl.pair {
       background: #777 url(../images/thumb_up.png) 1.5em center no-repeat;
       padding: 0.5em 1em 0.5em 3em;
       font-weight: bold;
-      -webkit-border-radius: 0 0 15px 15px;
-      -moz-border-radius:  0 0 15px 15px;
-      border-radius: 15px;
+      -moz-border-radius-topleft: 0;
+      -webkit-border-top-left-radius: 0;
+      -moz-border-radius-topright: 0;
+      -webkit-border-top-right-radius: 0;
+      -moz-border-radius-bottomleft: 15px;
+      -webkit-border-bottom-left-radius: 15px;
+      -moz-border-radius-bottomright: 15px;
+      -webkit-border-bottom-right-radius: 15px;
+      border-radius: 0 0 15px 15px;
     }
     .topic .poll a.vote:hover,
     .topic .poll a.vote:active {
