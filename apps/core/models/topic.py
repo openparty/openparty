@@ -2,8 +2,13 @@
 from datetime import datetime
 
 from django.db import models
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
+from django.template.loader import render_to_string
 from django.contrib.markup.templatetags.markup import restructuredtext
+from django.core.urlresolvers import reverse
+
 
 from apps.member.models import Member
 from apps.core.models import Base, Event
@@ -74,6 +79,31 @@ class Topic(Base):
         '''用来显示一些随机的样式'''
         return self.id % range
 
+    def get_absolute_url(self):
+        return reverse('topic', args = [self.id])
+
+    def send_notification_mail(self, type):
+        '''在话题提交及更新时发送提醒邮件'''
+       
+        type_dict = {'created':u'建立',
+                     'updated':u'更新',
+                    }
+        subject = u"[Open Party] 话题%(type)s：%(name)s" % {'type':type_dict[type.lower()], 'name':self.name}
+
+        ctx = { 'topic': self,
+                'action': type_dict[type.lower()],
+                'modification_date': str(datetime.now()),
+                'site': settings.SITE_URL }
+
+        message = render_to_string('core/topic_notification_email.txt', ctx)
+
+        admin_user_set = User.objects.filter(is_staff = True) #给具有管理权限的用户发信
+        #没有用mail_admins(),更灵活一些
+        for each_admin in admin_user_set:
+            each_admin.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
+
+        return True
+
     def __unicode__(self):
             return self.name
 
@@ -84,3 +114,8 @@ class Topic(Base):
     def save(self, *args, **kwargs):
         self.total_votes = self.votes.count()
         super(Topic, self).save(*args, **kwargs)
+        
+        if not self.id:
+            self.send_notification_mail('created')
+        else:
+            self.send_notification_mail('updated')

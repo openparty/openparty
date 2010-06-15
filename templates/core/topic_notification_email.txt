@@ -1,0 +1,18 @@
+The following topic has been {{ action }} by {{ topic.last_modified_by }} on {{ modification_date }} 
+
+You now need to confirm that you are the person who signed up for an account on the Open Party website.
+
+Topic : {{ topic.name }}
+
+Description : {{ topic.description }}
+
+Content : {{ topic.summary }}
+
+In Event : {{ topic.in_event }}
+
+Last Modified by : {{ topic.last_modified_by }}
+
+Please click here to check this topic: {{ site }}{{ topic.get_absolute_url }} 
+
+Thanks in advance,
+Open Party App
