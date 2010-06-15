@@ -3,6 +3,8 @@ from datetime import datetime
 
 from django.db import models
 from django.conf import settings
+from django.core import mail
+from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.template.loader import render_to_string
@@ -99,8 +101,18 @@ class Topic(Base):
 
         admin_user_set = User.objects.filter(is_staff = True) #给具有管理权限的用户发信
         #没有用mail_admins(),更灵活一些
+        mail_queue = []
         for each_admin in admin_user_set:
-            each_admin.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
+            email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, 
+            [each_admin.email], '',
+            headers = {'Reply-To': each_admin.email})
+            email.content_subtype = "html"
+            mail_queue.append(email)
+
+        #使用单次SMTP连接批量发送邮件
+        connection = mail.get_connection()   # Use default e-mail connection
+        connection.send_messages(mail_queue)
+        connection.close()
 
         return True
 

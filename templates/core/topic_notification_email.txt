@@ -1,7 +1,5 @@
 The following topic has been {{ action }} by {{ topic.last_modified_by }} on {{ modification_date }} 
 
-You now need to confirm that you are the person who signed up for an account on the Open Party website.
-
 Topic : {{ topic.name }}
 
 Description : {{ topic.description }}
