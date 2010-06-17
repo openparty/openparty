@@ -54,7 +54,8 @@ class Event(Base):
     content     = models.TextField(u"介绍", blank=False)
     address     = models.TextField(u"活动地点", blank=False)
     poster      = models.CharField(u"招贴画", default='/media/upload/null-event-1.jpg', blank=True, max_length=255)
-    participants = models.ManyToManyField(Member)
+    participants = models.ManyToManyField(Member, related_name='joined_%(class)s')
+    appearances = models.ManyToManyField(Member, related_name='arrived_%(class)s')
     
     css_class   = ''
 
