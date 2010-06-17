@@ -47,6 +47,17 @@ class MemberManager(models.Manager):
                 member.save()
                 return member
         return False
+    
+    def find_by_email(self, email):
+        try:
+            user = User.objects.get(username=email)
+            if user:
+                return self.get(user=user)
+        except User.DoesNotExist:
+            pass
+        except self.DoesNotExist:
+            pass
+        return None
 
 
 class Member(models.Model):

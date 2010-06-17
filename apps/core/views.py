@@ -8,11 +8,12 @@ from django.contrib import messages
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
+from django import forms
 
 from apps.member.models import Member
 from apps.member.forms import ProfileForm
 
-from forms import ArticleForm
+from forms import ArticleForm, EventCheckinForm
 from models import Event, Topic
 from models import Vote
 from django.core.urlresolvers import reverse
@@ -86,6 +87,26 @@ def join_event(request):
             'tab': 'event',
           }
     return render_to_response('core/join_evnet.html', ctx, context_instance=RequestContext(request))
+
+def checkin(request):
+    ctx = {'tab': 'event'}
+    if request.user.is_staff:
+        event = Event.objects.next_event()
+        if request.method == 'GET':
+            form = EventCheckinForm()
+        else:
+            form = EventCheckinForm(request.POST)
+            try:
+                form.checkin(event)
+                messages.success(request, u'您已经成功在现场签到了！')
+            except forms.ValidationError, e:
+                for error_message in e.messages:
+                    messages.error(request, error_message)
+        ctx['form'] = form
+        ctx['event'] = event
+    else:
+        messages.error(request, u'您需要以管理员身份登录访问现场登录页面')
+    return render_to_response('core/checkin.html', ctx, context_instance=RequestContext(request))
 
 def event(request, id):
     this_event = get_object_or_404(Event, pk = id)

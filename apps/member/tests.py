@@ -53,4 +53,15 @@ class MemberTest(TestCase):
     def test_avatar_of_member(self):
         member = helper.create_user()
         user = member.user
-        self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fuserserve-ak.last.fm%2Fserve%2F64s%2F9907065.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', user.member.avatar)
+        self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fapp.beijing-open-party.org%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', user.member.avatar)
+
+    def test_find_member_by_email(self):
+        member = helper.create_user()
+        user = member.user
+        found = Member.objects.find_by_email(user.email)
+        self.assertEquals(member, found)
+
+    def test_find_member_by_none_existing_email(self):
+        not_found = Member.objects.find_by_email('iamnotexisting@gmail.com')
+        self.assertFalse(not_found)
+

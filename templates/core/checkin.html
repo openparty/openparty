@@ -1,0 +1,27 @@
+{% extends "core/base_core.html" %}
+
+{% block content %}
+<div id="content" class="content">
+  <div class="container_16">
+    {% if event %}
+    <div class="grid_6">
+      <h2><a href="/event/{{event.id}}">{{event.name}}</a></h2>
+      <dl class="pair">
+        <dt>时间：</dt><dd>{{event.begin_time|date:'Y年m月d日'}}</dd>
+        <div class="clear"></div>
+      </dl>
+      <img src="{{event.poster}}" alt="下次活动海报" width="300" height="236.7" class="shadow"/>
+    </div>
+    <div id="join-event" class="grid_10">
+      <form action="/event/checkin" method="post" class="wide">
+        {% csrf_token %}
+        <h2>现场签到</h2>
+        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        <input type="submit" value="签到" tabindex="5"/>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
