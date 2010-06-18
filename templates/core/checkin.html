@@ -39,6 +39,10 @@
 <script type="text/javascript">
   $(function(){
     $('#id_email').focus().val('');
+    $('#id_email').click(function(){
+      email = $(this);
+      email.select();
+    });
   });
 </script>
 {% endblock %}
