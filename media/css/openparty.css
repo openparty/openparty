@@ -707,3 +707,25 @@ dl.pair {
       font-weight: normal;
       padding: 0.25em 1em;
     }
+#event-checkin {
+  color: #666;
+}
+  #event-checkin h2 {
+    font-size: 35px;
+    color: #666;
+    border: none;
+  }
+  #event-checkin p {
+    margin-left: 15px;
+  }
+  #event-checkin label {
+    font-size: 20px;
+    display: block;
+    width: auto;
+  }
+  #event-checkin input {
+    font-family: Baskerville, Garamond, Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", serif;
+    font-weight: bold;
+    color: black;
+    font-size: 45px;
+  }

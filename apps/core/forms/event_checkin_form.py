@@ -5,7 +5,7 @@ from apps.member.models import Member
 
 
 class EventCheckinForm(forms.Form):
-    email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput(attrs={'tabindex': '1'}))
+    email = forms.EmailField(label=u'请填写您注册使用的Email', required=True, widget=forms.TextInput(attrs={'tabindex': '1'}))
     member = None
     
     def clean_email(self):
@@ -31,3 +31,6 @@ class EventCheckinForm(forms.Form):
                 print self.member
                 print self.member.id
                 event.appearances.add(self.member)
+            return True
+        else:
+            return False

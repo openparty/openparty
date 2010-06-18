@@ -97,8 +97,8 @@ def checkin(request):
         else:
             form = EventCheckinForm(request.POST)
             try:
-                form.checkin(event)
-                messages.success(request, u'您已经成功在现场签到了！')
+                if form.checkin(event):
+                    messages.success(request, u'您已经成功在现场签到了！')
             except forms.ValidationError, e:
                 for error_message in e.messages:
                     messages.error(request, error_message)
