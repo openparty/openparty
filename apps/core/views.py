@@ -196,6 +196,7 @@ def submit_topic(request):
         topic = form.save(commit=False)
         topic.set_author(request.user)
         topic.save()
+        topic.send_notification_mail('created')
         
         context = {
             'form': form,
@@ -228,6 +229,7 @@ def edit_topic(request, id):
         topic = form.save(commit=False)
         topic.set_author(request.user)
         topic.save()
+        topic.send_notification_mail('updated')
 
         context = {
             'form': form,

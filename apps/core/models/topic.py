@@ -106,13 +106,12 @@ class Topic(Base):
             email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, 
             [each_admin.email], '',
             headers = {'Reply-To': each_admin.email})
-            email.content_subtype = "html"
+            email.content_subtype = "plain"
             mail_queue.append(email)
 
         #使用单次SMTP连接批量发送邮件
         connection = mail.get_connection()   # Use default e-mail connection
         connection.send_messages(mail_queue)
-        connection.close()
 
         return True
 
@@ -126,8 +125,3 @@ class Topic(Base):
     def save(self, *args, **kwargs):
         self.total_votes = self.votes.count()
         super(Topic, self).save(*args, **kwargs)
-        
-        if not self.id:
-            self.send_notification_mail('created')
-        else:
-            self.send_notification_mail('updated')
