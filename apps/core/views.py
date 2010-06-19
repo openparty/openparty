@@ -19,7 +19,7 @@ from models import Vote
 from django.core.urlresolvers import reverse
 
 def index(request):
-    event_list = Event.objects.all().order_by('-begin_time')[:5]
+    event_list = Event.objects.all().order_by('begin_time')[:5]
     topic_list = Topic.objects.all().order_by('-total_votes')[:5]
 
     event_list = Event.past.all()
