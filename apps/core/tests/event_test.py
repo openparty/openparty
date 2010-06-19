@@ -45,10 +45,12 @@ class EventTests(TestCase):
         
         event.begin_time=self.yesterday
         event.end_time=self.yesterday
+        event.save()
         self.assertFalse(event.is_running)
         
         event.begin_time=self.yesterday
         event.end_time= self.tomorrow
+        event.save()
         self.assertTrue(event.is_running)
 
     def test_event_get_latest_nonclosed_event(self):
