@@ -16,6 +16,13 @@ class EventManager(models.Manager):
         else:
             return NullEvent()
 
+    def latest_nonclosed_event(self):
+        latest_nonclosed_events = super(EventManager, self).get_query_set().filter(end_time__gte=datetime.now()).order_by("begin_time")
+        if latest_nonclosed_events.count() >= 1:
+            return latest_nonclosed_events[0]
+        else:
+            return NullEvent()
+
 class UpcomingManager(models.Manager):
     def get_query_set(self):
         return super(UpcomingManager, self).get_query_set().filter(begin_time__gte=datetime.now())

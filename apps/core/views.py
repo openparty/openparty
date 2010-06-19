@@ -91,7 +91,7 @@ def join_event(request):
 def checkin(request):
     ctx = {'tab': 'event'}
     if request.user.is_staff:
-        event = Event.objects.next_event()
+        event = Event.objects.latest_nonclosed_event()
         if request.method == 'GET':
             form = EventCheckinForm()
         else:

@@ -50,3 +50,15 @@ class EventTests(TestCase):
         event.begin_time=self.yesterday
         event.end_time= self.tomorrow
         self.assertTrue(event.is_running)
+
+    def test_event_get_latest_nonclosed_event(self):
+        '''获取最近一个尚未关闭的活动,用于活动现场签到'''
+        event = Event(begin_time=self.the_day_before_yesterday, end_time=self.tomorrow, name='test', content='test')
+        event.last_modified_by = self.member
+        event.save()
+        self.failUnlessEqual(Event.objects.latest_nonclosed_event(), event)
+
+        event.end_time=self.yesterday
+        event.save()
+        #NullEvent的id为0
+        self.assertEquals(Event.objects.latest_nonclosed_event().id, 0)
