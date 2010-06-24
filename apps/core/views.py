@@ -22,7 +22,7 @@ def index(request):
     event_list = Event.objects.all().order_by('begin_time')[:5]
     topic_list = Topic.objects.all().order_by('-total_votes')[:5]
 
-    event_list = Event.past.all()
+    event_list = Event.objects.past_events()
 
     next_event = Event.objects.next_event()
 
@@ -182,7 +182,7 @@ def vote(request, id):
 def submit_topic(request):
     if request.method == 'GET':
         form = ArticleForm()
-        form.fields['in_event'].queryset = Event.upcoming.all()
+        form.fields['in_event'].queryset = Event.objects.upcoming_events()
 
         context = {'form': form,
                    'tab': 'topic',

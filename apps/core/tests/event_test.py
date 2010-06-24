@@ -64,3 +64,16 @@ class EventTests(TestCase):
         event.save()
         #NullEvent的id为0
         self.assertEquals(Event.objects.latest_nonclosed_event().id, 0)
+
+    def test_event_manager_upcoming_past_events(self):
+        '''测试Manager里面的upcoming_events'''
+        event = Event(begin_time=self.tomorrow, end_time=self.tomorrow, name='upcoming event', content='test')
+        event.last_modified_by = self.member
+        event.save()
+        event_past = Event(begin_time=self.the_day_before_yesterday, end_time=self.yesterday, name='past event', content='test')
+        event_past.last_modified_by = self.member
+        event_past.save()
+
+        self.failUnlessEqual(Event.objects.upcoming_events()[0], event)
+        self.failUnlessEqual(Event.objects.past_events()[0], event_past)
+

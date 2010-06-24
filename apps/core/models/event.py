@@ -23,13 +23,11 @@ class EventManager(models.Manager):
         else:
             return NullEvent()
 
-class UpcomingManager(models.Manager):
-    def get_query_set(self):
-        return super(UpcomingManager, self).get_query_set().filter(begin_time__gte=datetime.now())
+    def upcoming_events(self):
+        return super(EventManager, self).get_query_set().filter(begin_time__gte=datetime.now())
 
-class PastManager(models.Manager):
-    def get_query_set(self):
-        return super(PastManager, self).get_query_set().filter(end_time__lte=datetime.now())
+    def past_events(self):
+        return super(EventManager, self).get_query_set().filter(end_time__lte=datetime.now())
 
 class NullEventException(Exception):
     pass
@@ -86,5 +84,3 @@ class Event(Base):
         return u'%s (%s)' % (self.name, self.begin_time)
     
     objects = EventManager()
-    upcoming = UpcomingManager()
-    past = PastManager()

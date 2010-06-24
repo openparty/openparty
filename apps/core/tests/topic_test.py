@@ -51,3 +51,4 @@ class TopicTest(TestCase):
         topic.save()
         self.assertEquals(u'本话题所属活动已经结束', topic.poll_status)
 
+    #TODO 需要给submit_topic添加一个测试
