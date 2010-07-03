@@ -53,17 +53,23 @@ class EventTests(TestCase):
         event.save()
         self.assertTrue(event.is_running)
 
-    def test_event_get_latest_nonclosed_event(self):
-        '''获取最近一个尚未关闭的活动,用于活动现场签到'''
+    def test_event_get_next_event(self):
+        '''next_event获取最近一个尚未关闭的活动,用于报名及活动现场签到'''
         event = Event(begin_time=self.the_day_before_yesterday, end_time=self.tomorrow, name='test', content='test')
         event.last_modified_by = self.member
         event.save()
-        self.failUnlessEqual(Event.objects.latest_nonclosed_event(), event)
+        self.failUnlessEqual(Event.objects.next_event(), event)
 
-        event.end_time=self.yesterday
+        event.end_time=self.yesterday #关闭该event
         event.save()
         #NullEvent的id为0
-        self.assertEquals(Event.objects.latest_nonclosed_event().id, 0)
+        self.assertEquals(Event.objects.next_event().id, 0)
+
+        #上一个event关闭后，那么就该获取其后的event
+        event_coming_willbe_next_event = Event(begin_time=self.tomorrow, end_time=self.tomorrow, name='test2', content='test2')
+        event_coming_willbe_next_event.last_modified_by = self.member
+        event_coming_willbe_next_event.save()
+        self.assertEquals(Event.objects.next_event(), event_coming_willbe_next_event)
 
     def test_event_manager_upcoming_past_events(self):
         '''测试Manager里面的upcoming_events'''

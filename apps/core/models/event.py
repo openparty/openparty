@@ -8,18 +8,12 @@ from apps.core.models import Base
 
 class EventManager(models.Manager):
     def next_event(self):
-        upcoming_events = super(EventManager, self).get_query_set().filter(begin_time__gte=datetime.now())
-        if upcoming_events.count() >= 1:
-            next_event = upcoming_events.order_by("-begin_time")[0]
-            next_event.css_class = 'hot'
-            return next_event
-        else:
-            return NullEvent()
-
-    def latest_nonclosed_event(self):
+        '''定义next_event为获取当前未结束的活动或下次活动，减少逻辑复杂度'''
         latest_nonclosed_events = super(EventManager, self).get_query_set().filter(end_time__gte=datetime.now()).order_by("begin_time")
         if latest_nonclosed_events.count() >= 1:
-            return latest_nonclosed_events[0]
+            next_event = latest_nonclosed_events[0]
+            next_event.css_class = 'hot'
+            return next_event 
         else:
             return NullEvent()
 
