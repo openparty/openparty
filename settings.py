@@ -69,7 +69,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     # "django.core.context_processors.i18n",
     "django.core.context_processors.media",
-    "django.contrib.messages.context_processors.messages"
+    "django.contrib.messages.context_processors.messages",
+    "apps.core.context_processors.analytics_id",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -115,6 +116,8 @@ SITE_URL = 'http://app.beijing-open-party.org'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')
+
+ANALYTICS_ID = 'UA-329713-8'
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
