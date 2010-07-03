@@ -45,6 +45,42 @@
         {% if modified %}
           <p> 最近修改者：{{ this_topic.last_modified_by.nickname }} 于：{{ this_topic.last_modified|timesince }} 前</p>
         {% endif %}
+
+
+          <h2 class="component-title">评论</h2>
+          {% load comments %}
+          {% get_comment_list for this_topic as comment_list %}
+          <dl id="comments">
+            {% for comment in comment_list %}
+              <dt id="c{{ comment.id }}">
+                {{ comment.name }} 在 {{ comment.submit_date|timesince }}之前:
+              </dt>
+              <dd>
+                <p>{{ comment.comment }}</p>
+              </dd>
+            {% endfor %}
+          </dl>
+
+          {% if user.is_authenticated %}
+            {% get_comment_form for this_topic as form %}
+            <form action="{% comment_form_target %}" method="POST">
+              {% csrf_token %}
+              {{ form.comment }}
+              <div class="invisiable">
+                {{ form.honeypot }}
+              </div>
+              {{ form.content_type }}
+              {{ form.object_pk }}
+              {{ form.timestamp }}
+              {{ form.security_hash }}
+              <input type="hidden" name="next" value="{% url topic this_topic.id %}" /><br />
+              <input type="submit" value="发表评论" id="id_submit" />
+            </form>
+         {% else %}
+          <p>如要发表评论，请先 <a href="{% url login %}">登录</a></p>
+         {% endif %}
+
+
       </div>
     </div>
 {% endblock %}

@@ -10,6 +10,7 @@ class TopicTest(TestCase):
         self.assertEquals(u'软件需求遇到的最大问题是什么？...', t.summary)
     
     def test_render_topic_content_restructuredtext(self):
+        '''You have to install docutils for pass this test.'''
         content = '标题\n- point 1\n- point 2'
         t = Topic(content=content)
         self.assertEquals(u'<p>标题\n- point 1\n- point 2</p>\n', t.rendered_content)
