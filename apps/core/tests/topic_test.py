@@ -52,4 +52,13 @@ class TopicTest(TestCase):
         topic.save()
         self.assertEquals(u'本话题所属活动已经结束', topic.poll_status)
 
+    def test_topic_model_refactor_last_modified_by_reverse_search(self):
+        '''针对core中models合并后FK外键反向查找中%(class)s是否正常工作的测试(可删除)'''
+        event = test_helper.create_upcoming_event()
+        topic = Topic(name='test', content='test', description='', in_event=event, author=event.last_modified_by, accepted=True)
+        topic.last_modified_by=event.last_modified_by
+        topic.save()
+        topic_should_be = event.last_modified_by.topic_last_modified.all()[0]
+        self.failUnlessEqual(topic, topic_should_be)
+
     #TODO 需要给submit_topic添加一个测试

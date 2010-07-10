@@ -3,8 +3,6 @@ from datetime import datetime
 
 from django.db import models
 from apps.member.models import Member
-from apps.core.models import Base
-
 
 class EventManager(models.Manager):
     def next_event(self):
@@ -46,7 +44,7 @@ class NullEvent(object):
     is_off      = False
     is_upcoming = True
 
-class Event(Base):
+class Event(models.Model):
     begin_time  = models.DateTimeField(u"开始时间", auto_now_add=False, auto_now=False, blank=False, null=False)
     end_time    = models.DateTimeField(u"结束时间", auto_now_add=False, auto_now=False, blank=False, null=False)
     description = models.TextField(u"简介", max_length=200, blank=False)
@@ -57,6 +55,15 @@ class Event(Base):
     appearances = models.ManyToManyField(Member, related_name='arrived_%(class)s')
     
     css_class   = ''
+
+    name = models.CharField("名称", max_length=255, blank=False)
+    created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
+    last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
+    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified')
+    #aggrgated
+    total_votes = models.PositiveIntegerField(default=0)
+    total_favourites = models.PositiveIntegerField(default=0, editable=False)
+
 
     #englishname?
     #url_path = models.SlugField(_('url path'),max_length=250, db_index=True, blank=True)
@@ -77,4 +84,7 @@ class Event(Base):
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.begin_time)
     
+    class Meta:
+        app_label = 'core'
+
     objects = EventManager()

@@ -11,12 +11,12 @@ from django.template.loader import render_to_string
 from django.contrib.markup.templatetags.markup import restructuredtext
 from django.core.urlresolvers import reverse
 
-
 from apps.member.models import Member
-from apps.core.models import Base, Event
+from apps.core.models import Event
+from apps.core.models.vote import Vote
 
+class Topic(models.Model):
 
-class Topic(Base):
     author = models.ForeignKey(Member, related_name='topic_created', verbose_name=u"演讲者")
     in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name=u"已安排在此活动中") 
     description = models.TextField(u"简介", max_length=200, blank=False)
@@ -25,6 +25,14 @@ class Topic(Base):
     content_type = models.CharField(blank=False, default='restructuredtext', max_length=30)
     accepted = models.BooleanField(default=False)  #该话题是否已经被管理员接受,True才能在活动正式的公布页面显示, 同时in_event才能显示
     
+    name = models.CharField("名称", max_length=255, blank=False)
+    created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
+    last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
+    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified')
+    #aggrgated
+    total_votes = models.PositiveIntegerField(default=0)
+    total_favourites = models.PositiveIntegerField(default=0, editable=False)
+
     def set_author(self, user):
         author = Member.objects.get(user = user)
         self.last_modified_by = author # last_modified_by 总是author？
@@ -125,3 +133,6 @@ class Topic(Base):
     def save(self, *args, **kwargs):
         self.total_votes = self.votes.count()
         super(Topic, self).save(*args, **kwargs)
+    
+    class Meta:
+        app_label = 'core'
