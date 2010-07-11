@@ -15,6 +15,8 @@ from apps.member.models import Member
 from apps.core.models import Event
 from apps.core.models.vote import Vote
 
+from lxml.html.clean import Cleaner
+
 class Topic(models.Model):
 
     author = models.ForeignKey(Member, related_name='topic_created', verbose_name=u"演讲者")
@@ -22,7 +24,7 @@ class Topic(models.Model):
     description = models.TextField(u"简介", max_length=200, blank=False)
     content = models.TextField(u"内容", blank=False)
     html = models.TextField(u'HTML', blank=True, null=True)
-    content_type = models.CharField(blank=False, default='restructuredtext', max_length=30)
+    content_type = models.CharField(blank=False, default='html', max_length=30)
     accepted = models.BooleanField(default=False)  #该话题是否已经被管理员接受,True才能在活动正式的公布页面显示, 同时in_event才能显示
     
     name = models.CharField("名称", max_length=255, blank=False)
@@ -59,7 +61,8 @@ class Topic(models.Model):
         if self.content_type == 'restructuredtext':
             '''暂时取消restructuredtext的处理'''
             #return restructuredtext(self.content)
-            return self.content
+            cleaner = Cleaner(style=False,embedded=False,safe_attrs_only = False) #创建lxml的html过滤器，保留object,embed,去除js,iframe
+            return cleaner.clean_html(self.content) #使用过滤器,返回安全的html
         elif self.content_type == 'html':
             return self.html
         else:
