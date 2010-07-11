@@ -57,11 +57,14 @@ class Topic(models.Model):
     @property
     def rendered_content(self):
         if self.content_type == 'restructuredtext':
-            return restructuredtext(self.content)
+            '''暂时取消restructuredtext的处理'''
+            #return restructuredtext(self.content)
+            return self.content
         elif self.content_type == 'html':
             return self.html
         else:
             return restructuredtext(self.content)
+        
 
     @property
     def is_shown(self):

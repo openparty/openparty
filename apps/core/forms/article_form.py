@@ -7,6 +7,6 @@ class ArticleForm(ModelForm):
         model   = Topic
         fields  = ('name', 'description', 'content', 'in_event')
         widgets = {
-                    'description': Textarea(attrs={'cols': 55, 'rows': 5}),
-                    'content': Textarea(attrs={'cols': 55, 'rows': 20})
+                    'description': Textarea(attrs={'cols': 60, 'rows': 5}),
+                    'content': Textarea(attrs={'cols': 60, 'rows': 20,'class':'with_tinymce'})
         }
