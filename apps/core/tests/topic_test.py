@@ -2,6 +2,10 @@
 from django.test import TestCase
 from apps.core.models import Topic
 from apps.core.tests import test_helper
+from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+from apps.member.models import Member
+import apps.member.test_helper as helper
 
 class TopicTest(TestCase):
     def test_topic_summary(self):
@@ -61,4 +65,14 @@ class TopicTest(TestCase):
         topic_should_be = event.last_modified_by.topic_last_modified.all()[0]
         self.failUnlessEqual(topic, topic_should_be)
 
-    #TODO 需要给submit_topic添加一个测试
+    def test_submit_topic(self):
+        '''用户登录后可以成功提交话题'''
+        from apps.member.forms import SignupForm, LoginForm
+        new_user = User.objects.create_user("tin", "tin@tin.com", "123")
+        self.client.login(username='tin', password='123')
+        Member.objects.create(user = new_user, nickname="Tin")
+        event = test_helper.create_upcoming_event()
+        response = self.client.post(reverse("submit_new_topic"), {'name':'Test Topic Submitted','description':'Test Topic Description','content':'content','in_event':event.id})
+        check_topic = len(Topic.objects.filter(name="Test Topic Submitted"))
+        self.assertEquals(1, check_topic)
+
