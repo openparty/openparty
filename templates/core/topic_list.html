@@ -1,5 +1,7 @@
 {% extends "core/base_core.html" %}
-
+{% block extra_head %}
+	<link rel="alternate" type="application/rss+xml" title="最新话题" href="/feed/topics" />
+{% endblock %}
 {% block content %}
   {% load markup %}
   <div id="content" class="content">

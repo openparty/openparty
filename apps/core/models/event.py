@@ -3,6 +3,7 @@ from datetime import datetime
 
 from django.db import models
 from apps.member.models import Member
+from django.core.urlresolvers import reverse
 
 class EventManager(models.Manager):
     def next_event(self):
@@ -83,7 +84,10 @@ class Event(models.Model):
 
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.begin_time)
-    
+
+    def get_absolute_url(self):
+        return reverse("event", kwargs={"id":self.id})
+
     class Meta:
         app_label = 'core'
 

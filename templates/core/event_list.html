@@ -1,4 +1,7 @@
 {% extends "core/base_core.html" %}
+{% block extra_head %}
+	<link rel="alternate" type="application/rss+xml" title="最新活动" href="/feed/events" />
+{% endblock %}
 {% block content %}
   {% load markup %}
   <div class="container_16">
