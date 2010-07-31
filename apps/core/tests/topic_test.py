@@ -67,7 +67,6 @@ class TopicTest(TestCase):
 
     def test_submit_topic(self):
         '''用户登录后可以成功提交话题'''
-        from apps.member.forms import SignupForm, LoginForm
         new_user = User.objects.create_user("tin", "tin@tin.com", "123")
         self.client.login(username='tin', password='123')
         Member.objects.create(user = new_user, nickname="Tin")
@@ -75,4 +74,30 @@ class TopicTest(TestCase):
         response = self.client.post(reverse("submit_new_topic"), {'name':'Test Topic Submitted','description':'Test Topic Description','content':'content','in_event':event.id})
         check_topic = len(Topic.objects.filter(name="Test Topic Submitted"))
         self.assertEquals(1, check_topic)
+
+    def test_edit_topic(self):
+        '''用户登录后可以修改自己提交的话题'''
+
+        new_user = User.objects.create_user("test", "test@test.com", "123")
+        member_new_user = Member.objects.create(user = new_user, nickname="Test")
+        self.client.login(username='test', password='123')
+
+        event = test_helper.create_upcoming_event()
+        
+        test_user_topic = Topic.objects.create(author = member_new_user, in_event = event, \
+                                               name = "Test", description = "test", content = "test")
+
+        response = self.client.get(reverse("edit_topic",  kwargs = {"id": test_user_topic.id }))
+        self.failUnlessEqual(response.status_code, 200)
+
+        #如果用户不是此话题的作者，则无法编辑此话题
+
+        non_relevant_user = User.objects.create_user("another_user", "another@test.com", "123")
+        member_non_relevant_user = Member.objects.create(user = non_relevant_user, nickname="Another")
+
+        test_non_user_topic = Topic.objects.create(author = member_non_relevant_user, in_event = event, \
+                                                   name = "Another Topic", description = "test", content = "test")
+        response = self.client.get(reverse("edit_topic", kwargs = {"id": test_non_user_topic.id }))
+        self.failUnlessEqual(response.status_code, 302)
+
 
