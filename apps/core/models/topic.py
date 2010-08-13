@@ -34,6 +34,8 @@ class Topic(models.Model):
     #aggrgated
     total_votes = models.PositiveIntegerField(default=0)
     total_favourites = models.PositiveIntegerField(default=0, editable=False)
+    
+    html_cleaner = Cleaner(style=False, embedded=False, safe_attrs_only=False)
 
     def set_author(self, user):
         author = Member.objects.get(user = user)
@@ -61,8 +63,9 @@ class Topic(models.Model):
         if self.content_type == 'restructuredtext':
             '''暂时取消restructuredtext的处理'''
             #return restructuredtext(self.content)
-            cleaner = Cleaner(style=False,embedded=False,safe_attrs_only = False) #创建lxml的html过滤器，保留object,embed,去除js,iframe
-            return cleaner.clean_html(self.content) #使用过滤器,返回安全的html
+
+            #创建lxml的html过滤器，保留object,embed,去除js,iframe
+            return self.html_cleaner.clean_html(self.content) #使用过滤器,返回安全的html
         elif self.content_type == 'html':
             return self.html
         else:

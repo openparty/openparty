@@ -103,7 +103,6 @@ INSTALLED_APPS = (
     'django.contrib.comments',
     'django.contrib.markup',
     #TODO: take the unittest framework back
-    # 'openparty.dependencies.ameba.django.unittest',
     'south',
     'apps.core',
     'apps.member',
