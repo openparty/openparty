@@ -2,6 +2,8 @@
 import os.path
 PROJECT_ROOT = os.path.dirname(__file__)
 
+DEFAULT_CHARSET = 'utf-8'
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
