@@ -11,12 +11,20 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'   # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'openparty' # Or path to database file if using sqlite3.
-DATABASE_USER = 'root'      # Not used with sqlite3.
-DATABASE_PASSWORD = ''      # Not used with sqlite3.
-DATABASE_HOST = 'localhost' # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''          # Set to empty string for default. Not used with sqlite3.
+DATABASES = {
+    'default': {
+        'ENGINE': 'mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'openparty',                      # Or path to database file if using sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    },
+}
+
+DATABASE_OPTIONS = {
+   "init_command": "SET storage_engine=MYISAM",
+}
 
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
