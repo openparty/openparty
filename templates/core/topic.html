@@ -18,7 +18,7 @@
             <dt>投票</dt>
             <dd class="vote-actions">
               {% if not is_voted %}
-                <a class="vote" href="/vote/topic/{{this_topic.id}}">我想听</a>
+                <a class="vote" href="/topic/{{this_topic.id}}/vote">我想听</a>
               {% else %}
                 <span class="voted">您投过票了</span>
               {% endif %}

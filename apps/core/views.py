@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_list_or_404
 from django.template import RequestContext
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
@@ -14,7 +14,7 @@ from apps.member.models import Member
 from apps.member.forms import ProfileForm
 
 from forms import ArticleForm, EventCheckinForm
-from models import Event, Topic
+from models import Event, Topic, Post
 from models import Vote
 from django.core.urlresolvers import reverse
 
@@ -242,3 +242,12 @@ def edit_topic(request, id):
                                     context,
                                     context_instance=RequestContext(request))
 
+
+def list_post(request):
+    all_post = get_list_or_404(Post, status=Post.post_status.OPEN)
+    ctx = {
+        'all_post': all_post,
+    }
+    return render_to_response('core/list_post.html',
+                                ctx,
+                                context_instance=RequestContext(request))

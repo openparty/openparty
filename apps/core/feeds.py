@@ -8,7 +8,7 @@ from apps.core.models import Event, Topic
 class Events_Feed(Feed):
 
     title = "Beijing OpenParty 最新活动列表"
-    link = "/events"
+    link = "/event"
     description = "发布 Beijing OpenParty 的最新活动信息"
 
     def items(self):
@@ -23,7 +23,7 @@ class Events_Feed(Feed):
 class Topics_Feed(Feed):
 
     title = "Beijing OpenParty 最新话题列表"
-    link = "/topics"
+    link = "/topic"
     description = "发布 Beijing OpenParty 的最新活动中的话题信息"
 
     def items(self):
