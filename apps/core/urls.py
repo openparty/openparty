@@ -25,3 +25,7 @@ feed_patterns = patterns('core.views',
 post_patterns = patterns('core.views',
     url(r'^$', 'list_post', name='list_post'),
 )
+
+about_patterns = patterns('django.views.generic.simple',
+        url(r'^/?$', 'direct_to_template', {'template': 'core/about.html', 'extra_context':{'tab':'about'}}, name="about"),
+)

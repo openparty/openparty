@@ -2,7 +2,7 @@ from django.conf.urls.defaults import patterns, include, url, handler500, handle
 from settings import MEDIA_ROOT
 from django.contrib import admin
 
-from apps.core.urls import event_patterns, topic_patterns, feed_patterns, post_patterns
+from apps.core.urls import event_patterns, topic_patterns, feed_patterns, post_patterns, about_patterns
 
 
 admin.autodiscover()
@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     (r'^feed/', include(feed_patterns)),
     (r'^post/', include(post_patterns)),
     (r'^tweets', include('twitter.urls')),
+    (r'^about/', include(about_patterns)),
 )
 
 urlpatterns += patterns('',
