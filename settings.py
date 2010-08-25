@@ -28,6 +28,7 @@ DATABASE_OPTIONS = {
    "init_command": "SET storage_engine=MYISAM",
 }
 
+EMAIL_BACKEND = 'custom_email_backend.unix_sendmail_backend.EmailBackend'
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
