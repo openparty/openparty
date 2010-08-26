@@ -235,7 +235,7 @@ form .hint {
 .event-poster {
   margin: 10px 0;
   width: 460px;
-  height: 320px;
+  height: 551px; /*320px;*/
   -webkit-box-shadow: 6px 6px 6px #ccccc5;
   -moz-box-shadow: 6px 6px 6px #ccccc5;
 }
