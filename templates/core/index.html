@@ -1,5 +1,6 @@
 {% extends "core/base_core.html" %}
 {% block content %}
+{% load markup %}
 <div class="article container_16">
   <div class="whats-open-party grid_14">
     <h2>OpenParty是什么？</h2>
@@ -70,8 +71,19 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="grid_4">
+    <div class="entries posts grid_4">
       <h2>社区活动广播</h2>
+      <ul class="posts">
+        {% for post in post_list %}
+          <li>
+            <h4 class="post-title post-title_{{ post.style_seed }}">
+              <a href="{% url view_post_by_name name=post.post_name %}">{{ post.title }}</a>
+              <span class="meta"><span class='created-at'>{{ post.created_at|date }}</span></span>
+            </h4>
+            <div class="description">{{ post.summary|restructuredtext }}</div>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 {% endblock %}

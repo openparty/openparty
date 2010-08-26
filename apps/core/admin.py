@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from models import Event, Topic
 from models import Favorite, Vote
+from models import Post
 
 class Event_Admin(admin.ModelAdmin):
     list_display = ('name', 'begin_time')
@@ -16,7 +17,7 @@ class Topic_Admin(admin.ModelAdmin):
 admin.site.register(Topic, Topic_Admin)
 
 #admin.site.register(Topic)
-#admin.site.register(Event)
 
 admin.site.register(Favorite)
 admin.site.register(Vote)
+admin.site.register(Post)

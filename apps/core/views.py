@@ -21,14 +21,14 @@ from django.core.urlresolvers import reverse
 
 def index(request):
     topic_list = Topic.objects.all().order_by('-total_votes')[:5]
-
     event_list = Event.objects.past_events().order_by('-begin_time')
-
+    post_list = Post.objects.all().order_by('-created_at')[:6]
     next_event = Event.objects.next_event()
 
     ctx = {
         'event_list': event_list,
         'topic_list': topic_list,
+        'post_list': post_list,
         'next_event': next_event, 
         'tab': 'index',
     }
