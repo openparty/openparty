@@ -7,20 +7,19 @@
   <div id="content" class="content">
     <div class="container_16">
       <p class="bread-crumb">所有新闻</p>
+      {% include 'pagination.html' %}
       <ul class="posts">
-        {% for post in all_post %}
+        {% for post in posts %}
           <li class="post">
             <h2 class="post-title post-title_{{ post.style_seed }}">
               <a href="{% url view_post_by_name name=post.post_name %}">{{ post.title }}</a>
+              <span class="meta"><span class='created-at'>{{ post.created_at|date }}</span></span>
             </h2>
-            <p class="meta">
-              
-            </p>
-            
             <div class="description">{{ post.summary|restructuredtext }}</div>
           </li>
         {% endfor %}
       </ul>
+      {% include 'pagination.html' %}
     </div>
   </div>
 

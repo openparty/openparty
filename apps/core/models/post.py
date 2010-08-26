@@ -18,7 +18,7 @@ class Post(models.Model):
     status = models.IntegerField(blank=False, null=False, default=0) #post_status, 'open' -> 10
     post_name = models.CharField(u'短名称(引用url)', blank=True, max_length=256) # post_name
     to_ping = models.CharField(u'Ping文章', blank=True, max_length=512) # to_ping
-    created_at = models.DateTimeField(u'创建时间', blank=False, null=False, auto_now_add=True) # post_date
+    created_at = models.DateTimeField(u'创建时间', blank=False, null=False, auto_now_add=False) # post_date
     modified_at = models.DateTimeField(u'更新时间', blank=False, null=False, auto_now=True) # post_modified
     guid = models.CharField(u'Canonical网址', blank=True, max_length=512) # guid
     

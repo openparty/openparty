@@ -56,6 +56,21 @@ form p {
 .messages .success a {
   color:#264409;
 }
+/* pagination */
+.pagination {
+  margin: 1em 0;
+  padding-top: 1em 0;
+}
+.pagination .prev {
+  padding-right: 1em;
+}
+.pagination .next {
+  padding-left: 1em;
+}
+.pagination a:link,
+.pagination a:visited {
+  color: black;
+}
 /* may be commons */
 .wide p {
   margin: 0.75em 0;
@@ -418,7 +433,7 @@ dl.pair {
 }
 
 .bread-crumb {
-  margin: 0.5em 0 !important;
+  margin: 1em 0 0.5em 0!important;
 }
   .bread-crumb a:link,
   .bread-crumb a:visited {
@@ -729,3 +744,45 @@ dl.pair {
     color: black;
     font-size: 45px;
   }
+.post,
+.posts {}
+  .post-title {
+    color: #999;
+  }
+  .post .post-title {
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+  }
+  .posts .post .post-title {
+    font-size: 14px;
+    font-weight: normal;
+  }
+    .post .post-title a:link,
+    .post .post-title a:visited {
+      color: #27456E;
+      margin: 0.5em 0;
+    }
+    .posts .post-title a:link,
+    .posts .post-title a:visited {
+      color: #27456E;
+    }
+  .post .meta {
+    color: #999;
+  }
+    .post .created-by,
+    .post .guid,
+    .post .author,
+    .post .modified-at,
+    .post .comment-count {
+      display: none;
+    }
+  .posts .meta {
+    font-size: 12px;
+  }
+    .posts span.meta:before {
+      content: '(';
+    }
+    .posts span.meta:after {
+      content: ')';
+    }

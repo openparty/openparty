@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response, redirect, get_list_or_404
 from django.template import RequestContext
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -244,9 +245,22 @@ def edit_topic(request, id):
 
 
 def list_post(request):
-    all_post = get_list_or_404(Post, status=Post.post_status.OPEN)
+    all_post = get_list_or_404(Post.objects.order_by('-created_at'), status=Post.post_status.OPEN)
+    paginator = Paginator(all_post, 15)
+    try:
+        page_num = int(request.GET.get('page', '1'))
+    except ValueError:
+        page_num = 1
+    
+    try:
+        page = paginator.page(page_num)
+    except (EmptyPage, InvalidPage):
+        page = paginator.page(paginator.num_pages)
+
     ctx = {
-        'all_post': all_post,
+        'posts': page.object_list,
+        'page': page,
+        'tab': 'post',
     }
     return render_to_response('core/list_post.html',
                                 ctx,
@@ -257,6 +271,7 @@ def view_post(request, id):
     post = get_object_or_404(Post, id=id)
     ctx = {
         'post': post,
+        'tab': 'post',
     }
     return render_to_response('core/post.html',
                                 ctx,
@@ -266,6 +281,7 @@ def view_post_by_name(request, name):
     post = get_object_or_404(Post, post_name=name)
     ctx = {
         'post': post,
+        'tab': 'post',
     }
     return render_to_response('core/post.html',
                                 ctx,
