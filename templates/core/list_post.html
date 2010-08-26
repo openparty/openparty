@@ -11,7 +11,7 @@
         {% for post in all_post %}
           <li class="post">
             <h2 class="post-title post-title_{{ post.style_seed }}">
-              <a href="/post/{{ post.id }}">{{ post.title }}</a>
+              <a href="{% url view_post_by_name name=post.post_name %}">{{ post.title }}</a>
             </h2>
             <p class="meta">
               

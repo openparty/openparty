@@ -1,0 +1,25 @@
+{% extends "core/base_core.html" %}
+
+{% block content %}
+  <div id="content" class="content">
+    <div class="container_16">
+      <p class="bread-crumb"><a href='{% url list_post %}'>所有新闻</a> / {{ post.title }}</p>
+      <div class="post">
+        <h2 class="post-title post-title_{{ post.style_seed }}">
+          <a href="{% url view_post_by_name name=post.post_name %}">{{ post.title }}</a>
+        </h2>
+        <p class="meta">
+          <span class='to-ping'>{{ post.to_ping }}</span>
+          <span class='created-at'>{{ post.created_at|date }}</span>
+          <span class='modified-at'>{{ post.modified_at|date }}</span>
+          <span class='guid'>{{ post.guid }}</span>
+          <span class='author'>{{ post.author }}</span>
+          <span class='created-by'>{{ post.created_by.nickname }}</span>
+          <span class='comment-count'>{{ post.comment_count }}</span>
+        </p>
+        <div class="content">{{ post.content|safe }}</div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

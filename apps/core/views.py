@@ -251,3 +251,22 @@ def list_post(request):
     return render_to_response('core/list_post.html',
                                 ctx,
                                 context_instance=RequestContext(request))
+
+
+def view_post(request, id):
+    post = get_object_or_404(Post, id=id)
+    ctx = {
+        'post': post,
+    }
+    return render_to_response('core/post.html',
+                                ctx,
+                                context_instance=RequestContext(request))
+
+def view_post_by_name(request, name):
+    post = get_object_or_404(Post, post_name=name)
+    ctx = {
+        'post': post,
+    }
+    return render_to_response('core/post.html',
+                                ctx,
+                                context_instance=RequestContext(request))

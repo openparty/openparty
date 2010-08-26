@@ -24,6 +24,8 @@ feed_patterns = patterns('core.views',
 
 post_patterns = patterns('core.views',
     url(r'^$', 'list_post', name='list_post'),
+    url(r'^(?P<id>\d+)$', 'view_post', name='view_post'),
+    url(r'^(?P<name>.*)$', 'view_post_by_name', name='view_post_by_name'),
 )
 
 about_patterns = patterns('django.views.generic.simple',
