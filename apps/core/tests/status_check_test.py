@@ -26,11 +26,11 @@ class StatusCheckTest(TestCase):
         #check template usage
 
     def test_statuscheck_eventlistpage(self):
-        response = self.client.get("/event")
+        response = self.client.get(reverse('event_list'))
         self.failUnlessEqual(response.status_code, 200)
 
     def test_statuscheck_topiclist_page(self):
-        response = self.client.get("/topics")
+        response = self.client.get(reverse('topic_list'))
         self.failUnlessEqual(response.status_code, 200)
 
     def test_statuscheck_eventdetail_page(self):
