@@ -20,9 +20,9 @@ from models import Vote
 from django.core.urlresolvers import reverse
 
 def index(request):
-    topic_list = Topic.objects.all().order_by('-total_votes')[:5]
-    event_list = Event.objects.past_events().order_by('-begin_time')
-    post_list = Post.objects.all().order_by('-created_at')[:6]
+    topic_list = Topic.objects.all().order_by('-in_event__begin_time','-accepted', '-total_votes')[:8]
+    event_list = Event.objects.past_events().order_by('-begin_time')[:3]
+    post_list = Post.objects.all().order_by('-created_at')[:10]
     next_event = Event.objects.next_event()
 
     ctx = {
