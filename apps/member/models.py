@@ -67,6 +67,9 @@ class Member(models.Model):
     nickname = models.CharField(verbose_name=u'用户名称', max_length=40)
     properties = models.TextField(verbose_name=u'属性', blank=True)
     activation_key = models.CharField(verbose_name=u'激活密钥 Activation Key', max_length=40)
+    twitter_access_token_key = models.CharField(u'Twitter OAuth key', blank=True, null=True, max_length=80)
+    twitter_access_token_secret = models.CharField(u'Twitter OAuth secret', blank=True, null=True, max_length=128)
+    twitter_enabled = models.BooleanField(default=False)
 
     objects = MemberManager()
     
