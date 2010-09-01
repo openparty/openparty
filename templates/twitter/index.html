@@ -6,6 +6,18 @@
 {% block content %}
     <div id="content" class="content">
       <div class="container_16">
+        {% if twitter_enabled %}
+          <h2>Send a tweet about #openparty</h2>
+          <form action="{% url update_tweet %}" method="post">
+            <fieldset id="" class="">
+              <div class="info">
+                {% csrf_token %}
+                <textarea cols="40" rows="2" id="status" name="status" accesskey="u" autocomplete="off" tabindex="1"></textarea>
+                <input type="submit" name="update" value="update" id="update-submit" tabindex="2">
+              </div>
+            </fieldset>
+          </form>
+        {% endif %}
         <h2>Tweets about <em>#openparty</em></h2>
         <ul class="tweets">
           {% for tweet in tweets %}
