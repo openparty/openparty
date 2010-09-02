@@ -30,19 +30,26 @@
         {% csrf_token %}
         <h2>“{{event.name}}”活动现场签到</h2>
         {{ form.as_p }}
-        <input type="submit" value="签到" tabindex="2"/>
+        <input id="checkin_submit" type="submit" value="签到" tabindex="2"/>
       </form>
     </div>
     {% endif %}
   </div>
 </div>
-<script type="text/javascript">
+<script type="text/javascript">  
   $(function(){
     $('#id_email').focus().val('');
     $('#id_email').click(function(){
       email = $(this);
       email.select();
     });
+    $('#checkin_submit').click(function(){
+    $("#header").prepend('<ul class="messages"><li class="error">签到中...</li></ul>');
+    });
+    function fadeOutMessages(){
+        $('.messages').fadeOut('slow')
+        }
+    setTimeout(fadeOutMessages,1984)
   });
 </script>
 {% endblock %}
