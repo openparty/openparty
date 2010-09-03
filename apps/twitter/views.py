@@ -8,6 +8,8 @@ from django.contrib import messages
 import tweepy
 from settings import TWITTER_OPENPARTY_KEY, TWITTER_OPENPARTY_SECRET
 
+import hashlib
+
 from apps.twitter.models import Tweet
 from apps.member.models import Member
 
@@ -15,7 +17,15 @@ from apps.member.models import Member
 def index(request):
     twitter_enabled = False
     if hasattr(request, 'user'):
-        if request.user.username.lower() in ('iamtin@gmail.com', 'cnborn@gmail.com', 'makestory@gmail.com', 'cong.lin@gmail.com', 'greatcleverpig@gmail.com'):
+        
+        admin_mail_sha1_hash = ('c4a1f1d86ccd8981e9ea8cb3027c848d362bacd4', #cnborn
+                           '72056e7da242b31ca6638fd208560620062212a9', #tin
+                           'f26995abecc6e1edf01e1b9a5e3dc6c0317a49ea', #makestory
+                           '0ed17b80ebae26e1b28d9caef21c5425d49f78cb', #conglin
+                           '6356945b9581d8049c73ea6e94760c8b2c6303cb', #cleverpig
+                           )
+
+        if hashlib.sha1(request.user.username.lower()).hexdigest() in admin_mail_sha1_hash:
             twitter_enabled = True
     tweets = Tweet.objects.order_by('-tweet_id')[:100]
     ctx = {'tweets': tweets,
