@@ -26,7 +26,7 @@ class ProfileForm(forms.Form):
     
     def __init__(self, user=None, *args, **kwargs):
         self.user = user
-        self.member = Member.objects.get(user=self.user)
+        self.member = user=self.user.get_profile()
         if (not args) and (not kwargs) and self.member and self.member.properties:
             properties = {}
             for key, value in json.loads(self.member.properties).items():

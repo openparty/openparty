@@ -51,7 +51,7 @@ def index(request):
 
 @login_required
 def request_oauth(request):
-    member = Member.objects.get(user=request.user)
+    member = request.user.get_profile()
     auth = tweepy.OAuthHandler(TWITTER_OPENPARTY_KEY, TWITTER_OPENPARTY_SECRET)
     try:
         redirect_url = auth.get_authorization_url()
@@ -67,7 +67,7 @@ def request_oauth(request):
 
 @login_required
 def oauth_callback(request):
-    member = Member.objects.get(user=request.user)
+    member = request.user.get_profile()
     auth = tweepy.OAuthHandler(TWITTER_OPENPARTY_KEY, TWITTER_OPENPARTY_SECRET)
     try:
         auth.set_request_token(member.twitter_access_token_key, member.twitter_access_token_secret)
@@ -84,7 +84,7 @@ def oauth_callback(request):
 
 @login_required
 def update(request):
-    member = Member.objects.get(user=request.user)
+    member = request.user.get_profile()
     status = request.POST.get('status')
     if member.twitter_enabled:
         auth = tweepy.OAuthHandler(TWITTER_OPENPARTY_KEY, TWITTER_OPENPARTY_SECRET)

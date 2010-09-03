@@ -70,7 +70,7 @@ def join_event(request):
             return redirect('/event/%s' % (next_event.id))
     else:
         try:
-            this_user = Member.objects.get(user = request.user)
+            this_user = request.user.get_profile()
         except:
             return redirect(reverse('signup'))
         
@@ -124,7 +124,7 @@ def topic(request, id):
 
     is_voted = False
     try:
-        vote_thistopic = this_topic.votes.get(user = Member.objects.get(user=request.user))
+        vote_thistopic = this_topic.votes.get(user = request.user.get_profile())
         is_voted = True
     except:
         pass
@@ -155,17 +155,17 @@ def votes_for_topic(request, id):
 @login_required
 def vote(request, id):
 
-    this_topic = Topic.objects.get(pk = id)
+    this_topic = Topic.objects.get(pk=id)
     
     is_voted = False
     try:
-        vote_thistopic = this_topic.votes.get(user = Member.objects.get(user = request.user))
+        vote_thistopic = this_topic.votes.get(user=request.user.get_profile())
         is_voted = True
     except:
         pass
 
     if is_voted == False:
-        this_vote = Vote(user = Member.objects.get(user = request.user))
+        this_vote = Vote(user=request.user.get_profile())
         #this_topic.votes.add(user = request.user)
         topic_type = ContentType.objects.get_for_model(Topic)
         this_vote.content_type=topic_type

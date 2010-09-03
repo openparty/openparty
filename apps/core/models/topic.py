@@ -38,7 +38,7 @@ class Topic(models.Model):
     html_cleaner = Cleaner(style=False, embedded=False, safe_attrs_only=False)
 
     def set_author(self, user):
-        author = Member.objects.get(user = user)
+        author = user.get_profile()
         self.last_modified_by = author # last_modified_by 总是author？
         self.author = author
         return self

@@ -129,6 +129,8 @@ INTERNAL_IPS = ('127.0.0.1')
 
 ANALYTICS_ID = 'UA-329713-8'
 
+AUTH_PROFILE_MODULE = "member.Member"
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:

@@ -63,7 +63,7 @@ class MemberManager(models.Manager):
 class Member(models.Model):
     ACTIVATED = "ALREADY_ACTIVATED"
     
-    user = models.OneToOneField(User, unique=True, verbose_name=u"用户")
+    user = models.ForeignKey(User, unique=True, verbose_name=u"用户")
     nickname = models.CharField(verbose_name=u'用户名称', max_length=40)
     properties = models.TextField(verbose_name=u'属性', blank=True)
     activation_key = models.CharField(verbose_name=u'激活密钥 Activation Key', max_length=40)
