@@ -2,6 +2,7 @@
 # Create your views here.
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.contrib import messages
@@ -28,10 +29,24 @@ def index(request):
         if hashlib.sha1(request.user.username.lower()).hexdigest() in admin_mail_sha1_hash:
             twitter_enabled = True
     tweets = Tweet.objects.order_by('-tweet_id')[:100]
-    ctx = {'tweets': tweets,
-           'tab': 'tweet',
-           'twitter_enabled': twitter_enabled
-          }
+    paginator = Paginator(tweets, 50)
+
+    try:
+        page_num = int(request.GET.get('page', '1'))
+    except ValueError:
+        page_num = 1
+    
+    try:
+        page = paginator.page(page_num)
+    except (EmptyPage, InvalidPage):
+        page = paginator.page(paginator.num_pages)
+
+    ctx = {
+        'page': page,
+        'tweets': page.object_list,
+        'tab': 'tweet',
+        'twitter_enabled': twitter_enabled
+    }
     return render_to_response('twitter/index.html', ctx, context_instance=RequestContext(request))
 
 @login_required

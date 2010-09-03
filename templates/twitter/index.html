@@ -19,6 +19,7 @@
           </form>
         {% endif %}
         <h2>Tweets about <em>#openparty</em></h2>
+        {% include 'pagination.html' %}
         <ul class="tweets">
           {% for tweet in tweets %}
             <li>
@@ -29,6 +30,7 @@
             </li>
           {% endfor %}
         </ul>
+        {% include 'pagination.html' %}
       </div>
     </div>
 {% endblock %}
