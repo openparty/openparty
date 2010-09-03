@@ -53,7 +53,7 @@ class MemberTest(TestCase):
     def test_avatar_of_member(self):
         member = helper.create_user()
         user = member.user
-        self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fapp.beijing-open-party.org%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', user.member.avatar)
+        self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fapp.beijing-open-party.org%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', user.get_profile().avatar)
 
     def test_find_member_by_email(self):
         member = helper.create_user()

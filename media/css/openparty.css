@@ -415,13 +415,15 @@ dl.pair {
   margin-bottom: 2em;
 }
 
-.tweets li {
+.tweets li, 
+.comments li {
   min-height: 48px;
   padding: 8px 0 8px 56px;
   position: relative;
   border-bottom: 1px dotted #D2DADA !important;
 }
-.tweets .avatar {
+.tweets .avatar,
+.comments .avatar {
   display: block;
   position: absolute;
   left: 0;
@@ -430,6 +432,16 @@ dl.pair {
 .tweets .source {
   color: #999;
   display: block;
+}
+
+.comments .timesince{
+  color: #999;
+}
+
+.comments .comment {
+  color: black;
+  display: block;
+  padding: 8px 0 0 16px;
 }
 
 .bread-crumb {

@@ -67,16 +67,16 @@
       <h2 class="component-title">评论</h2>
       {% load comments %}
       {% get_comment_list for this_event as comment_list %}
-      <dl id="comments">
-        {% for comment in comment_list %}
-          <dt id="c{{ comment.id }}">
-            {{ comment.name }} 在 {{ comment.submit_date|timesince }}之前:
-          </dt>
-          <dd>
-            <p>{{ comment.comment }}</p>
-          </dd>
-        {% endfor %}
-      </dl>
+        <ul class="comments">
+          {% for comment in comment_list %}
+          <li id="c{{comment.id}}">
+              <span class="avatar"><img width=48 height=48 src="{{ comment.user.get_profile.avatar }}" alt="{{ comment.user.get_profile.display_name }}' Profile image" /></span>
+              <span class="username">{{ comment.user.get_profile.display_name }}</span>
+              <span class="timesince"> - {{ comment.submit_date|timesince }}前</span>
+              <span class="comment">{{ comment.comment }}</span>
+            </li>
+          {% endfor %}
+        </ul>
 
       {% if user.is_authenticated %}
         {% get_comment_form for this_event as form %}
