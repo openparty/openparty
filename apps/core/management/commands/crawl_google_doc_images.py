@@ -68,7 +68,7 @@ class Command(BaseCommand):
                 image_urls.add(image.attrib['src'])
 
         with open(self.url_image_mapping_file, 'w') as f:
-            for url in self.urls:#image_urls:
+            for url in image_urls:
                 if url.startswith('http'):
                     try:
                         filename = self.download_and_save(url)
