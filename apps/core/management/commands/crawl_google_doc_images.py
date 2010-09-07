@@ -15,7 +15,7 @@ from apps.core.models import Post
 class Command(BaseCommand):
 
     url_image_mapping_file = 'url_image_mapping_file.out'
-    image_folder = 'crawl_iamges'
+    image_folder = 'post_images'
     m = md5()
     mapping = {}
 
