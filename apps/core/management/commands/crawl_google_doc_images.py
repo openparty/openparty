@@ -21,16 +21,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if len(args) == 0:
-            self.usage()
+            self._usage()
+            return
         
         if 'down' == args[0]:
             self.download()
         elif 'replace' == args[0]:
             self.replace()
         else:
-            self.usage()
+            self._usage()
             
-    def usage(self):
+    def _usage(self):
         print 'Usage: ./manage.py crawl_google_doc_images [down|replace]'
     
     def replace(self):
