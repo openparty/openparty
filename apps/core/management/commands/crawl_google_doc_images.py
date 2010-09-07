@@ -30,7 +30,7 @@ class Command(BaseCommand):
         else:
             self.usage()
             
-    def usage():
+    def usage(self):
         print 'Usage: ./manage.py crawl_google_doc_images [down|replace]'
     
     def replace(self):
