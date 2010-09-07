@@ -20,12 +20,18 @@ class Command(BaseCommand):
     mapping = {}
 
     def handle(self, *args, **options):
+        if len(args) == 0:
+            self.usage()
+        
         if 'down' == args[0]:
             self.download()
         elif 'replace' == args[0]:
             self.replace()
         else:
-            print 'Usage: ./manage.py crawl_google_doc_images [down|replace]'
+            self.usage()
+            
+    def usage():
+        print 'Usage: ./manage.py crawl_google_doc_images [down|replace]'
     
     def replace(self):
         with open(self.url_image_mapping_file) as f:
