@@ -72,7 +72,7 @@ class Command(BaseCommand):
                 if url.startswith('http'):
                     try:
                         filename = self.download_and_save(url)
-                        mapping[url] = filename
+                        self.mapping[url] = filename
                         f.write("%s -> %s" % (url, filename))
                         f.write('\n')
                     except:
