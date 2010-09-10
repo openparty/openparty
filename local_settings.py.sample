@@ -1,0 +1,12 @@
+DATABASE_NAME = 'openparty_db_name' 
+DATABASE_USER = 'your_db_user'
+DATABASE_PASSWORD = 'password'     
+
+EMAIL_HOST = 'emal_host_name'
+EMAIL_HOST_USER = 'name'
+EMAIL_HOST_PASSWORD = 'password'
+
+DEBUG = False
+
+TWITTER_OPENPARTY_KEY = 'oauth_key' 
+TWITTER_OPENPARTY_SECRET = 'oauth_secret'
