@@ -1,0 +1,7 @@
+local_settings.py
+*.py[oc]
+*.db
+*.project
+*.kpf
+*.swp
+*.svn
