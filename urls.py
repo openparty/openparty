@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': MEDIA_ROOT}),
     (r'^comments/', include('django.contrib.comments.urls')),
+    (r'^xmlrpc/$', 'django_xmlrpc.views.handle_xmlrpc', {}, 'xmlrpc'),  #for pingback handle
 )
 
 urlpatterns += patterns('apps.core.views',

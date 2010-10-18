@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title>OpenParty {% block title %}{% endblock %}</title>
         <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" />
+        <link rel="pingback" href="/xmlrpc/" />
         <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/reset.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/960.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/type.css" />
@@ -94,7 +95,6 @@
                 </ul>
             </div>
         </div>
-
         {% if debug %}{% include "debug.html" %}{% else %}{% include "analytics.html" %}{% endif %}
         {% block extra_body %}{% endblock %}
     </body>

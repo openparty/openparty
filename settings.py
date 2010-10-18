@@ -90,6 +90,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'pingback.middleware.PingbackMiddleware',
 )
 
 LOGIN_URL = '/member/login'
@@ -115,6 +116,8 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     #TODO: take the unittest framework back
     'south',
+    'pingback',
+    'django_xmlrpc',
     'apps.core',
     'apps.member',
     'apps.twitter',

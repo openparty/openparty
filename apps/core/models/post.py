@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-
 from apps.member.models import Member
-
+from pingback.client import ping_external_links, ping_directories
+from django.db.models import signals
 
 class PostStatus(object):
     DRAFT   = 0
@@ -33,3 +33,7 @@ class Post(models.Model):
 
     class Meta:
         app_label = 'core'
+
+signals.post_save.connect(
+        ping_external_links(content_attr='content', url_attr='get_absolute_url'),
+        sender=Post, weak=False)
