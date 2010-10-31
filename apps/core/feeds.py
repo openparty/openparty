@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.syndication.views import Feed
 
-from apps.core.models import Event, Topic
+from apps.core.models import Event, Topic, Post
 
 class Events_Feed(Feed):
 
@@ -35,3 +35,17 @@ class Topics_Feed(Feed):
     def item_description(self, item):
         return item.description
 
+class Posts_Feed(Feed):
+
+    title = "Beijing OpenParty 最新新闻"
+    link = "/post"
+    description = "Beijing OpenParty 最新新闻"
+
+    def items(self):
+        return Post.objects.all().order_by("-created_at")
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.content
