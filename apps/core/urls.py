@@ -28,6 +28,10 @@ post_patterns = patterns('core.views',
     url(r'^(?P<name>.*)$', 'view_post_by_name', name='view_post_by_name'),
 )
 
+wordpress_redirect_patterns = patterns('core.views',
+    url(r'^(?P<name>.*)$', 'redirect_wordpress_post', name='redirect_wordpress_post'),
+)
+
 about_patterns = patterns('django.views.generic.simple',
         url(r'^/?$', 'direct_to_template', {'template': 'core/about.html', 'extra_context':{'tab':'about'}}, name="about"),
 )

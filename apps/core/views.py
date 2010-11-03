@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django import forms
 
@@ -285,3 +285,6 @@ def view_post_by_name(request, name):
     return render_to_response('core/post.html',
                                 ctx,
                                 context_instance=RequestContext(request))
+
+def redirect_wordpress_post(request, year, month, name):
+    return HttpResponseRedirect(reverse('view_post_by_name', args=[name]))
