@@ -1,7 +1,7 @@
 {% extends "core/base_core.html" %}
 {% block title %} - 社区活动广播{% endblock %}
 {% block extra_head %}
-	<link rel="alternate" type="application/rss+xml" title="所有新闻" href="/feed/posts" />
+<link rel="alternate" type="application/rss+xml" title="所有新闻" href="{% url feed_posts %}" />
 {% endblock %}
 {% block content %}
   {% load markup %}

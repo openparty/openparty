@@ -1,7 +1,7 @@
 {% extends "core/base_core.html" %}
 {% block title %} - 活动列表{% endblock %}
 {% block extra_head %}
-	<link rel="alternate" type="application/rss+xml" title="最新活动" href="/feed/event" />
+<link rel="alternate" type="application/rss+xml" title="最新活动" href="{% url feed_events %}" />
 {% endblock %}
 {% block content %}
   {% load markup %}
