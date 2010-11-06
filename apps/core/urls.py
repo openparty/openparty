@@ -1,4 +1,4 @@
-from feeds import Events_Feed, Topics_Feed
+from feeds import Events_Feed, Topics_Feed, Posts_Feed
 from django.conf.urls.defaults import patterns, url
 
 event_patterns = patterns('core.views',
@@ -20,6 +20,7 @@ topic_patterns = patterns('core.views',
 feed_patterns = patterns('core.views',
     url(r'^event/?$', Events_Feed(), name="feed_events"),
     url(r'^topic/?$', Topics_Feed(), name="feed_topics"),
+    url(r'^post/?$', Posts_Feed(), name="feed_posts"),
 )
 
 post_patterns = patterns('core.views',

@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     #TODO: take the unittest framework back
     'south',
+    'django_xmlrpc',
     'apps.core',
     'apps.member',
     'apps.twitter',

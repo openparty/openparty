@@ -19,6 +19,8 @@ from models import Event, Topic, Post
 from models import Vote
 from django.core.urlresolvers import reverse
 
+
+
 def index(request):
     topic_list = Topic.objects.all().order_by('-in_event__begin_time','-accepted', '-total_votes')[:8]
     event_list = Event.objects.past_events().order_by('-begin_time')[:3]
@@ -280,6 +282,7 @@ def view_post_by_name(request, name):
     post = get_object_or_404(Post, post_name=name)
     ctx = {
         'post': post,
+        'object': post, #for pingback hook
         'tab': 'post',
     }
     return render_to_response('core/post.html',
