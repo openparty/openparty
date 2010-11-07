@@ -78,7 +78,7 @@ class Command(BaseCommand):
                     except:
                         exc_type, exc_value, exc_traceback = sys.exc_info()
                         print url, exc_type, exc_value, traceback.format_tb(exc_traceback)
-                        f.write("Failed to download %s" % url)
+                        f.write("Failed to download %s" % url.encode('utf-8'))
                         f.write('\n')
 
     def download_and_save(self, url, times=0):
@@ -86,7 +86,7 @@ class Command(BaseCommand):
             raise Exception('Failed to download after 19 reties')
         try:
             if url.startswith('https'):
-                url = url.replace('https', 'http')
+                url = url.replace('https', 'http').encode('utf-8')
             req = urllib2.urlopen(url)
             mime = req.info().gettype()
             if mime == 'image/jpeg':
