@@ -28,8 +28,8 @@ class MemberManager(models.Manager):
 
         activation_key = generate_activation_key(email)
         member = self.model(user=user, nickname=nickname, activation_key=activation_key)
-        member.send_activation_email()
         member.save()
+        member.send_activation_email()
 
         return member
     
