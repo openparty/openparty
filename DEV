@@ -1,0 +1,16 @@
+1. 要开发新个功能？
+在[master]下
+git checkout -b new_branch  #新建个分支并跳过去
+
+2.在[new_branch]开发，修改代码
+ (在开发中间如果别人更新了master的话，可以 git pull . master 把master的最新变动也引入[new_branch])
+
+3. 开发完后在[new_branch]下
+git add . #把新文件加进git里来
+git commit -a -m "add new feature" #提交  
+git checkout master && git pull . new_branch  #跳回master并把new_branch pull 过来。
+
+4 git push origin master # ok了，push到github上
+
+如果各位没有加上显示git branch(和代码是否dirty)的 bash prompt。这里有个还不错的script(https://gist.github.com/31631)，加到 .bashrc或等价的文件最后面。
+很方便开发。
