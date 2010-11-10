@@ -23,7 +23,7 @@ class MemberManager(models.Manager):
         user.username = email
         user.email = email
         user.set_password(password)
-        user.is_active = False
+        user.is_active = True
         user.save()
 
         activation_key = generate_activation_key(email)

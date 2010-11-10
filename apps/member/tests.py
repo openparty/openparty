@@ -46,11 +46,12 @@ class MemberTest(TestCase):
         response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': 'wrong-password'})
         self.assertFormError(response, 'form', '', u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号')
     
-    def test_login_should_failed_before_activate(self):
-        helper.create_user(activate=False)
-        response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
-        self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
-
+    # 暂时注释掉，因为邮件服务器总有问题，所以我们选择不需要邮件激活
+    # def test_login_should_failed_before_activate(self):
+    #         helper.create_user(activate=False)
+    #         response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
+    #         self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
+    
     def test_avatar_of_member(self):
         import settings
         member = helper.create_user()
