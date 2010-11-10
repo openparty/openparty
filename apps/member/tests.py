@@ -4,6 +4,7 @@ from apps.member.models import Member
 from apps.member.forms import SignupForm, LoginForm
 import apps.member.test_helper as helper
 from django.core.urlresolvers import reverse
+from django.contrib.sites.models import Site
 
 class MemberTest(TestCase):
     def test_save_member_though_form(self):
@@ -45,15 +46,17 @@ class MemberTest(TestCase):
         response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': 'wrong-password'})
         self.assertFormError(response, 'form', '', u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号')
     
-    def test_login_should_failed_before_activate(self):
-        helper.create_user(activate=False)
-        response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
-        self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
-
+    # 暂时注释掉，因为邮件服务器总有问题，所以我们选择不需要邮件激活
+    # def test_login_should_failed_before_activate(self):
+    #         helper.create_user(activate=False)
+    #         response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
+    #         self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
+    
     def test_avatar_of_member(self):
+        import settings
         member = helper.create_user()
         user = member.user
-        self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2Fapp.beijing-open-party.org%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', user.get_profile().avatar)
+        self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2F' + settings.SITE_URL[len("http://"):] + '%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', user.get_profile().avatar)
 
     def test_find_member_by_email(self):
         member = helper.create_user()

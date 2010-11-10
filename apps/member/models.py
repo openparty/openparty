@@ -23,13 +23,13 @@ class MemberManager(models.Manager):
         user.username = email
         user.email = email
         user.set_password(password)
-        user.is_active = False
+        user.is_active = True
         user.save()
 
         activation_key = generate_activation_key(email)
         member = self.model(user=user, nickname=nickname, activation_key=activation_key)
-        member.send_activation_email()
         member.save()
+        member.send_activation_email()
 
         return member
     
@@ -85,7 +85,7 @@ class Member(models.Model):
     
     @property
     def avatar(self):
-        default = 'http://app.beijing-open-party.org/media/images/default_gravatar.png'
+        default = settings.SITE_URL + '/media/images/default_gravatar.png'
         size = 40
         gravatar_url = "http://www.gravatar.com/avatar.php?"
         gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(self.user.username).hexdigest(),

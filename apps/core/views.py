@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django import forms
 
@@ -18,6 +18,8 @@ from forms import ArticleForm, EventCheckinForm
 from models import Event, Topic, Post
 from models import Vote
 from django.core.urlresolvers import reverse
+
+
 
 def index(request):
     topic_list = Topic.objects.all().order_by('-in_event__begin_time','-accepted', '-total_votes')[:8]
@@ -280,8 +282,12 @@ def view_post_by_name(request, name):
     post = get_object_or_404(Post, post_name=name)
     ctx = {
         'post': post,
+        'object': post, #for pingback hook
         'tab': 'post',
     }
     return render_to_response('core/post.html',
                                 ctx,
                                 context_instance=RequestContext(request))
+
+def redirect_wordpress_post(request, year, month, name):
+    return HttpResponseRedirect(reverse('view_post_by_name', args=[name]))

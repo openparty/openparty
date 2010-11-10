@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'django.contrib.markup',
     #TODO: take the unittest framework back
     'south',
+    'django_xmlrpc',
     'apps.core',
     'apps.member',
     'apps.twitter',
@@ -122,7 +123,7 @@ INSTALLED_APPS = (
 
 # One-week activation window; you may, of course, use a different value.
 ACCOUNT_ACTIVATION_DAYS = 7
-SITE_URL = 'http://app.beijing-open-party.org'
+SITE_URL = 'http://www.beijing-open-party.org'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')

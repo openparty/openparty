@@ -76,14 +76,14 @@
                     &copy; 2010 www.beijing-open-party.org
                     <br/>
                     Powered by <a href="http://djangoproject.com" target="_blank">Django</a>
-                    + <a href="http://code.google.com/p/openparty" target="_blank">OpenParty app</a>
+                    + <a href="http://www.github.com/openparty/openparty" target="_blank">OpenParty app</a>
                 </p>
                 <ul class="links">
                     <li>
                         <a href="mailto:dev@beijing-open-party.org">Contact</a>
                     </li>
                     <li>
-                        <a href="/feed">RSS Feed</a>
+                        <a href="/feed/post">RSS Feed</a>
                     </li>
                     <li>
                         <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS Validator</a>
@@ -94,7 +94,6 @@
                 </ul>
             </div>
         </div>
-
         {% if debug %}{% include "debug.html" %}{% else %}{% include "analytics.html" %}{% endif %}
         {% block extra_body %}{% endblock %}
     </body>

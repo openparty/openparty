@@ -22,4 +22,8 @@ class FeedTest(TestCase):
         response = self.client.post(reverse("feed_events"))
         self.failUnlessEqual(response.status_code, 200)
 
+    def test_posts_feed(self):
+        '''测试新闻的Feed能否正常输出'''
 
+        response = self.client.post(reverse("feed_posts"))
+        self.failUnlessEqual(response.status_code, 200)

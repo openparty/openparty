@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-
 from apps.member.models import Member
-
+from django.db.models import signals
+from django.core.urlresolvers import reverse
 
 class PostStatus(object):
     DRAFT   = 0
@@ -31,5 +31,10 @@ class Post(models.Model):
     def style_seed(self, range=4):
         return self.id % range
 
+    def get_absolute_url(self):
+        return reverse('view_post_by_name', args=[self.post_name])
+
     class Meta:
         app_label = 'core'
+
+
