@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 from django.conf import settings
 from django.core.management.base import BaseCommand
 
@@ -29,10 +31,6 @@ class Command(BaseCommand):
             sync_all = False
             query = '#openparty'
         
-        if sync_all:
-            count = Tweet.objects.sync_all(query=query)
-        else:
-            count = Tweet.objects.sync(query=query)
-        
+        count = Tweet.objects.sync_weibo(query=query)
         print 'Synced %s tweets' % count
 

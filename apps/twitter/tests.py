@@ -10,6 +10,7 @@ from django.test import TestCase
 from django.db import models
 from django.core.urlresolvers import reverse
 from apps.twitter.models import Tweet
+from apps.twitter.test_weibo import WeiboTest
 
 class StatusTest(TestCase):
     def test_tweetspage(self):
