@@ -128,6 +128,13 @@ class Tweet(models.Model):
         except self.DoesNotExist:
             return False
     
+    @property
+    def profile_url(self):
+        if self.race == 'weibo':
+            return 'http://t.sina.com.cn/%s' % self.tweet_user_id
+        else:
+            return 'http://twitter.com/#!/%s' % self.tweet_user_name
+    
     @classmethod
     def create_from_tweepy_tweet(cls, tweet):
         my_tweet = cls()

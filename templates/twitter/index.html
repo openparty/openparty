@@ -23,7 +23,7 @@
         <ul class="tweets">
           {% for tweet in tweets %}
             <li class="{{ tweet.race }}">
-              <span class="avatar"><a href="http://twitter.com/{{ tweet.tweet_user_id }}">
+              <span class="avatar"><a target="_blank" href="{{ tweet.profile_url }}">
                 {% ifequal tweet.race 'weibo' %}
                 <img width="50" height="50" src="{{ tweet.profile_image }}" alt="{{ tweet.tweet_user_name }}' Profile image" />
                 {% else %}
@@ -31,7 +31,7 @@
                 {% endifequal %}
                 </a></span>
               {% ifequal tweet.race 'twitter' %}
-              <span class="username"><a href="http://twitter.com/{{ tweet.tweet_user_id }}">{{ tweet.tweet_user_name }}</a></span>
+              <span class="username"><a target="_blank" href="{{ tweet.profile_url }}">{{ tweet.tweet_user_name }}</a></span>
               {% endifequal %}
               <span class="message">{{ tweet.text|safe }}</span>
               <span class="source">(from {{ tweet.source }})</p>
