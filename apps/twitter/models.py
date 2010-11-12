@@ -8,7 +8,7 @@ import tweepy
 
 import time
 from lxml import html
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db import models
 import urllib, urllib2
 from cookielib import CookieJar
@@ -105,7 +105,7 @@ class Tweet(models.Model):
     geo = models.CharField(blank=True, null=True, max_length=80)
     tweet_user_id = models.BigIntegerField(blank=True, null=False)
     tweet_user_name = models.CharField(blank=True, null=True, max_length=128)
-    craeted_at = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True)
     source = models.CharField(blank=True, null=True, max_length=80)
     dump = models.TextField(blank=True, null=False)
     query = models.CharField(blank=True, null=True, max_length=127)
@@ -174,7 +174,10 @@ class Tweet(models.Model):
         if len(created_ats) == 1:
             created_at = created_ats[0]
             time_str = created_at.text_content()
-            if time_str.find(u'月') != -1:
+            if time_str.find(u'分钟前') != -1:
+                minutes = time_str[:time_str.find(u'分钟前')]
+                t.created_at = datetime.now() - timedelta(seconds=60*int(minutes))
+            elif time_str.find(u'月') != -1:
                 this_year = datetime.today().year
                 time_str = u'%s年%s' % (this_year, time_str)
                 t.created_at = datetime.strptime(time_str.encode('utf-8'), '%Y年%m月%d日 %H:%M')

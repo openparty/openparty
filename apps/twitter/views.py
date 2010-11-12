@@ -28,7 +28,7 @@ def index(request):
 
         if hashlib.sha1(request.user.username.lower()).hexdigest() in admin_mail_sha1_hash:
             twitter_enabled = True
-    tweets = Tweet.objects.order_by('-tweet_id')[:100]
+    tweets = Tweet.objects.order_by('-created_at', '-tweet_id')
     paginator = Paginator(tweets, 50)
 
     try:

@@ -5,7 +5,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from apps.twitter.models import Tweet
 from lxml import html
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 weibo_sms_html_frag = u'''
@@ -101,6 +101,12 @@ class WeiboTest(TestCase):
         ele = html.fromstring(m)
         t = Tweet.create_from_weibo_html_fragment(ele)
         created_at = datetime(2009, 8, 29, 16, 55)
+        self.assertEquals(created_at.strftime('%Y%m%d %H%M%S'), t.created_at.strftime('%Y%m%d %H%M%S'))
+        
+        m = weibo_sms_html_frag.replace(u'11月10日 11:19', u'18分钟前')
+        ele = html.fromstring(m)
+        t = Tweet.create_from_weibo_html_fragment(ele)
+        created_at = datetime.now() - timedelta(seconds=60*18)
         self.assertEquals(created_at.strftime('%Y%m%d %H%M%S'), t.created_at.strftime('%Y%m%d %H%M%S'))
     
     def test_tweet_should_have_source_when_create_it_from_weibo_html_fragment(self):
