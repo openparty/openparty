@@ -429,7 +429,7 @@ dl.pair {
   left: 0;
   width: 56px;
 }
-.tweets .source {
+.tweets .tweet-client {
   color: #999;
   display: block;
 }
@@ -456,8 +456,9 @@ dl.pair {
   margin: 0.5em 0;
 }
 
-.weibo .feed_att .rt,
-.weibo > .source {
+.weibo .feed_att,
+.weibo > .source,
+.weibo .source_att {
   display: none;
 }
 

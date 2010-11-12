@@ -34,7 +34,7 @@
               <span class="username"><a target="_blank" href="{{ tweet.profile_url }}">{{ tweet.tweet_user_name }}</a></span>
               {% endifequal %}
               <span class="message">{{ tweet.text|safe }}</span>
-              <span class="source">(from {{ tweet.source }})</p>
+              <span class="tweet-client">(from {{ tweet.source }})</p>
             </li>
           {% endfor %}
         </ul>
