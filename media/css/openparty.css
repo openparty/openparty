@@ -433,6 +433,37 @@ dl.pair {
   color: #999;
   display: block;
 }
+.tweets li.weibo {
+  background: transparent url(../images/bg_weibo_icon.png) right 90% no-repeat;
+  padding: 0 0 0 58px;
+}
+.tweets li.twitter {
+  background: transparent url(../images/bg_twitter_icon.png) right 90% no-repeat;
+}
+
+.tweets .MIB_assign {
+  background-color: #e8f4f9;
+  border: 1px solid #ddd;
+  padding: 0 1em;
+  margin: 0.5em 0;
+  overflow: hidden;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.weibo  p {
+  margin: 0.5em 0;
+}
+
+.weibo .feed_att .rt,
+.weibo > .source {
+  display: none;
+}
+
+.weibo .MIB_feed_c {
+  margin-bottom: 0.5em;
+}
 
 .comments .timesince{
   color: #999;
