@@ -35,7 +35,7 @@
         {% endif %}
         
         <p class="meta">
-          <span class="topic-author">{{ this_topic.author.nickname }}</span>于“<span class="topic-created-at">{{ this_topic.created|date:'Y年m月d日' }}</span>”创建了这个话题{% if this_topic.accepted %}，计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date:'Y年m月d日'}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”活动中演讲{% endif %}
+        <span class="topic-author"><a href="{% url member_profile this_topic.author.id %}">{{ this_topic.author.nickname }}</a></span>于“<span class="topic-created-at">{{ this_topic.created|date:'Y年m月d日' }}</span>”创建了这个话题{% if this_topic.accepted %}，计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date:'Y年m月d日'}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”活动中演讲{% endif %}
         </p>
         
         <div>
@@ -43,7 +43,7 @@
         </div>
 
         {% if modified %}
-          <p> 最近修改者：{{ this_topic.last_modified_by.nickname }} 于：{{ this_topic.last_modified|timesince }} 前</p>
+        <p> 最近修改者：<a href="{% url member_profile this_topic.last_modified_by.id %}">{{ this_topic.last_modified_by.nickname }}</a> 于 {{ this_topic.last_modified|timesince }} 前</p>
         {% endif %}
 
 
@@ -54,7 +54,7 @@
               {% for comment in comment_list %}
               <li id="c{{comment.id}}">
                   <span class="avatar"><img width=48 height=48 src="{{ comment.user.get_profile.avatar }}" alt="{{ comment.user.get_profile.display_name }}' Profile image" /></span>
-                  <span class="username">{{ comment.user.get_profile.display_name }}</span>
+                  <span class="username"><a href="{% url member_profile comment.user.get_profile.id %}">{{ comment.user.get_profile.display_name }}</a></span>
                   <span class="timesince"> - {{ comment.submit_date|timesince }}前</span>
                   <span class="comment">{{ comment.comment }}</span>
                 </li>

@@ -5,6 +5,9 @@ from apps.member.forms import SignupForm, LoginForm
 import apps.member.test_helper as helper
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+from django.contrib.auth.models import User
+from apps.core.models import Event, Topic
+from datetime import datetime
 
 class MemberTest(TestCase):
     def test_save_member_though_form(self):
@@ -68,3 +71,18 @@ class MemberTest(TestCase):
         not_found = Member.objects.find_by_email('iamnotexisting@gmail.com')
         self.assertFalse(not_found)
 
+class StatusTest(TestCase):
+    def setUp(self):
+        new_user = User.objects.create(username="tester", password="tester")
+        new_user.save()
+        self.client.login(username="tester", passsword="tester")
+        new_member = Member.objects.create(user=new_user, nickname="tester")
+        new_member.save()
+        new_event = Event.objects.create(name="test event 01", description="xxx", content="xxx", begin_time = datetime.now(), end_time = datetime.now(), last_modified_by=new_member)
+        new_event.save()
+        new_topic = Topic.objects.create(name="test topic 01", description="xxx", content="xxx", author=new_member, last_modified_by=new_member)
+        new_topic.save()
+
+    def test_statuscheck_member_profile(self):
+        response = self.client.get(reverse('member_profile', kwargs={"pk":1}))
+        self.failUnlessEqual(response.status_code, 200)
