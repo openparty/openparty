@@ -1,0 +1,88 @@
+{% extends "core/base_core.html" %}
+{% block title %} - {{member.name}}{% endblock %}
+{% block content %}
+    {% load markup %}
+    <div id="content" class="content topic">
+      <div class="container_16">
+        <p class="bread-crumb"><a href="/topic">返回</a></p>
+
+        <h1>{{ member.display_name }}</h1>
+        <img width=48 height=48 src="{{ member.avatar }}">
+        
+        <h2 class="component-title">提交话题</h2>
+        <ul class="topics">
+        {% for topic in member.topic_created.all %}
+         <li class="topic">
+            <h2 class="topic-name topic-name_{{ topic.style_seed }}">
+              <a href="/topic/{{ topic.id }}">{{ topic.name }}</a>
+              {% if topic.in_event.is_upcoming %}<span class="upcoming">即将开始</span>{% endif %}
+              <span class="tail"></span>
+            </h2>
+            <p class="meta">
+              {% if topic.accepted %}
+                得票数：<span class="votes">{{ topic.total_votes }}</span>
+              {% else %}
+                等待管理员审核中，审核完毕后即可开始投票
+              {% endif %}
+
+              {% if topic.accepted %}
+               所属活动：<a href="/event/{{topic.in_event.id}}">{{topic.in_event.name}}</a> 日期：{{topic.in_event.begin_time|date}}
+              {% endif %}
+            </p>
+            <div class="description">{{ topic.description|restructuredtext }}</div>
+          </li>
+        {% endfor %}
+         </ul>
+
+        <h2 class="component-title">参与活动</h2>
+        <ul class="events">
+            {% for event in member.arrived_event.all %}
+            <li><span class="event-name"><a href="/event/{{ event.id }}">{{ event.name }}</a></span></li>
+            {% endfor %}
+        </ul>
+
+        <h2 class="component-title">参与投票</h2>
+        {% for vote in member.vote_created.all %}
+            <li class="votes">
+            <a href="/topic/{{ vote.item.id }}">{{ vote.item.name }}</a>
+            </li>
+        {% endfor %}
+
+
+        <h2 class="component-title">留言</h2>
+        {% load comments %}
+          {% get_comment_list for member as comment_list %}
+            <ul class="comments">
+              {% for comment in comment_list %}
+              <li id="c{{comment.id}}">
+                  <span class="avatar"><img width=48 height=48 src="{{ comment.user.get_profile.avatar }}" alt="{{ comment.user.get_profile.display_name }}' Profile image" /></span>
+                  <span class="username">{{ comment.user.get_profile.display_name }}</span>
+                  <span class="timesince"> - {{ comment.submit_date|timesince }}前</span>
+                  <span class="comment">{{ comment.comment }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+
+          {% if user.is_authenticated %}
+            {% get_comment_form for member as form %}
+            <form action="{% comment_form_target %}" method="POST">
+              {% csrf_token %}
+              {{ form.comment }}
+              <div class="invisiable">
+                {{ form.honeypot }}
+              </div>
+              {{ form.content_type }}
+              {{ form.object_pk }}
+              {{ form.timestamp }}
+              {{ form.security_hash }}
+              <input type="hidden" name="next" value="{% url member_profile member.id %}" /><br />
+              <input type="submit" value="留言" id="id_submit" />
+            </form>
+         {% else %}
+          <p>如要发布留言，请先 <a href="{% url login %}">登录</a></p>
+         {% endif %}
+     
+
+      </div>
+    </div>
+{% endblock %}

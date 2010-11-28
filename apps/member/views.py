@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
 
 from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm
 from apps.member.models import Member
@@ -74,3 +75,13 @@ def update_profile(request):
     ctx = { 'form': form,  }
     return render_to_response('member/update_profile.html', ctx,
         context_instance=RequestContext(request))
+
+
+class MemberProfileView(DetailView):
+
+    context_object_name = "member"
+    model = Member
+
+    def get_queryset(self, **kwargs):
+        queryset = super(MemberProfileView, self).get_queryset(**kwargs)
+        return queryset.select_related()

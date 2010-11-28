@@ -58,7 +58,7 @@
         {% for participant in this_event.participants.all %}
           <dl>
             <dt><img width=48 height=48 src="{{ participant.avatar }}"></dt>
-            <dd>{{ participant.nickname}}</dd>
+            <dd><a href="/member/{{participant.id}}">{{ participant.nickname}}</a></dd>
           </dl>
         {% endfor %}
         <div class="clear"></div>
