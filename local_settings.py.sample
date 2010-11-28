@@ -1,6 +1,6 @@
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'openparty',                      # Or path to database file if using sqlite3.
         'USER': 'openparty',                      # Not used with sqlite3.
         'PASSWORD': 'openparty',                  # Not used with sqlite3.
