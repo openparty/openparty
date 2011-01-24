@@ -10,7 +10,11 @@ from apps.core.models import Event
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        event = Event.objects.next_event()
+        if len(args):
+            event_id = int(args[0])
+            event = Event.objects.get(pk=event_id)
+        else:
+            event = Event.objects.next_event()
         csv_file_name = '/tmp/openparty_%s_participants.csv' % event.id
         writer = csv.writer(open(csv_file_name , 'w'))
         header = ('id', 'username', 'nickname', 'realname', 'gender', 'career', 'company', 'position', 'blog', 'phone', 'hobby', 'gtalk', 'msn', 'twitter', 'foursquare')
