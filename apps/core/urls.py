@@ -3,7 +3,7 @@ from django.conf.urls.defaults import patterns, url
 
 event_patterns = patterns('core.views',
     url(r'^$', 'event_list', name='event_list'),
-    url(r'^join$', 'join_event'),
+    url(r'^join/?$', 'join_event'),
     url(r'^checkin$', 'checkin', name='event_checkin'),
     url(r'^(?P<id>\d+)$', 'event', name='event'),
 )
