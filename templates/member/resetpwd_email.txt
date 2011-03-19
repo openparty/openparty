@@ -1,0 +1,10 @@
+如果您没有在OpenParty网站进行重置密码的操作，请忽略此邮件
+
+You now need to confirm that you are the person who signed up for an account on the Open Party website.
+
+Please click here to reset your password: {{ site }}{% url reset_password activation_key %}
+
+If you have any questions, feel free to email us at staff@beijing-open-party.org.
+
+Thanks in advance,
+The Open Party Team

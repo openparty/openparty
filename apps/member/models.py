@@ -6,6 +6,7 @@ from django.utils.hashcompat import sha_constructor
 from django.template.loader import render_to_string
 from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User
+from django.core.cache import cache
 
 import user
 
@@ -101,6 +102,30 @@ class Member(models.Model):
         message = render_to_string('member/activation_email.txt', ctx)
 
         self.user.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
+
+    def _generate_pwd_reset_token(self):
+        salt = sha_constructor(str(random.random())).hexdigest()[:8]
+        token = sha_constructor(salt+self.user.username).hexdigest()
+        cache.set('pwd_reset_token:%s' % self.user.id, token, 60*60*3)
+        return token
+
+    def is_pwd_reset_token_expired(self, given_token):
+        return not (given_token and cache.get('pwd_reset_token:%s' % self.user.id, None) == given_token)
+
+    def delete_pwd_reset_token(self):
+        cache.delete('pwd_reset_token:%s' % self.user.id)
+
+    def send_reset_password_email(self):
+        ctx = { 'activation_key': self._generate_pwd_reset_token(),
+                'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
+                'site': settings.SITE_URL }
+
+        subject = "[Open Party] 密码重置"
+        message = render_to_string('member/resetpwd_email.txt', ctx)
+
+        self.user.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
+
+
     
     def is_activation_key_expired(self):
         expiration_date = datetime.timedelta(days=settings.ACCOUNT_ACTIVATION_DAYS)

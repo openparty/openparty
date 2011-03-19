@@ -5,9 +5,10 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
+from django.views.generic.edit import FormView
 
-from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm
+from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm, RequestResetPasswordForm
 from apps.member.models import Member
 from django.core.urlresolvers import reverse
 
@@ -62,6 +63,35 @@ def change_password(request):
     ctx = { 'form': form,  }
     return render_to_response('member/change_password.html', ctx,
         context_instance=RequestContext(request))
+
+class MemberRequestResetPasswordView(FormView):
+    form_class = RequestResetPasswordForm
+    template_name = 'member/request_reset_password.html'
+
+    def form_valid(self, form):
+        this_member = Member.objects.get(user__email=form.cleaned_data['email'])
+        this_member.send_reset_password_email()
+        return super(MemberRequestResetPasswordView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('member_request_reset_pwd_done')
+
+class MemberRequestResetPasswordDone(TemplateView):
+    template_name = 'member/request_reset_password_done.html'
+
+def reset_password(request, pwd_reset_token):
+    this_memeber = Member.objects.get(user=request.user)
+    token = pwd_reset_token
+    if request.method == 'POST' and not this_member.is_pwd_reset_token_expired(token):
+        form = ResetPasswordForm(request.user, request.POST)
+        if form.save():
+            messages.success(request, u'您的密码已经修改')
+            this_member.delete_pwd_reset_token()
+            return redirect('/')
+    elif not this_member.is_pwd_reset_token_expired(token):
+        form = ResetPasswordForm(request)
+        ctx = { 'form': form,  }
+        return render_to_response('member/reset_password.html', ctx, context_instance=RequestContext(request))
 
 @login_required
 def update_profile(request):
