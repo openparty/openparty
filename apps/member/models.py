@@ -118,6 +118,7 @@ class Member(models.Model):
     def send_reset_password_email(self):
         ctx = { 'activation_key': self._generate_pwd_reset_token(),
                 'expiration_days': settings.ACCOUNT_ACTIVATION_DAYS,
+                'user_id': self.id,
                 'site': settings.SITE_URL }
 
         subject = "[Open Party] 密码重置"

@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import FormView
 
-from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm, RequestResetPasswordForm
+from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm, RequestResetPasswordForm, ResetPasswordForm
 from apps.member.models import Member
 from django.core.urlresolvers import reverse
 
@@ -79,11 +79,11 @@ class MemberRequestResetPasswordView(FormView):
 class MemberRequestResetPasswordDone(TemplateView):
     template_name = 'member/request_reset_password_done.html'
 
-def reset_password(request, pwd_reset_token):
-    this_memeber = Member.objects.get(user=request.user)
+def reset_password(request, user_id, pwd_reset_token):
+    this_member = Member.objects.get(id=user_id)
     token = pwd_reset_token
     if request.method == 'POST' and not this_member.is_pwd_reset_token_expired(token):
-        form = ResetPasswordForm(request.user, request.POST)
+        form = ResetPasswordForm(this_member.user, request.POST)
         if form.save():
             messages.success(request, u'您的密码已经修改')
             this_member.delete_pwd_reset_token()
@@ -91,7 +91,9 @@ def reset_password(request, pwd_reset_token):
     elif not this_member.is_pwd_reset_token_expired(token):
         form = ResetPasswordForm(request)
         ctx = { 'form': form,  }
-        return render_to_response('member/reset_password.html', ctx, context_instance=RequestContext(request))
+    else:
+        ctx = { 'status': 'failed' }
+    return render_to_response('member/reset_password.html', ctx, context_instance=RequestContext(request))
 
 @login_required
 def update_profile(request):

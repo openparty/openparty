@@ -12,5 +12,5 @@ urlpatterns = patterns('member.views',
     url(r'^(?P<pk>\d+)/$', MemberProfileView.as_view(), name='member_profile'),
     url(r'^request_reset_password$', MemberRequestResetPasswordView.as_view(), name='member_request_reset_pwd'),
     url(r'^request_reset_password_done$', MemberRequestResetPasswordDone.as_view(), name='member_request_reset_pwd_done'),
-    url('^reset_password/(?P<pwd_reset_token>\w+)/$', 'reset_password', name='reset_password'),
+    url('^reset_password/(?P<user_id>\d+)/(?P<pwd_reset_token>\w+)/$', 'reset_password', name='reset_password'),
 )

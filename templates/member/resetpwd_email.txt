@@ -2,7 +2,7 @@
 
 You now need to confirm that you are the person who signed up for an account on the Open Party website.
 
-Please click here to reset your password: {{ site }}{% url reset_password activation_key %}
+Please click here to reset your password: {{ site }}{% url reset_password user_id activation_key %}
 
 If you have any questions, feel free to email us at staff@beijing-open-party.org.
 
