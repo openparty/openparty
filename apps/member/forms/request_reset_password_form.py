@@ -18,7 +18,8 @@ class RequestResetPasswordForm(forms.Form):
     def clean(self):
         super(RequestResetPasswordForm,self).clean()
         usermail = self.cleaned_data.get('email','')
-        user = Member.objects.get(user__email=usermail).user
-        if not user:
+        try:
+            user = Member.objects.get(user__email=usermail).user
+        except Member.DoesNotExist:
             raise forms.ValidationError(u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号')
         return self.cleaned_data

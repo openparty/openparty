@@ -7,6 +7,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import FormView
+from django.http import Http404  
 
 from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm, RequestResetPasswordForm, ResetPasswordForm
 from apps.member.models import Member
@@ -80,7 +81,10 @@ class MemberRequestResetPasswordDone(TemplateView):
     template_name = 'member/request_reset_password_done.html'
 
 def reset_password(request, user_id, pwd_reset_token):
-    this_member = Member.objects.get(id=user_id)
+    try:
+        this_member = Member.objects.get(id=user_id)
+    except Member.DoesNotExist:
+        raise Http404
     token = pwd_reset_token
     if request.method == 'POST' and not this_member.is_pwd_reset_token_expired(token):
         form = ResetPasswordForm(this_member.user, request.POST)
