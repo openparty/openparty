@@ -496,13 +496,26 @@ dl.pair {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    font-size: 20px;
     font-weight: bold;
     padding: 0.5em 1em;
     margin: 0.5em 0;
     display: inline-block;
     position: relative;
   }
+    .topic h1.topic-name {
+      font-size: 20px;
+    }
+    .topic .comment-widget .topic-name {
+      padding: 0 0.25em 0 0;
+      margin: 0;
+      display: inline;
+    }
+    .topic .comment-widget .topic-name:before {
+      content: '“';
+    }
+    .topic .comment-widget .topic-name:after {
+      content: '”';
+    }
     .topics .topic .topic-name {
       font-size: 15px !important;
     }
@@ -829,3 +842,13 @@ dl.pair {
     .posts span.meta:after {
       content: ')';
     }
+.comment-widget {}
+  .comment-widget h3 {
+    color: #15355F;
+    font-size: 14px;
+  }
+  .comment-widget a:link,
+  .comment-widget a:visited {
+    color: #15355F;
+    text-decoration: none !important;
+  }

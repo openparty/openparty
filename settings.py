@@ -81,7 +81,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # "django.core.context_processors.i18n",
     "django.core.context_processors.media",
     "django.contrib.messages.context_processors.messages",
-    "apps.core.context_processors.analytics_id",
+    "apps.core.context_processors.global_settings_injection",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -129,6 +129,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')
 
 ANALYTICS_ID = 'UA-329713-8'
+COMMENT_SYSTEM = 'disqus'
 
 TWITTER_OPENPARTY_KEY = "REPLACE_IT_WITH_REAL_VALUE_IN_LOCAL_SETTINGS"
 TWITTER_OPENPARTY_SECRET = "REPLACE_IT_WITH_REAL_VALUE_IN_LOCAL_SETTINGS"
