@@ -64,38 +64,20 @@
         <div class="clear"></div>
       </div>
 
-      <h2 class="component-title">评论</h2>
-      {% load comments %}
-      {% get_comment_list for this_event as comment_list %}
-        <ul class="comments">
-          {% for comment in comment_list %}
-          <li id="c{{comment.id}}">
-              <span class="avatar"><img width=48 height=48 src="{{ comment.user.get_profile.avatar }}" alt="{{ comment.user.get_profile.display_name }}' Profile image" /></span>
-              <span class="username"><a href="{% url member_profile comment.user.get_profile.id %}">{{ comment.user.get_profile.display_name }}</a></span>
-              <span class="timesince"> - {{ comment.submit_date|timesince }}前</span>
-              <span class="comment">{{ comment.comment }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-
-      {% if user.is_authenticated %}
-        {% get_comment_form for this_event as form %}
-        <form action="{% comment_form_target %}" method="POST">
-          {% csrf_token %}
-          {{ form.comment }}
-          <div class="invisiable">
-            {{ form.honeypot }}
-          </div>
-          {{ form.content_type }}
-          {{ form.object_pk }}
-          {{ form.timestamp }}
-          {{ form.security_hash }}
-          <input type="hidden" name="next" value="{% url event this_event.id %}" /><br />
-          <input type="submit" value="发表评论" id="id_submit" />
-        </form>
-     {% else %}
-      <p>如要发表评论，请先 <a href="{% url login %}">登录</a></p>
-     {% endif %}
+      <div class="comment-widget">
+        <h2><span class="event-name">{{ this_event.name }}</span>的评论</h2>
+        {% ifequal COMMENT_SYSTEM 'disqus' %}
+          {% with entity_type='event' entity_id=this_event.id %}
+            {% url event this_event.id as entity_url %}
+            {% include 'core/_disqus_comments.html' %}
+          {% endwith %}
+        {% else %}
+          {% with entity=this_event %}
+            {%  url event this_event.id as next_url %}
+            {% include 'core/_comment_list.html' %}
+          {% endwith %}
+        {% endifequal %}
+      </div><!-- .comment-widget -->
 
     </div>
   </div>
