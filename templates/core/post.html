@@ -19,6 +19,21 @@
             <span class='comment-count'>{{ post.comment_count }}</span>
           </p>
           <div class="content">{{ post.content|safe }}</div>
+
+          <div class="comment-widget">
+            <h2><span class="post-name">{{post.title}}</span>的评论</h2>
+            {% ifequal COMMENT_SYSTEM 'disqus' %}
+              {% with entity_type='post' entity_id=post.id %}
+                {% url post post.id as entity_url %}
+                {% include 'core/_disqus_comments.html' %}
+              {% endwith %}
+            {% else %}
+              {% with entity=post %}
+                {% url post post.id as next_url %}
+                {% include 'core/_comment_list.html' %}
+              {% endwith %}
+            {% endifequal %}
+          </div><!-- .comment-widget -->
         </div>
       </div>
     </div>
