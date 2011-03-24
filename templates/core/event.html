@@ -31,6 +31,8 @@
         <dt class="invisiable">活动类型</dt><dd class="invisiable" itemprop="eventType">Unconference, conference, party</dd>
       </dl>
 
+      {% include 'core/_share_link.html' %}
+
       <p class="poster"><img itemprop="photo" src="{{this_event.poster}}" alt="{{ this_event.name }}活动海报" /></p>
 
       <div class="textile">{{ this_event.content|restructuredtext }}</div>

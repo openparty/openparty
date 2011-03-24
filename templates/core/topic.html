@@ -37,7 +37,9 @@
         <p class="meta">
         <span class="topic-author"><a href="{% url member_profile this_topic.author.id %}">{{ this_topic.author.nickname }}</a></span>于“<span class="topic-created-at">{{ this_topic.created|date:'Y年m月d日' }}</span>”创建了这个话题{% if this_topic.accepted %}，计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date:'Y年m月d日'}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”活动中演讲{% endif %}
         </p>
-        
+
+        {% include 'core/_share_link.html' %}
+
         <div>
           {{ this_topic.rendered_content|safe }}
         </div>
