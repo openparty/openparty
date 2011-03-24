@@ -6,5 +6,6 @@ def global_settings_injection(context):
         'ANALYTICS_ID': settings.ANALYTICS_ID,
         'COMMENT_SYSTEM': settings.COMMENT_SYSTEM,
         'SITE_URL': settings.SITE_URL,
+        'DISQUS_BRANCH_ID': settings.DISQUS_BRANCH_ID,
     }
 
