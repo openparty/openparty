@@ -381,8 +381,11 @@ dl.pair {
 .users dl {
   float: left;
   width: 76px;
+  height: 76px;
   margin: 10px 0;
   text-align: center;
+  word-wrap: break-word; 
+  word-break:normal;
 }
   .users dt {
     display: block;
