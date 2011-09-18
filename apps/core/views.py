@@ -48,11 +48,22 @@ def event_list(request):
     return render_to_response('core/event_list.html', ctx, context_instance=RequestContext(request))
 
 def topic_list(request):
-    topic_list = Topic.objects.all().order_by('-in_event__begin_time','-accepted', '-total_votes')
-    #需注意排序顺序
+    topic_list = Topic.objects.order_by('-in_event__begin_time','-accepted', '-total_votes')
+    paginator = Paginator(topic_list, 16)
+
+    try:
+        page_num = int(request.GET.get('page', '1'))
+    except ValueError:
+        page_num = 1
     
+    try:
+        page = paginator.page(page_num)
+    except (EmptyPage, InvalidPage):
+        page = paginator.page(paginator.num_pages)
+
     ctx = {
-        'topic_list': topic_list,
+        'page': page,
+        'topic_list': page.object_list,
         'tab': 'topic',
     }
     return render_to_response('core/topic_list.html', ctx, context_instance=RequestContext(request))
