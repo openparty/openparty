@@ -94,7 +94,7 @@ MIDDLEWARE_CLASSES = (
 
 LOGIN_URL = '/member/login'
 
-ROOT_URLCONF = 'openparty.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
