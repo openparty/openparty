@@ -17,7 +17,7 @@ class Command(BaseCommand):
         print 'Start syncing'
         conn = MySQLdb.connect(host='localhost', user='root', db='openparty_wp', use_unicode=True, charset='utf8')
         cursor = conn.cursor()
-        sql = "SELECT id, post_content, post_title, post_excerpt, post_status, post_name, to_ping, post_date, post_modified, guid, post_author, comment_count FROM wp_posts WHERE post_type = 'post'"
+        sql = "SELECT id, post_content, post_title, post_excerpt, post_status, post_name, to_ping, post_date, post_modified, guid, post_author, comment_count FROM wp_posts WHERE post_type = 'post' AND post_status = 'publish'"
         cursor.execute(sql)
         rows = cursor.fetchall()
         cleverpig = self.find_cleverpig()
