@@ -232,16 +232,6 @@ form .hint {
 .content p {
   margin: 1em 0;
 }
-.event-poster {
-  margin: 10px 0;
-  width: 460px;
-  height: 551px; /*320px;*/
-  -webkit-box-shadow: 6px 6px 6px #ccccc5;
-  -moz-box-shadow: 6px 6px 6px #ccccc5;
-}
-.event-poster img {
-  display: none;
-}
 .shadow {
   -webkit-box-shadow: 6px 6px 6px #ccccc5;
   -moz-box-shadow: 6px 6px 6px #ccccc5;
@@ -761,6 +751,7 @@ dl.pair {
     .event .poster img {
       -webkit-box-shadow: 5px 8px 8px #ccccc5;
       -moz-box-shadow: 5px 8px 8px #ccccc5;
+      max-width: 480px;
     }
   .event .event-topics {
     margin-left: 1em;
