@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect,HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
 from django import forms
 
@@ -204,7 +204,7 @@ def submit_topic(request):
                                     context,
                                     context_instance=RequestContext(request))
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST['title'] == '':
         form = ArticleForm(request.POST)
         topic = form.save(commit=False)
         topic.set_author(request.user)
@@ -220,6 +220,10 @@ def submit_topic(request):
         return render_to_response('core/submit_topic.html',
                                     context,
                                     context_instance=RequestContext(request))
+        
+    else:
+        return HttpResponseForbidden()
+
 @login_required
 def edit_topic(request, id):
 

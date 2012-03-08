@@ -385,7 +385,7 @@ dl.pair {
   margin: 10px 0;
   text-align: center;
   word-wrap: break-word; 
-  word-break:normal;
+  word-break: normal;
 }
   .users dt {
     display: block;
