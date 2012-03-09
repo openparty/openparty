@@ -32,7 +32,7 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 def signup(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.POST['captcha'] == '':
         form = SignupForm(request.POST)
         if form.save():
             ctx = { 'email': form.cleaned_data['email'], }

@@ -204,16 +204,17 @@ def submit_topic(request):
                                     context,
                                     context_instance=RequestContext(request))
 
-    if request.method == 'POST' and request.POST['title'] == '':
+    if request.method == 'POST' :
         form = ArticleForm(request.POST)
         topic = form.save(commit=False)
-        topic.set_author(request.user)
-        topic.save()
-        topic.send_notification_mail('created')
+        if request.POST['captcha'] == '':
+            topic = form.save(commit=False)
+            topic.set_author(request.user)
+            topic.save()
+            #topic.send_notification_mail('created')
         
         context = {
             'form': form,
-            'topic': topic,
             'save_success': True
         }
         
@@ -221,8 +222,6 @@ def submit_topic(request):
                                     context,
                                     context_instance=RequestContext(request))
         
-    else:
-        return HttpResponseForbidden()
 
 @login_required
 def edit_topic(request, id):
