@@ -25,12 +25,12 @@ feed_patterns = patterns('core.views',
 
 post_patterns = patterns('core.views',
     url(r'^$', 'list_post', name='list_post'),
-    url(r'^(?P<id>\d+)$', 'view_post', name='view_post'),
-    url(r'^(?P<name>.*)$', 'view_post_by_name', name='view_post_by_name'),
+    url(r'^(?P<id>\d+)/?$', 'view_post', name='view_post'),
+    url(r'^(?P<name>[^/]*)/?$', 'view_post_by_name', name='view_post_by_name'),
 )
 
 wordpress_redirect_patterns = patterns('core.views',
-    url(r'^(?P<name>.*)$', 'redirect_wordpress_post', name='redirect_wordpress_post'),
+    url(r'^(?P<name>[^/]*)/?$', 'redirect_wordpress_post', name='redirect_wordpress_post'),
 )
 
 about_patterns = patterns('django.views.generic.simple',

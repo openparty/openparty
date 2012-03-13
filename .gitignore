@@ -6,3 +6,9 @@ local_settings.py
 *.swp
 *.swo
 *.svn
+media/post_images
+media/upload
+media/admin
+openparty.pid
+post_images
+url_image_mapping_file.out
