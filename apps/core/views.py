@@ -211,7 +211,7 @@ def submit_topic(request):
             topic = form.save(commit=False)
             topic.set_author(request.user)
             topic.save()
-            #topic.send_notification_mail('created')
+            topic.send_notification_mail('created')
         
         context = {
             'form': form,
