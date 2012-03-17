@@ -381,8 +381,8 @@ dl.pair {
 .users dl {
   float: left;
   width: 76px;
-  height: 76px;
-  margin: 10px 0;
+  height: 58px;
+  margin: 5px 0;
   text-align: center;
   word-wrap: break-word; 
   word-break: normal;
@@ -395,7 +395,7 @@ dl.pair {
   }
   .users dt {
     display: block;
-    height: 56px;
+    height: 48px;
     text-align: center;
     overflow: hidden;
   }
