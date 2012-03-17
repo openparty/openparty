@@ -11,7 +11,10 @@
           “<span itemprop="summary">{{ this_event.name }}</span>”
         </a>
         {% if this_event.is_off %}<span class="event-status">本活动已结束</span>{% endif %}
-        {% if this_event.is_upcoming %}<span class="event-status">即将开始</span>{% endif %}
+        {% if this_event.is_upcoming %}
+			<span class="event-status">即将开始</span>
+			<span class="event-join"><a href="/event/join">报名参加本次活动</a></span>
+		{% endif %}
       </h1>
 
       <dl class="meta">
