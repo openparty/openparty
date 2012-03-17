@@ -95,3 +95,16 @@ def update(request):
     else:
         messages.error(request, u'对不起您还没有通过Twitter的OAuth认证')
     return redirect(reverse('tweets'))
+
+
+@login_required
+def delete(request):
+    member = request.user.get_profile()
+    tweet_id = request.POST.get('tweet_id')
+    if member.twitter_enabled:
+        tweet = Tweet.objects.get(tweet_id=tweet_id)
+        tweet.delete()
+        messages.info(request, u'Deleted')
+    else:
+        messages.error(request, u'对不起您还没有管理员身份')
+    return redirect(reverse('tweets'))
