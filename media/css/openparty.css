@@ -273,7 +273,9 @@ dl.pair {
   text-decoration: underline;
 }
 .join-us .hot a:link,
-.join-us .hot a:visited {
+.join-us .hot a:visited,
+.event-join a:link,
+.event-join a:visited {
   background-color: #777;
   color: white;
   padding: 0.25em 0.75em;
@@ -287,11 +289,23 @@ dl.pair {
   box-shadow: 4px 4px 6px #ccccc5;
 }
 .join-us .hot a:hover,
-.join-us .hot a:active {
+.join-us .hot a:active,
+.event-join a:hover,
+.event-join a:active {
   background-color: #666;
   -webkit-box-shadow: 6px 6px 6px #ccccc5;
   -moz-box-shadow: 6px 6px 6px #ccccc5;
   box-shadow: 6px 6px 6px #ccccc5;
+}
+.event-join a:link,
+.event-join a:visited {
+	padding-left: 2em;
+	background-color: rgba(255, 255, 102, 0.6000);
+	color: #333;
+}
+.event-join a:hover,
+.event-join a:active {
+	background-color: rgba(255, 255, 102, 1.0000);
 }
 .join-us .inactive a:link,
 .join-us .inactive a:visited {
