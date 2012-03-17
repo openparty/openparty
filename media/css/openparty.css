@@ -404,6 +404,14 @@ dl.pair {
     -moz-border-radius: 5px;
     border-radius: 5px;
   }
+  .users a:link,
+  .users a:visited {
+    color: #bbb;
+    font-size: 11px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
 .textile h1 {
   font-size: 16px;
