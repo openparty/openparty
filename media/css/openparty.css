@@ -301,6 +301,7 @@ dl.pair {
 .event-join a:visited {
   margin-left: 2em;
   font-size: 13px;
+  color: white;
 }
 .join-us .inactive a:link,
 .join-us .inactive a:visited {
