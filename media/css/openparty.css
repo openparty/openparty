@@ -704,6 +704,10 @@ dl.pair {
       font-weight: bold;
       padding-bottom: 5px;
     }
+    .event .event-join a:link,
+    .event .event-join a:visited {
+      color: white;
+    }
   .next-event h2 {/* for index page */
     border-bottom: none;
   }
