@@ -299,13 +299,9 @@ dl.pair {
 }
 .event-join a:link,
 .event-join a:visited {
-	padding-left: 2em;
-	background-color: rgba(255, 255, 102, 0.6000);
-	color: #333;
-}
-.event-join a:hover,
-.event-join a:active {
-	background-color: rgba(255, 255, 102, 1.0000);
+  margin-left: 2em;
+  font-size: 13px;
+  color: #333;
 }
 .join-us .inactive a:link,
 .join-us .inactive a:visited {
