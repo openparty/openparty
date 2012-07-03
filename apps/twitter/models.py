@@ -116,7 +116,7 @@ class Tweet(models.Model):
     
     class Meta:
         ordering = []
-        verbose_name, verbose_name_plural = "Tweet", "s"
+        verbose_name, verbose_name_plural = "Tweet", "Tweets"
 
     def __unicode__(self):
         return u"Tweet"
