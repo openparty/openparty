@@ -36,15 +36,10 @@ see the Configuration section below for where to place settings and get the
 database running. Now you can run::
 
     (openparty)$ python openparty_project/manage.py syncdb
-    (openparty)$ python openparty_project/manage.py loaddata fixtures/initial_{wakawaka,boxes}.json
-
-The wakawaka fixtures will require a user to exist before being ran. During
-syncdb it is worth it to make a superuser account which can then be used for
-making other users staff/superusers after they sign up.
 
 Running a web server
 --------------------
 
 In development you should run::
 
-    (openparty)$ python manage.py openparty_project/runserver
+    (openparty)$ python manage.py runserver
