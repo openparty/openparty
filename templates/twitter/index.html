@@ -34,6 +34,11 @@
               <span class="username"><a target="_blank" href="{{ tweet.profile_url }}">{{ tweet.tweet_user_name }}</a></span>
               {% endifequal %}
               <span class="message">{{ tweet.text|safe }}</span>
+              <form action="{% url delete_tweet %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="tweet_id" value="{{ tweet.tweet_id }}">
+                  <input type="submit" name="delete" value="delete">
+              </form>
               <span class="tweet-client">(from {{ tweet.source }})</p>
             </li>
           {% endfor %}
