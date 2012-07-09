@@ -65,6 +65,7 @@ STATIC_URL = '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
+#ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ')x_^bgbj$v_r-5=rn&01pm-5*%szlnc+8^3kh4$^$#z-gn5yo#'
@@ -90,6 +91,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 )
 
@@ -102,6 +104,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_ROOT, 'templates'),
+    '/usr/local/lib/python2.6/dist-packages/debug_toolbar/templates',
 )
 
 
@@ -120,6 +123,7 @@ INSTALLED_APPS = (
     'apps.core',
     'apps.member',
     'apps.twitter',
+    'debug_toolbar',
 )
 
 # One-week activation window; you may, of course, use a different value.
@@ -137,6 +141,8 @@ TWITTER_OPENPARTY_KEY = "REPLACE_IT_WITH_REAL_VALUE_IN_LOCAL_SETTINGS"
 TWITTER_OPENPARTY_SECRET = "REPLACE_IT_WITH_REAL_VALUE_IN_LOCAL_SETTINGS"
 
 AUTH_PROFILE_MODULE = "member.Member"
+
+INTERNAL_IPS = ('114.254.99.95',)
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
