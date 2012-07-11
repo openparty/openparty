@@ -170,15 +170,15 @@ form .hint {
   margin: 0;
 }
 
-  .main-navigator li{
+  .main-navigator li {
     float: left;
-    margin: 0.15em 2.5em 0.15em 0;
+    margin: 0.15em 2em 0.15em 0;
   }
 
   .main-navigator a {
     color: #333;
     display: block;
-    padding: 0.1em 1.2em 0.2em;
+    padding: 0.1em 1em 0.2em;
     font-weight: bold;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
