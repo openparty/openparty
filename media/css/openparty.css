@@ -868,3 +868,19 @@ dl.pair {
     color: #15355F;
     text-decoration: none !important;
   }
+
+.events ul {
+  overflow: hidden;
+}
+.events .poster-preview {
+  max-width: 100px;
+  float: left;
+  margin: 0.5em 1em 0 0;
+}
+#index .events ul {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+#index .content h2 {
+  font-size: 16px;
+}

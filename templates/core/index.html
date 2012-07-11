@@ -1,4 +1,7 @@
 {% extends "core/base_core.html" %}
+
+{% block body_signature %}index{% endblock %}
+
 {% block content %}
 {% load markup %}
 <div class="article container_16">
@@ -45,20 +48,29 @@
       </div>
     </div>
   </div>
+
   <div class="clear"></div>
+
+  <div class="entries events container_12">
+    <h2>以往活动</h2>
+    <ul>
+    {% for event in event_list %}
+        <li class="grid_4">
+          <h4><a href="/event/{{event.id}}">{{ event.name }}</a></h4>
+          <p>
+            <img itemprop="photo" class="poster-preview" src="{{event.poster}}" alt="{{ event.name }}活动海报" width="100" height="135" />
+            {{ event.description }}
+            <a href="/event/{{ event.id }}" class="more">查看更多</a>
+          </p>
+        </li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <div class="clear"></div>
+
   <div class="container_12">
-    <div class="entries events grid_4">
-      <h2>以往活动</h2>
-      <ul>
-      {% for event in event_list %}
-          <li>
-            <h4><a href="/event/{{event.id}}">{{ event.name }}</a></h4>
-            <p>{{ event.description }} <a href="/event/{{ event.id }}" class="more">查看更多</a></p>
-          </li>
-      {% endfor %}
-      </ul>
-    </div>
-    <div class="entries topics grid_4">
+    <div class="entries topics grid_6 alpha">
       <h2>精彩演讲话题</h2>
       <ul>
         {% for topic in topic_list %}
@@ -69,7 +81,7 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="entries posts grid_4">
+    <div class="entries posts grid_6 omega">
       <h2>社区活动广播</h2>
       <ul class="posts">
         {% for post in post_list %}

@@ -11,7 +11,7 @@
         <script type="text/javascript" charset="utf-8" src="{{ MEDIA_URL }}javascripts/jquery-1.4.2.min.js"></script>
         {% block extra_head %}{% endblock %}
     </head>
-    <body>
+    <body id="{% block body_signature %}{% endblock %}">
         <div id="header">
             {% if messages %}
             <ul class="messages" class="grid_12">
