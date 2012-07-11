@@ -15,6 +15,7 @@ from apps.member.models import Member
 from apps.core.models import Event
 from apps.core.models.vote import Vote
 
+from lxml import html
 from lxml.html.clean import Cleaner
 
 class Topic(models.Model):
@@ -81,16 +82,24 @@ class Topic(models.Model):
     def is_arranged(self):
         '''该话题是否已经加入到活动，并且活动尚未开始'''
         return self.in_event and (self.in_event.is_upcoming == True)
-    
+
     @property
-    def summary(self):
+    def content_text(self):
         try:
             content = self.content.decode('utf-8')
         except UnicodeEncodeError:
             content = self.content
+
+        content_element = html.fromstring(content)
+
+        return content_element.text_content()
+
+    @property
+    def summary(self):
+        content = self.content_text
         
-        if len(content) > 15:
-            return '%s...' % content[:15]
+        if len(content) > 60:
+            return '%s...' % content[:60]
         else:
             return content
     

@@ -76,7 +76,7 @@
         {% for topic in topic_list %}
           <li>
             <h4><a href="/topic/{{topic.id}}">{{ topic.name }}</a></h4>
-            <p>{{ topic.summary }} <a href="/topic/{{topic.id}}" class="more">查看更多</a></p>
+            <p>{{ topic.summary }} <a href="/topic/{{topic.id}}" class="more">&gt; 查看</a></p>
           </li>
         {% endfor %}
       </ul>
