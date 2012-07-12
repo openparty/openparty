@@ -39,7 +39,7 @@ database running. Now you can run:
 
 ```
 (openparty)$ python openparty_project/manage.py syncdb
-(openparty)$ python openparty_project/manage.py migrate
+(openparty)$ python openparty_project/manage.py migrate core
 ```
 
 ## Running a web server
@@ -49,3 +49,32 @@ In development you should run:
 ```
 (openparty)$ python manage.py runserver
 ```
+
+## Deploy it
+
+If you are deploying on ubuntu, you may install those build dependencies.
+
+```
+sudo aptitude install libmysqlclient-dev libxml2-dev libxslt1-dev
+```
+
+Install those python libs through virtual env.
+
+```
+sudo easy_install -U pip
+sudo pip install virtualenv
+sudo mkdir /usr/local/virtualenv
+cd /usr/local/virtualenv
+sudo virtualenv --distribute --no-site-packages openparty
+source /usr/local/virtualenv/openparty/bin/activate
+cd PROJECT_FOLDER
+
+```
+
+```
+sudo su -
+source /usr/local/virtualenv/openparty/bin/activate
+pip install -r requirements
+```
+
+- [Deploy django applications with nginx, uwsgi, virtualenv, south, git and fabric](http://www.abidibo.net/blog/2012/04/30/deploy-django-applications-nginx-uwsgi-virtualenv-south-git-and-fabric-part-1/)
