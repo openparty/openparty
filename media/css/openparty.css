@@ -162,7 +162,7 @@ form .hint {
 .navigator-outter-wrap {
   border-top:1px solid #004473;
 }
-
+/* This style is inspired by this: http://dribbble.com/shots/638807-Eric-Nav; */
 .navigator-wrap {
   background-color: rgb(0,100,166);
   background-image: linear-gradient(bottom, rgb(0,100,166) 10%, rgb(0,136,204) 90%);
