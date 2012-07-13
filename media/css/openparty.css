@@ -159,11 +159,27 @@ form .hint {
   display: inline;
 }
 
+.navigator-outter-wrap {
+  border-top:1px solid #004473;
+}
+
 .navigator-wrap {
-  background-color: #999;
-  border-top:1px solid #909090;
-  border-bottom:1px solid #888;
-  padding: 0.3em 0;
+  background-color: rgb(0,100,166);
+  background-image: linear-gradient(bottom, rgb(0,100,166) 10%, rgb(0,136,204) 90%);
+  background-image: -o-linear-gradient(bottom, rgb(0,100,166) 10%, rgb(0,136,204) 90%);
+  background-image: -moz-linear-gradient(bottom, rgb(0,100,166) 10%, rgb(0,136,204) 90%);
+  background-image: -webkit-linear-gradient(bottom, rgb(0,100,166) 10%, rgb(0,136,204) 90%);
+  background-image: -ms-linear-gradient(bottom, rgb(0,100,166) 10%, rgb(0,136,204) 90%);
+  background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.1, rgb(0,100,166)),
+    color-stop(0.9, rgb(0,136,204))
+  );
+  padding: 2px 0;
+  border-top:1px solid #4daddd;
+  border-bottom:1px solid #014574;
 }
 
 .main-navigator {
@@ -176,27 +192,31 @@ form .hint {
   }
 
   .main-navigator a {
-    color: #333;
+    color: #fff;
     display: block;
     padding: 0.1em 1em 0.2em;
+    font-size: 15px;
     font-weight: bold;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    text-shadow: 0 1px 1px #CCCCCC;
+    border: 1px solid transparent;
+    text-shadow: 0 1px 1px #333;
     text-decoration:none;
   }
 
     .main-navigator a.active {
       color: white;
-      background-color: #555;
-      text-shadow: 0 1px 1px #333;
+      background-color: transparent;
+      border: 1px solid #00548b;
+      box-shadow: inset 0 2px 0 -1px #4daddd;
     }
     .main-navigator a:hover {
       color: white;
-      background-color: #777;
+      border: 1px solid #00548b;
       text-decoration:none;
       text-shadow: 0 1px 1px #333;
+      box-shadow: inset 0 -2px 0 -1px #6698cd;
     }
 
 .whats-open-party {
