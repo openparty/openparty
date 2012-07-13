@@ -205,14 +205,22 @@ form .hint {
   background: -webkit-gradient(linear, left top, left bottom, from(#dddede), to(#f8f8f8));
   background: -moz-linear-gradient(-90deg, #dddede, #f8f8f8);
 */
+  float: none;
+  display: block;
 }
-.whats-open-party h2,
+.whats-open-party h2 {
+  display: none;
+}
 .whats-open-party p {
-  display: inline;
-  font-family: "STKaiti", "楷体", "Kai", "Kaiti";
-  font-size: 18px;
-  padding: 0.25em 0;
+  font-family: Palatino, 'Palatino Linotype', 'Hiragino Mincho ProN', serif;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  text-align: justify;
+  line-height: 1.8;
+  font-size: 19px;
   font-weight: normal;
+  padding: 0.4em 0;
   color: #666;
 }
 .whats-open-party p {
