@@ -56,9 +56,9 @@ def symlink_current_release():
   run('cd %(path)s/releases/current/; cp %(path)s/local_settings.py local_settings.py' % env)
   run('cd %(path)s/releases/current/; cp %(path)s/site-restart site-restart' % env)
   with settings(warn_only=True):
-    run('cd %(path)s/media; ln -s %(path)s/shared/post_images post_images' % env)
-    run('cd %(path)s/media; ln -s %(path)s/shared/upload upload' % env)
-    run('cd %(path)s/media; ln -s /usr/local/lib/python2.7/dist-packages/django/contrib/admin/static/admin .' % env)
+    run('cd %(path)s/releases/current/media; ln -s %(path)s/shared/post_images post_images' % env)
+    run('cd %(path)s/releases/current/media; ln -s %(path)s/shared/upload upload' % env)
+    run('cd %(path)s/releases/current/media; ln -s /usr/local/lib/python2.7/dist-packages/django/contrib/admin/static/admin .' % env)
     # run('rm %(path)s/shared/static' % env)
     # run('cd %(path)s/releases/current/static/; ln -s %(path)s/releases/%(release)s/static %(path)s/shared/static ' %env)
 
