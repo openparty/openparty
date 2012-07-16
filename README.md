@@ -77,4 +77,4 @@ source /usr/local/virtualenv/openparty/bin/activate
 pip install -r requirements
 ```
 
-- [Deploy django applications with nginx, uwsgi, virtualenv, south, git and fabric](http://www.abidibo.net/blog/2012/04/30/deploy-django-applications-nginx-uwsgi-virtualenv-south-git-and-fabric-part-1/)
+- [Deploy django applications with nginx, uwsgi, virtualenv, south, git and fabric](http://www.abidibo.net/blog/2012/06/20/deploy-django-applications-nginx-uwsgi-virtualenv-south-git-and-fabric-part-4/)
