@@ -79,5 +79,5 @@ def rollback():
 
 def restart_server():
   """Restart the web server"""
-  run('cd %(path)s/releases/current; %(path)s/site-restart' % env)
+  run('cd %(path)s/releases/current; %(path)s/releases/current/site-restart' % env)
   sudo('/etc/init.d/nginx restart')
