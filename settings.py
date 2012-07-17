@@ -150,8 +150,6 @@ INTERNAL_IPS = ('114.254.99.95',)
 # Sentry is server debuging tool
 
 SENTRY_CLIENT = 'raven.contrib.django.DjangoClient'
-from raven.contrib.django.models import client
-client.captureException()
 
 RAVEN_CONFIG = {
     'register_signals': True,
