@@ -53,8 +53,8 @@ def symlink_current_release():
     run('cd %(path)s; rm releases/previous; mv releases/current releases/previous;' % env)
   run('cd %(path)s; ln -s %(release)s releases/current' % env)
   """ production settings"""
-  run('cd %(path)s/releases/current/; cp %(path)s/local_settings.py local_settings.py' % env)
-  run('cd %(path)s/releases/current/; cp %(path)s/site-restart site-restart' % env)
+  run('cd %(path)s/releases/current/; cp %(path)s/conf/local_settings.py local_settings.py' % env)
+  run('cd %(path)s/releases/current/; cp %(path)s/conf/site-restart site-restart' % env)
   with settings(warn_only=True):
     run('cd %(path)s/releases/current/media; ln -s %(path)s/shared/post_images post_images' % env)
     run('cd %(path)s/releases/current/media; rm -rf upload; ln -s %(path)s/shared/upload upload' % env)

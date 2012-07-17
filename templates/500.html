@@ -1,1 +1,6 @@
+<p>不好意思，我们的应用出现了一些问题。我们已经监控到了您遇到的错误，并着手解决。</p>
+{% if request.sentry.id %}
+    <p>如果您想要跟踪这个问题的处理情况，您可以把这个错误号码 <strong>{{ request.sentry.id }}</strong> 发送给我们参考。</p>
+{% endif %}
+
 {{error_message}}

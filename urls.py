@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url, handler500, handler404
+from django.conf.urls.defaults import patterns, include, url, handler404
 from settings import MEDIA_ROOT
 from django.contrib import admin
 
@@ -27,3 +27,20 @@ urlpatterns += patterns('apps.core.views',
     url(r'^index$', 'index', name='index'),
     url(r'^/?$', 'index'),
 )
+
+def handler500(request):
+    """
+    An error handler which exposes the request object to the error template.
+    """
+    from django.template import Context, loader
+    from django.http import HttpResponseServerError
+    from raven.contrib.django.models import sentry_exception_handler
+
+    import logging
+    import sys
+
+    sentry_exception_handler(request=request)
+    context = { 'request': request }
+
+    t = loader.get_template('500.html') # You need to create a 500.html template.
+    return HttpResponseServerError(t.render(Context(context)))

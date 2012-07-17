@@ -87,12 +87,14 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'raven.contrib.django.middleware.SentryResponseErrorIdMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'raven.contrib.django.middleware.Sentry404CatchMiddleware',
 )
 
 LOGIN_URL = '/member/login'
@@ -124,6 +126,7 @@ INSTALLED_APPS = (
     'apps.member',
     'apps.twitter',
     'debug_toolbar',
+    'raven.contrib.django',
 )
 
 # One-week activation window; you may, of course, use a different value.
@@ -143,6 +146,58 @@ TWITTER_OPENPARTY_SECRET = "REPLACE_IT_WITH_REAL_VALUE_IN_LOCAL_SETTINGS"
 AUTH_PROFILE_MODULE = "member.Member"
 
 INTERNAL_IPS = ('114.254.99.95',)
+
+# Sentry is server debuging tool
+
+SENTRY_CLIENT = 'raven.contrib.django.DjangoClient'
+from raven.contrib.django.models import client
+client.captureException()
+
+RAVEN_CONFIG = {
+    'register_signals': True,
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'root': {
+        'level': 'WARNING',
+        'handlers': ['sentry'],
+    },
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+    },
+    'handlers': {
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.handlers.SentryHandler',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'ERROR',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'raven': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'sentry.errors': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+    },
+}
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
