@@ -10,3 +10,4 @@ lxml==2.3.4
 tweepy==1.10
 wsgiref==0.1.2
 flup==1.0.3.dev-20110405
+sentry==4.8.1
