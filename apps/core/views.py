@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect,HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseForbidden, Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from django import forms
 
@@ -88,6 +88,9 @@ def join_event(request):
             return redirect(reverse('signup'))
         
         next_event = Event.objects.next_event()
+        if not next_event:
+            raise Http404
+
         if this_user in next_event.participants.all():
             messages.success(request, u'感谢您的参与，您已经成功报名参加了 %s 活动 - 点击<a href="/event/%s">查看活动详情</a>' % (next_event.name, next_event.id))
             return redirect('/event/%s' % (next_event.id))
