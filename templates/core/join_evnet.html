@@ -2,8 +2,8 @@
 {% block title %} - 报名参加"{{next_event.name}}"活动{% endblock %}
 {% block content %}
 <div id="content" class="content">
-  <div class="container_16">
-    <div class="grid_6">
+  <div class="row">
+    <div class="span5">
       <h2><a href="/event/{{next_event.id}}">{{next_event.name}}</a></h2>
       <dl class="pair">
         <dt>时间：</dt><dd>{{next_event.begin_time|date:'Y年m月d日'}}</dd>
@@ -12,7 +12,7 @@
       </dl>
       <img src="{{next_event.poster}}" alt="下次活动海报" width="300" height="236.7" class="shadow"/>
     </div>
-    <div id="join-event" class="grid_10">
+    <div id="join-event" class="span7">
       <form action="/event/join" method="post" class="wide">
         {% csrf_token %}
         <h2>报名表格</h2>

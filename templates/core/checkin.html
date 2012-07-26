@@ -15,9 +15,9 @@
 
 {% block content %}
 <div id="content" class="content">
-  <div class="container_16">
+  <div class="row">
     {% if event %}
-    <div class="grid_6">
+    <div class="span5">
       <h2>{{event.name}}</h2>
       <dl class="pair">
         <dt>时间：</dt><dd>{{event.begin_time|date:'Y年m月d日'}}</dd>
@@ -25,7 +25,7 @@
       </dl>
       <img src="{{event.poster}}" alt="下次活动海报" width="300" height="236.7" class="shadow"/>
     </div>
-    <div id="event-checkin" class="grid_10">
+    <div id="event-checkin" class="span7">
       <form action="/event/checkin" method="post" class="wide">
         {% csrf_token %}
         <h2>“{{event.name}}”活动现场签到</h2>

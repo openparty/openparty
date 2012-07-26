@@ -2,8 +2,8 @@
 {% block title %} - {{post.title}}{% endblock %}
 {% block content %}
   <div id="content" class="content">
-    <div class="container_16">
-      <div class="grid_10">
+    <div class="row">
+      <div class="span8">
         <p class="bread-crumb"><a href='{% url list_post %}'>所有新闻</a> / <span class="post-title">{{ post.title }}</span></p>
         <div class="post">
           <h2 class="post-title post-title_{{ post.style_seed }}">

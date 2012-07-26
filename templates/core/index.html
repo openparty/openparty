@@ -4,16 +4,16 @@
 
 {% block content %}
 {% load markup %}
-<div class="article container_16">
-  <div class="whats-open-party grid_14">
+<div class="article row">
+  <div class="whats-open-party span11">
     <h2>OpenParty是什么？</h2>
     <p>OpenParty是由北京的多个技术社区共同举办的社交活动。本着自由、开放、分享、互动的宗旨，采用“非会议（Unconference）”的形式， 为参与人员创建一个表达和交流的平台。本活动的目标<strong>给参与者提供一个平等、自由的分享与获取知识的机会</strong>。活动话题不仅仅局限于技术，还包括生活、旅游、艺术、创业、商务、投资、营销等各方面的话题。</p>
   </div>
 </div>
 
 <div id="content" class="content">
-  <div class="container_16">
-    <div class="next-event event grid_8" itemscope itemtype="http://data-vocabulary.org/Event">
+  <div class="row">
+    <div class="next-event event span6" itemscope itemtype="http://data-vocabulary.org/Event">
       <h2>本月活动 <span class="event-name"><a href="/event/{{next_event.id}}">{{next_event.name}}</a></span></h2>
       <dl class="meta">
         <dt>时间：</dt><dd>{{next_event.begin_time}}</dd>
@@ -23,7 +23,7 @@
       </dl>
       <p class="poster"><img itemprop="photo" src="{{next_event.poster}}" alt="{{ next_event.name }}活动海报" /></p>
     </div>
-    <div class="grid_7 prefix_1">
+    <div class="span5 offset1">
       <div class="join-us">
         <h2>加入活动 / Join us</h2>
         <ul>
@@ -51,11 +51,11 @@
 
   <div class="clear"></div>
 
-  <div class="entries events container_12">
+  <div class="entries events row">
     <h2>以往活动</h2>
     <ul>
     {% for event in event_list %}
-        <li class="grid_4">
+        <li class="span4">
           <h4><a href="/event/{{event.id}}">{{ event.name }}</a></h4>
           <p>
             <img itemprop="photo" class="poster-preview" src="{{event.poster}}" alt="{{ event.name }}活动海报" width="100" height="135" />
@@ -69,8 +69,8 @@
 
   <div class="clear"></div>
 
-  <div class="container_12">
-    <div class="entries topics grid_6 alpha">
+  <div class="row">
+    <div class="entries topics span6 alpha">
       <h2>精彩演讲话题</h2>
       <ul>
         {% for topic in topic_list %}
@@ -81,7 +81,7 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="entries posts grid_6 omega">
+    <div class="entries posts span6 omega">
       <h2>社区活动广播</h2>
       <ul class="posts">
         {% for post in post_list %}
