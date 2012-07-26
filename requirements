@@ -12,3 +12,5 @@ wsgiref==0.1.2
 flup==1.0.3.dev-20110405
 sentry==4.8.1
 raven==2.0.1
+celery<3.0
+
