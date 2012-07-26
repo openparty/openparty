@@ -152,7 +152,6 @@ form .hint {
 }
 
 #logo {
-  margin: 0;
 }
 
 #toolbar li {
@@ -187,6 +186,7 @@ form .hint {
 }
 
   .main-navigator li {
+    list-style: none;
     float: left;
     margin: 0.15em 2em 0.15em 0;
   }
@@ -195,6 +195,7 @@ form .hint {
     color: #fff;
     display: block;
     padding: 0.1em 1em 0.2em;
+    line-height: 25px;
     font-size: 15px;
     font-weight: bold;
     -moz-border-radius: 4px;
@@ -294,6 +295,10 @@ dl.pair {
   font-weight: bold;
   text-shadow:0 -1px rgba(0, 0, 0, 0.1);
   color: rgb(66, 147, 195);
+  list-style: none;
+}
+.join-us li {
+  line-height: 1.7;
 }
 .join-us a:link,
 .join-us a:visited {
