@@ -410,7 +410,15 @@ dl.pair {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
   }
+
+.topics-and-broadcast {
+  margin-top: 20px;
+}
 /*.entries*/
+.entries ul {
+  list-style: none;
+  margin: 0;
+}
   .entries a:link,
   .entries a:visited {
     color: #15355F;
@@ -419,11 +427,11 @@ dl.pair {
     color: #15355F;
     font-size: 13px;
     font-weight: bold;
-    margin: 12px 0px 0px;
+    margin: 12px 0px 6px;
   }
   .entries p {
     text-align: justify;
-    line-height: 2;
+    line-height: 1.7;
     margin: 0;
     color: #333;
   }

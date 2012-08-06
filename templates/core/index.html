@@ -59,25 +59,23 @@
   <div class="clear"></div>
 
   <div class="entries events row">
-    <h2>以往活动</h2>
-    <ul>
+    <h2 class="span12">以往活动</h2>
     {% for event in event_list %}
-        <li class="span4">
+        <div class="span4">
           <h4><a href="/event/{{event.id}}">{{ event.name }}</a></h4>
           <p>
             <img itemprop="photo" class="poster-preview" src="{{event.poster}}" alt="{{ event.name }}活动海报" width="100" height="135" />
             {{ event.description }}
-            <a href="/event/{{ event.id }}" class="more">查看更多</a>
+            <a href="/event/{{ event.id }}" class="more">详情</a>
           </p>
-        </li>
+        </div>
     {% endfor %}
-    </ul>
   </div>
 
   <div class="clear"></div>
 
-  <div class="row">
-    <div class="entries topics span6 alpha">
+  <div class="topics-and-broadcast row">
+    <div class="entries topics span7">
       <h2>精彩演讲话题</h2>
       <ul>
         {% for topic in topic_list %}
@@ -88,7 +86,7 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="entries posts span6 omega">
+    <div class="entries posts span4 offset1">
       <h2>社区活动广播</h2>
       <ul class="posts">
         {% for post in post_list %}
