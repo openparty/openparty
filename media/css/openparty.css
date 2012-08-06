@@ -1,3 +1,11 @@
+.clear {
+  clear: both;
+  font-size: 0;
+  line-height: 0;
+  display: blcok;
+  width: 0;
+  height: 0;
+}
 body {
   /*  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "STHeiti", "黑体", "Microsoft YaHei", serif;*/
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
@@ -293,52 +301,40 @@ dl.pair {
   font-size: 16px;
   font-weight: bold;
   text-shadow:0 -1px rgba(0, 0, 0, 0.1);
-  color: rgb(66, 147, 195);
+  color: #0078bc;
   list-style: none;
 }
 .join-us .actions {
   margin: 10px 0;
-  font-size: 21px;
+  font-size: 19px;
+}
+.join-us .actions li {
+  margin: 0 0 10px 0;
+}
+.join-us .actions i {
+  margin-top: 6px;
+}
+.join-us .actions a:hover {
+  text-decoration: none;
 }
 .join-us li {
   line-height: 1.7;
 }
 .join-us a:link,
 .join-us a:visited {
-  color: rgb(66, 147, 195);
+  color: #0078bc;
 }
 .join-us a:hover {
   text-decoration: underline;
 }
-.join-us .hot a:link,
-.join-us .hot a:visited,
-.event-join a:link,
-.event-join a:visited {
-  background-color: #777;
+.join-us li .btn {
   color: white;
-  padding: 0.25em 0.75em;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  text-shadow: 1px 1px #333;
-  text-decoration: none;
-  -webkit-box-shadow: 4px 4px 6px #ccccc5;
-  -moz-box-shadow: 4px 4px 6px #ccccc5;
-  box-shadow: 4px 4px 6px #ccccc5;
-}
-.join-us .hot a:hover,
-.join-us .hot a:active,
-.event-join a:hover,
-.event-join a:active {
-  background-color: #666;
-  -webkit-box-shadow: 6px 6px 6px #ccccc5;
-  -moz-box-shadow: 6px 6px 6px #ccccc5;
-  box-shadow: 6px 6px 6px #ccccc5;
+  font-size: 21px;
 }
 .event-join a:link,
 .event-join a:visited {
   margin-left: 2em;
-  font-size: 13px;
+  margin-bottom: 10px;
   color: white;
 }
 .join-us .inactive a:link,
@@ -356,10 +352,6 @@ dl.pair {
 }
 .join-us strong {
   color: red;
-}
-.join-us .hot {
-  font-size: 28px;
-  margin: 0.5em 0 0.5em -5px;
 }
 .top-sponsors {
   text-align: left;
@@ -774,7 +766,6 @@ dl.pair {
     .event .event-name a:visited {
       color: #15355F;
       font-weight: bold;
-      padding-bottom: 5px;
     }
     .event .event-join a:link,
     .event .event-join a:visited {
@@ -815,10 +806,11 @@ dl.pair {
       color: white;
       text-shadow: 0 1px 1px #000;
       padding: 0.4em 1em 0.4em 0.5em;
-      margin-right: 0.5em;
+      margin: 0 10px 0 0;
     }
     .next-event .meta {
       margin: 0.25em 0;
+      max-width: 430px;
     }
       .next-event .meta dt,
       .next-event .meta dd {
@@ -831,13 +823,17 @@ dl.pair {
       .next-event .meta dt {
         color: #666;
       }
+      .next-event .event-name {
+        border-bottom: none;
+        margin-left: 10px;
+      }
   .event .poster {
     margin: 2em 0 !important;
   }
     .event .poster img {
       -webkit-box-shadow: 5px 8px 8px #ccccc5;
       -moz-box-shadow: 5px 8px 8px #ccccc5;
-      max-width: 480px;
+      max-width: 430px;
     }
   .event .event-topics {
     margin-left: 1em;

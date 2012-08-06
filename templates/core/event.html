@@ -10,11 +10,16 @@
         <a itemprop="url" href="/event/{{ this_event.id }}">
           “<span itemprop="summary">{{ this_event.name }}</span>”
         </a>
-        {% if this_event.is_off %}<span class="event-status">本活动已结束</span>{% endif %}
+        {% if this_event.is_off %}
+          <span class="event-status">本活动已结束</span>
+        {% endif %}
         {% if this_event.is_upcoming %}
-			<span class="event-status">即将开始</span>
-			<span class="event-join"><a href="/event/join">报名参加本次活动</a></span>
-		{% endif %}
+          <span class="event-status">即将开始</span>
+          <span class="event-join">
+            <a class="btn btn-large btn-primary" href="/event/join"><i class="icon-thumbs-up icon-white"></i> 报名参加本次活动</a>
+            <a class="btn btn-large btn-success" href="{% url submit_new_topic %}"><i class="icon-bullhorn icon-white"></i> 给本次活动贡献话题</a>
+          </span>
+		    {% endif %}
       </h1>
 
       <dl class="meta">
