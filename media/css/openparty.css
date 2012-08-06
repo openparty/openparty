@@ -252,7 +252,6 @@ form .hint {
   color: black;
 }
 .content h2 {
-  margin: 12px 0 0 0 ;
   font-size: 14px;
   font-weight: bold;
   color: #666;
@@ -297,12 +296,18 @@ dl.pair {
   color: rgb(66, 147, 195);
   list-style: none;
 }
+.join-us .actions {
+  margin: 10px 0;
+  font-size: 21px;
+}
 .join-us li {
   line-height: 1.7;
 }
 .join-us a:link,
 .join-us a:visited {
   color: rgb(66, 147, 195);
+}
+.join-us a:hover {
   text-decoration: underline;
 }
 .join-us .hot a:link,
@@ -341,6 +346,14 @@ dl.pair {
   text-decoration: none;
   color: #aaa;
 }
+.join-us sup {
+  display: none;
+}
+.join-us .inactive sup {
+  display: inline;
+  margin-left: 1em;
+  color: #999;
+}
 .join-us strong {
   color: red;
 }
@@ -351,6 +364,9 @@ dl.pair {
 .top-sponsors {
   text-align: left;
 }
+  .top-sponsors ul {
+    margin: 10px 0 0 0;
+  }
   .top-sponsors li {
     padding: 0.25em 0.5em 0.25em 0;
     font-size: 22px;
@@ -358,9 +374,24 @@ dl.pair {
     letter-spacing:-0.02em;
     text-shadow:0 -1px rgba(0, 0, 0, 0.3);
   }
-  .top-sponsors a:link,
-  .top-sponsors a:visited {
-    color: black;
+  .top-sponsors a {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    background-repeat: no-repeat;
+  }
+  .top-sponsors .thoughtworks {
+    background-image: url(../images/sponsors/thoughtworks_logo.png);
+    height: 27px;
+  }
+  .top-sponsors .snda {
+    background-image: url(../images/sponsors/snda_logo.gif);
+    height: 26px;
+  }
+  .top-sponsors .google {
+    background-image: url(../images/sponsors/google_logo_41.png);
+    height: 41px;
   }
 #footer {
   margin-top: 3em;
@@ -787,7 +818,7 @@ dl.pair {
       margin-right: 0.5em;
     }
     .next-event .meta {
-      margin: 0.5em 0;
+      margin: 0.25em 0;
     }
       .next-event .meta dt,
       .next-event .meta dd {
@@ -915,5 +946,5 @@ dl.pair {
   margin-right: -10px;
 }
 #index .content h2 {
-  font-size: 16px;
+  font-size: 18px;
 }

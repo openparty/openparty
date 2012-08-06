@@ -23,27 +23,31 @@
       </dl>
       <p class="poster"><img itemprop="photo" src="{{next_event.poster}}" alt="{{ next_event.name }}活动海报" /></p>
     </div>
-    <div class="span5 offset1">
+    <div class="span6">
       <div class="join-us">
         <h2>加入活动 / Join us</h2>
-        <ul>
-          <li class="join-event {{ next_event.css_class }}"><a href="/event/join">报名参加本次活动</a></li>
+        <ul class="actions">
+          <li class="join-event {{ next_event.css_class }}"><a href="/event/join">报名参加本次活动</a><sup>( 请等待下次活动开放 )</sup></li>
           <li class="contribute-topic"><a href="{% url submit_new_topic %}">准备贡献话题？</a></li>
-          <li class="google-groups"><a href="https://groups.google.com/group/beijing-open-party">参与Google Groups讨论</a></li>
-          <li class="blog-us">写博客报道您参加Open Party的感想</li>
+          
+        </ul>
+        <h2>社交互动 / Social</h2>
+        <ul>
           <li class="rss"><a href="/feed/post">社区活动信息RSS订阅</a></li>
-          <li class="facebook"><a href="http://www.facebook.com/group.php?gid=8159558294">Join us on Facebook</a></li>
           <li class="weibo"><a href="http://weibo.com/openparty">在微博关注我们 <strong>@openparty</strong></a> | <a href="http://weibo.com/u/2567579745">成都</a> | <a href="http://weibo.com/openpartyxian">西安</a></li>
           <li class="twitter"><a href="https://twitter.com/openparty">Follow Twitter <strong>@openparty</strong></a></li>
           <li class="twitter-tag"><a href="http://s.weibo.com/weibo/%2523openparty">关注和使用Tag <strong>#openparty</strong></a></li>
+          <li class="google-groups"><a href="https://groups.google.com/group/beijing-open-party">参与Google Groups讨论</a></li>
+          <li class="facebook"><a href="http://www.facebook.com/group.php?gid=8159558294">Join us on Facebook</a></li>
+          <li class="blog-us">写博客报道您参加Open Party的感想</li>
         </ul>
       </div>
       <div class="top-sponsors">
         <h2>钻石赞助商</h2>
         <ul>
-          <li><a href="http://www.thoughtworks.com">ThoughtWorks</a></li>
-          <li><a href="http://www.snda.com/">盛大网络</a></li>
-          <li><a href="http://www.google.com.hk/">谷歌中国</a></li>
+          <li><a href="http://www.thoughtworks.com" class="thoughtworks">ThoughtWorks</a></li>
+          <li><a href="http://www.snda.com/" class="snda">盛大网络</a></li>
+          <li><a href="http://www.google.com.hk/" class="google">谷歌中国</a></li>
         </ul>
       </div>
     </div>
