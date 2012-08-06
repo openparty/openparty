@@ -5,27 +5,28 @@
 {% endblock %}
 {% block content %}
   {% load markup %}
-  <div class="container_16">
-    <h1>OpenParty活动</h1>
-    <ul class="events">
-      {% for event in event_list %}
-        <li class="event">
-          <h2 class="event-name">
-            <a href="/event/{{ event.id }}">{{ event.name }}</a>
-            {% if event.is_off %}<span class="event-status">本活动已结束</span>{% endif %}
-            {% if event.is_upcoming %}<span class="event-status">即将开始</span>{% endif %}
-          </h2>
-          <div class="textile">{{ event.description|restructuredtext }}</div>
-          <div class="event-topics">
-            <h3>{{ event.name }}的话题</h3>
-            <ul class="topics">
-              {% for event_topic in event.topic_shown_in.all %}
-                <li class="topic"><a class="topic-name topic-name_{{ event_topic.style_seed }}" href="{% url topic event_topic.id %}">{{ event_topic.name }}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+  <div class="row">
+    <div class="span12">
+      <ul class="events">
+        {% for event in event_list %}
+          <li class="event">
+            <h2 class="event-name">
+              <a href="/event/{{ event.id }}">{{ event.name }}</a>
+              {% if event.is_off %}<span class="event-status">本活动已结束</span>{% endif %}
+              {% if event.is_upcoming %}<span class="event-status">即将开始</span>{% endif %}
+            </h2>
+            <div class="textile">{{ event.description|restructuredtext }}</div>
+            <div class="event-topics">
+              <h3>{{ event.name }}的话题</h3>
+              <ul class="topics">
+                {% for event_topic in event.topic_shown_in.all %}
+                  <li class="topic"><a class="topic-name topic-name_{{ event_topic.style_seed }}" href="{% url topic event_topic.id %}">{{ event_topic.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 {% endblock %}

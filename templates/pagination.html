@@ -1,15 +1,12 @@
-<div class="pagination">
-    <span class="step-links">
-        {% if page.has_previous %}
-            <a href="?page={{ page.previous_page_number }}" class="prev">&lt;&lt; 更新的</a>
-        {% endif %}
+<ul class="pager">
+  {% if page.has_previous %}
+    <li class="previous"><a href="?page={{ page.previous_page_number }}" class="prev">&lt;&lt; 更新的</a></li>
+  {% endif %}
 
-        <span class="current">
-            第 {{ page.number }} 页, 共 {{ page.paginator.num_pages }} 页
-        </span>
+  
+  <li class="current">第 {{ page.number }} 页, 共 {{ page.paginator.num_pages }} 页</li>
 
-        {% if page.has_next %}
-            <a href="?page={{ page.next_page_number }}" class="next">以前的 &gt;&gt;</a>
-        {% endif %}
-    </span>
-</div>
+  {% if page.has_next %}
+    <li class="next"><a href="?page={{ page.next_page_number }}" class="next">以前的 &gt;&gt;</a></li>
+  {% endif %}
+</ul>

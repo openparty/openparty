@@ -64,21 +64,6 @@ form p {
 .messages .success a {
   color:#264409;
 }
-/* pagination */
-.pagination {
-  margin: 1em 0;
-  padding-top: 1em 0;
-}
-.pagination .prev {
-  padding-right: 1em;
-}
-.pagination .next {
-  padding-left: 1em;
-}
-.pagination a:link,
-.pagination a:visited {
-  color: black;
-}
 /* may be commons */
 .wide p {
   margin: 0.75em 0;
@@ -487,6 +472,9 @@ dl.pair {
   margin-bottom: 2em;
 }
 
+.tweets {
+  list-style: none;
+}
 .tweets li, 
 .comments li {
   min-height: 48px;
@@ -511,6 +499,9 @@ dl.pair {
 }
 .tweets li.twitter {
   background: transparent url(../images/bg_twitter_icon.png) right 90% no-repeat;
+}
+.tweets form {
+  float: right;
 }
 
 .tweets .MIB_assign {
@@ -935,8 +926,11 @@ dl.pair {
     text-decoration: none !important;
   }
 
-.events ul {
+.events ul,
+ul.events {
   overflow: hidden;
+  list-style: none;
+  margin: 0;
 }
 .events .poster-preview {
   max-width: 100px;

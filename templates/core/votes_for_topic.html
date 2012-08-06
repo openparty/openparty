@@ -2,8 +2,8 @@
 {% block title %} - 为话题"{{ this_topic.name }}"投票的朋友{% endblock %}
 {% block content %}
     {% load markup %}
-    <div id="content" class="topic content">
-      <div class="container_16">
+    <div id="content" class="topic content row">
+      <div class="span12">
         <p class="bread-crumb"><a href="/topic/{{this_topic.id}}">返回话题：{{ this_topic.name }}</a></p>
         <div class="users">
             <h2>为话题"{{ this_topic.name }}"投票的朋友</h2>
