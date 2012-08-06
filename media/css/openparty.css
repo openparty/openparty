@@ -337,13 +337,11 @@ dl.pair {
   margin-bottom: 10px;
   color: white;
 }
-.join-us .inactive a:link,
-.join-us .inactive a:visited {
-  text-decoration: none;
-  color: #aaa;
-}
 .join-us sup {
   display: none;
+}
+.join-us .inactive .btn {
+  color: #999;
 }
 .join-us .inactive sup {
   display: inline;

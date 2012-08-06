@@ -36,7 +36,8 @@ class NullEvent(object):
     poster      = '/media/images/null.jpg'
     participants = set()
     
-    css_class   = 'inactive'
+    css_class       = 'inactive'
+    button_class    = 'disabled'
     
     def save():
         raise NullEventException()
@@ -55,7 +56,8 @@ class Event(models.Model):
     participants = models.ManyToManyField(Member, related_name='joined_%(class)s')
     appearances = models.ManyToManyField(Member, related_name='arrived_%(class)s')
     
-    css_class   = ''
+    css_class       = ''
+    button_class    = 'btn-primary'
 
     name = models.CharField("名称", max_length=255, blank=False)
     created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
