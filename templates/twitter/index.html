@@ -32,7 +32,7 @@
               {% ifequal tweet.race 'twitter' %}
               <span class="username"><a target="_blank" href="{{ tweet.profile_url }}">{{ tweet.tweet_user_name }}</a></span>
               {% endifequal %}
-              <span class="message">{{ tweet.text|safe }}</span>
+              <span class="message typo">{{ tweet.text|safe }}</span>
               <form action="{% url delete_tweet %}" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="tweet_id" value="{{ tweet.tweet_id }}" />

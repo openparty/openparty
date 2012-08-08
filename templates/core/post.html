@@ -18,7 +18,7 @@
             <span class='created-by'>{{ post.created_by.nickname }}</span>
             <span class='comment-count'>{{ post.comment_count }}</span>
           </p>
-          <div class="content">{{ post.content|safe }}</div>
+          <div class="content typo">{{ post.content|safe }}</div>
 
           <div class="comment-widget">
             <h2><span class="post-name">{{post.title}}</span>的评论</h2>
