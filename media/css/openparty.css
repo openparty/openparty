@@ -946,6 +946,10 @@ ul.events {
   font-size: 18px;
 }
 
+.typo {
+  max-width: 685px;
+}
+
 
 /* Landscape phones and down */
 @media (max-width: 480px) {  }
