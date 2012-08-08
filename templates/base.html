@@ -2,10 +2,12 @@
 <html lang="zh-CN">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>OpenParty {% block title %}{% endblock %}</title>
         <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" />
         <!-- Proudly using Bootstrap, from Twitter: http://twitter.github.com/bootstrap/ -->
         <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/bootstrap-responsive.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/openparty.css" />
         <script type="text/javascript" charset="utf-8" src="{{ MEDIA_URL }}javascripts/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="{{ MEDIA_URL }}javascripts/underscore-min.js"></script>
@@ -82,12 +84,17 @@
                 <p>
                     &copy; 2010 www.beijing-open-party.org
                     <br/>
-                    Powered by <a href="http://djangoproject.com" target="_blank">Django</a>
-                    + <a href="http://www.github.com/openparty/openparty" target="_blank">OpenParty app</a>
+                    <a href="http://www.github.com/openparty/openparty" target="_blank">OpenParty App</a>
+                    Powered by
+                    <a href="http://djangoproject.com" target="_blank">Django</a>,
+                    <a href="http://twitter.github.com/bootstrap/" target="_blank">Bootstrap</a>
                 </p>
                 <ul class="links">
                     <li>
-                        <a href="mailto:staff@beijing-open-party.org">Contact</a>
+                        <a href="mailto:staff@beijing-open-party.org">联系我们 / Contact</a>
+                    </li>
+                    <li>
+                        <a href="mailto:dev@beijing-open-party.org">报告问题 / Report bug</a>
                     </li>
                     <li>
                         <a href="/feed/post">RSS Feed</a>

@@ -17,6 +17,7 @@ body {
 form p {
   margin: 0.5em 0;
 }
+
 .center-align {
   text-align: center;
 }
@@ -944,3 +945,37 @@ ul.events {
 #index .content h2 {
   font-size: 18px;
 }
+
+
+/* Landscape phones and down */
+@media (max-width: 480px) {  }
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  .navigator-outter-wrap {
+    margin: 0 -20px;
+  }
+  .navigator .main-navigator {
+   margin: 0 15px;
+  }
+    .navigator .main-navigator li {
+      margin: 2px 5px 2px 0;
+    }
+    .navigator .main-navigator a {
+      padding: 2px 5px 4px 5px;
+    }
+
+  .whats-open-party p {
+    font-size: 16px;
+  }
+
+  .event .poster img {
+    max-width: 100%;
+  }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {  }
+
+/* Large desktop */
+@media (min-width: 1200px) {  }
