@@ -1,28 +1,20 @@
 <div id="share_to">
-    <p>分享到&nbsp; 
+    <div class="bshare-custom">
+        <span style="font-size:14px;">分享到:</span> 
+        <a title="分享到豆瓣" class="bshare-douban" href="javascript:void(0);"></a>
+        <a title="分享到新浪微博" class="bshare-sinaminiblog" href="javascript:void(0);"></a>
+        <a title="分享到Gmail" class="bshare-gmail" href="javascript:void(0);"></a>
+        <a title="分享到Facebook" class="bshare-facebook" href="javascript:void(0);"></a>
+        <a title="分享到Twitter" class="bshare-twitter" href="javascript:void(0);"></a>
+        <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+    </div>
+    <script type="text/javascript" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script>
+    <script type="text/javascript" src="http://static.bshare.cn/b/bshareC0.js"></script>
 
-<a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e(d.location.href)+'&title='+e(d.title)+'&sel='+e(s)+'&v=1',x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330'))location.href=r+'&r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><img src="http://img2.douban.com/pics/fw2douban_s.png" alt="推荐到豆瓣" /></a>
-
-<script type="text/javascript" charset="utf-8">
-(function(){
-    var _w = 72 , _h = 16;
-    var param = {
-        url:location.href,
-        type:'3',
-        count:'1', /**是否显示分享数，1显示(可选)*/
-        appkey:'', /**您申请的应用appkey,显示分享来源(可选)*/
-        title:'', /**分享的文字内容(可选，默认为所在页面的title)*/
-        pic:'', /**分享图片的路径(可选)*/
-        ralateUid:'', /**关联用户的UID，分享微博会@该用户(可选)*/
-        rnd:new Date().valueOf()
-    }
-    var temp = [];
-    for( var p in param ){
-        temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
-    }
-    document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
-})()
-</script>
-
-</p>
+    <div class="share-to-google-calendar">
+        <!-- Google Calendar Document & Tools -->
+        <!-- http://support.google.com/calendar/bin/answer.py?hl=en&answer=2476685 -->
+        <!-- http://support.google.com/calendar/bin/answer.py?hl=en&answer=1186917 -->
+        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text={{ this_event.name }}&dates={{ this_event.begin_time|date:"Ymd\THis\Z" }}/{{ this_event.end_time|date:"Ymd\THis\Z" }}&sprop=website:{% url login %}&location={{ this_event.address }}&output=xml" target="_blank">添到 Google 日历</a>
+    </div>
 </div>
