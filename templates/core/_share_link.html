@@ -1,3 +1,5 @@
+{% load tz %}
+
 <div id="share_to">
     <div class="bshare-custom">
         <span style="font-size:14px;">分享到:</span> 
@@ -12,9 +14,10 @@
     <script type="text/javascript" src="http://static.bshare.cn/b/bshareC0.js"></script>
 
     <div class="share-to-google-calendar">
-        <!-- Google Calendar Document & Tools -->
-        <!-- http://support.google.com/calendar/bin/answer.py?hl=en&answer=2476685 -->
-        <!-- http://support.google.com/calendar/bin/answer.py?hl=en&answer=1186917 -->
-        <a href="http://www.google.com/calendar/event?action=TEMPLATE&text={{ this_event.name }}&dates={{ this_event.begin_time|date:"Ymd\THis\Z" }}/{{ this_event.end_time|date:"Ymd\THis\Z" }}&sprop=website:{% url login %}&location={{ this_event.address }}&output=xml" target="_blank">添到 Google 日历</a>
+        <a id="google-calendar_link" target="_blank">添到 Google 日历</a>
+        <script type="text/javascript">
+            var a = document.getElementById('google-calendar_link');
+            a.href = 'http://www.google.com/calendar/event?action=TEMPLATE&text={{ this_event.name }}&dates={{ this_event.begin_time|utc|date:"Ymd\THis\Z" }}/{{ this_event.end_time|utc|date:"Ymd\THis\Z" }}&sprop=website:' + window.location.href + '&location={{ this_event.address }}&output=xml';  
+        </script>
     </div>
 </div>
