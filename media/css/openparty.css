@@ -663,6 +663,10 @@ dl.pair {
     .topic .meta a:visited {
       color: #999;
     }
+    .topic .meta .topic-author a,
+    .topic .meta .topic-due-event {
+      text-decoration: underline;
+    }
   .topic .poll {
     display: block;
     float: right;
