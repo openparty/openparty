@@ -697,7 +697,7 @@ dl.pair {
     }
   .topic .poll .votes {
     text-align: center;
-    margin: -1em 0 0 1em;
+    margin: 1em 0 0.5em 1em;
   }
     .topic .poll .votes .number {
       font-family: monaco, verdana;
