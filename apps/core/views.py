@@ -48,7 +48,7 @@ def event_list(request):
     return render_to_response('core/event_list.html', ctx, context_instance=RequestContext(request))
 
 def topic_list(request):
-    topic_list = Topic.objects.order_by('-in_event__begin_time','-accepted', '-total_votes')
+    topic_list = Topic.objects.filter(accepted=True).order_by('-in_event__begin_time','-accepted', '-total_votes')
     paginator = Paginator(topic_list, 16)
 
     try:

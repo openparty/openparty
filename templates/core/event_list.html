@@ -19,7 +19,7 @@
             <div class="event-topics">
               <h3>{{ event.name }}的话题</h3>
               <ul class="topics">
-                {% for event_topic in event.topic_shown_in.all %}
+                  {% for event_topic in event.get_topics %}
                   <li class="topic"><a class="topic-name topic-name_{{ event_topic.style_seed }}" href="{% url topic event_topic.id %}">{{ event_topic.name }}</a></li>
                 {% endfor %}
               </ul>
