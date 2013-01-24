@@ -84,6 +84,9 @@ class Event(models.Model):
     def is_upcoming(self):
         return datetime.now() < self.begin_time
 
+    def get_topics(self):
+        return self.topic_shown_in.filter(accepted=True).all()
+
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.begin_time)
 
