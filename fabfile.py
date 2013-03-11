@@ -45,7 +45,7 @@ def checkout_latest():
 def install_requirements():
   """Install the required packages using pip"""
   """Pip need copy file into system folder, so we need a sudo"""
-  sudo('cd %(path)s; pip install -r ./releases/%(release)s/requirements' % env)
+  sudo('cd %(path)s; pip install -r ./releases/%(release)s/requirements.txt' % env)
 
 def symlink_current_release():
   """Symlink our current release, uploads and settings file"""

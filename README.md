@@ -26,7 +26,7 @@ $ source openparty/bin/activate
 Install openparty project dependencies::
 
 ```
-(openparty)$ pip install -r requirements
+(openparty)$ pip install -r requirements.txt
 ```
 
 
@@ -74,7 +74,7 @@ cd PROJECT_FOLDER
 ```
 sudo su -
 source /usr/local/virtualenv/openparty/bin/activate
-pip install -r requirements
+pip install -r requirements.txt
 ```
 
 - [Deploy django applications with nginx, uwsgi, virtualenv, south, git and fabric](http://www.abidibo.net/blog/2012/06/20/deploy-django-applications-nginx-uwsgi-virtualenv-south-git-and-fabric-part-4/)
