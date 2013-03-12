@@ -2,7 +2,6 @@ Django==1.4
 MySQL-python==1.2.3
 Fabric==1.4.3
 South==0.7.5
-distribute==0.6.27
 django-debug-toolbar==0.9.4
 django-xmlrpc==0.1.4
 docutils==0.9.1
@@ -13,4 +12,3 @@ flup==1.0.3.dev-20110405
 sentry==4.8.1
 raven==2.0.1
 celery<3.0
-
