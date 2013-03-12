@@ -1,3 +1,4 @@
+distribute==0.6.35
 Django==1.4
 MySQL-python==1.2.3
 Fabric==1.4.3
