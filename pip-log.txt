@@ -1,0 +1,28 @@
+Downloading/unpacking debug-toolbar
+  Getting page http://pypi.python.org/simple/debug_toolbar
+  Could not fetch URL http://pypi.python.org/simple/debug_toolbar: HTTP Error 404: Not Found (debug_toolbar does not have any releases)
+  Will skip URL http://pypi.python.org/simple/debug_toolbar when looking for download links for debug-toolbar
+  Getting page http://pypi.python.org/simple/
+Exception:
+Traceback (most recent call last):
+  File "/usr/lib/python2.6/dist-packages/pip.py", line 252, in main
+    self.run(options, args)
+  File "/usr/lib/python2.6/dist-packages/pip.py", line 408, in run
+    requirement_set.install_files(finder, force_root_egg_info=self.bundle)
+  File "/usr/lib/python2.6/dist-packages/pip.py", line 1750, in install_files
+    url = finder.find_requirement(req_to_install, upgrade=self.upgrade)
+  File "/usr/lib/python2.6/dist-packages/pip.py", line 996, in find_requirement
+    url_name = self._find_url_name(Link(self.index_urls[0]), url_name, req)
+  File "/usr/lib/python2.6/dist-packages/pip.py", line 1070, in _find_url_name
+    page = self._get_page(index_url, req)
+  File "/usr/lib/python2.6/dist-packages/pip.py", line 1177, in _get_page
+    return HTMLPage.get_page(link, req, cache=self.cache)
+  File "/usr/lib/python2.6/dist-packages/pip.py", line 2160, in get_page
+    inst = cls(resp.read(), real_url, headers)
+  File "/usr/lib/python2.6/socket.py", line 329, in read
+    data = self._sock.recv(rbufsize)
+  File "/usr/lib/python2.6/httplib.py", line 538, in read
+    s = self.fp.read(amt)
+  File "/usr/lib/python2.6/socket.py", line 353, in read
+    data = self._sock.recv(left)
+KeyboardInterrupt

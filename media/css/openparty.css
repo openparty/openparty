@@ -356,14 +356,15 @@ dl.pair {
     overflow: hidden;
     display: block;
     background-repeat: no-repeat;
+    margin: 5px 0;
   }
   .top-sponsors .thoughtworks {
     background-image: url(../images/sponsors/thoughtworks_logo.png);
     height: 27px;
   }
-  .top-sponsors .snda {
-    background-image: url(../images/sponsors/snda_logo.gif);
-    height: 26px;
+  .top-sponsors .moode {
+    background-image: url(../images/sponsors/moode.png);
+    height: 48px;
   }
   .top-sponsors .google {
     background-image: url(../images/sponsors/google_logo_41.png);
