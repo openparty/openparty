@@ -859,6 +859,7 @@ dl.pair {
     }
 #event-checkin {
   color: #666;
+  margin: 100px 0;
 }
   #event-checkin h2 {
     font-size: 35px;
