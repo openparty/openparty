@@ -106,22 +106,19 @@ def join_event(request):
 
 def checkin(request):
     ctx = {'tab': 'event'}
-    if request.user.is_staff:
-        event = Event.objects.next_event()
-        if request.method == 'GET':
-            form = EventCheckinForm()
-        else:
-            form = EventCheckinForm(request.POST)
-            try:
-                if form.checkin(event):
-                    messages.success(request, u'您已经成功在现场签到了！')
-            except forms.ValidationError, e:
-                for error_message in e.messages:
-                    messages.error(request, error_message)
-        ctx['form'] = form
-        ctx['event'] = event
+    event = Event.objects.next_event()
+    if request.method == 'GET':
+        form = EventCheckinForm()
     else:
-        messages.error(request, u'您需要以管理员身份登录访问现场登录页面')
+        form = EventCheckinForm(request.POST)
+        try:
+            if form.checkin(event):
+                messages.success(request, u'您已经成功在现场签到了！')
+        except forms.ValidationError, e:
+            for error_message in e.messages:
+                messages.error(request, error_message)
+    ctx['form'] = form
+    ctx['event'] = event
     return render_to_response('core/checkin.html', ctx, context_instance=RequestContext(request))
 
 def event(request, id):
