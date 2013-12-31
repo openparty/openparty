@@ -15,7 +15,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'openparty',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
@@ -126,7 +126,7 @@ INSTALLED_APPS = (
     'apps.member',
     'apps.twitter',
     'debug_toolbar',
-    'raven.contrib.django',
+    'raven.contrib.django.raven_compat',
 )
 
 # One-week activation window; you may, of course, use a different value.
@@ -149,10 +149,8 @@ INTERNAL_IPS = ('114.254.99.95',)
 
 # Sentry is server debuging tool
 
-SENTRY_CLIENT = 'raven.contrib.django.DjangoClient'
-
 RAVEN_CONFIG = {
-    'register_signals': True,
+    'dsn': '',
 }
 
 LOGGING = {
