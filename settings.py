@@ -94,7 +94,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'raven.contrib.django.middleware.Sentry404CatchMiddleware',
 )
 
 LOGIN_URL = '/member/login'
