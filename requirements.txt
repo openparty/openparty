@@ -2,7 +2,7 @@ Django==1.4
 Fabric==1.4.3
 MySQL-python==1.2.3
 South==0.7.5
-distribute==0.6.35
+distribute==0.7.3
 django-debug-toolbar==0.9.4
 django-xmlrpc==0.1.4
 docutils==0.9.1
