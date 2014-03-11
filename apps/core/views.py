@@ -197,26 +197,29 @@ def submit_topic(request):
         form = ArticleForm()
         form.fields['in_event'].queryset = Event.objects.upcoming_events()
 
-        context = {'form': form,
-                   'tab': 'topic',
-                }
+        context = {
+          'form': form,
+          'tab': 'topic',
+        }
         return render_to_response('core/submit_topic.html',
                                     context,
                                     context_instance=RequestContext(request))
 
     if request.method == 'POST' :
         form = ArticleForm(request.POST)
-        topic = form.save(commit=False)
-        if request.POST['captcha'] == '':
-            topic = form.save(commit=False)
-            topic.set_author(request.user)
-            topic.save()
-            topic.send_notification_mail('created')
-
         context = {
             'form': form,
-            'save_success': True
+            'save_success': False,
         }
+
+        if form.is_valid():
+          topic = form.save(commit=False)
+          if request.POST['captcha'] == '':
+              topic = form.save(commit=False)
+              topic.set_author(request.user)
+              topic.save()
+              topic.send_notification_mail('created')
+              context['save_success'] = True
 
         return render_to_response('core/submit_topic.html',
                                     context,

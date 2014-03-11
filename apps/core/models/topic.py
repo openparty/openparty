@@ -21,13 +21,13 @@ from lxml.html.clean import Cleaner
 class Topic(models.Model):
 
     author = models.ForeignKey(Member, related_name='topic_created', verbose_name=u"演讲者")
-    in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name=u"已安排在此活动中") 
+    in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name=u"已安排在此活动中")
     description = models.TextField(u"简介", max_length=200, blank=False)
-    content = models.TextField(u"内容", blank=False)
+    content = models.TextField(u"内容", blank=True)
     html = models.TextField(u'HTML', blank=True, null=True)
     content_type = models.CharField(blank=False, default='html', max_length=30)
     accepted = models.BooleanField(default=False)  #该话题是否已经被管理员接受,True才能在活动正式的公布页面显示, 同时in_event才能显示
-    
+
     name = models.CharField("名称", max_length=255, blank=False)
     created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
     last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
@@ -35,7 +35,7 @@ class Topic(models.Model):
     #aggrgated
     total_votes = models.PositiveIntegerField(default=0)
     total_favourites = models.PositiveIntegerField(default=0, editable=False)
-    
+
     html_cleaner = Cleaner(style=False, embedded=False, safe_attrs_only=False)
 
     def set_author(self, user):
@@ -43,7 +43,7 @@ class Topic(models.Model):
         self.last_modified_by = author # last_modified_by 总是author？
         self.author = author
         return self
-    
+
     @property
     def poll_status(self):
         if self.in_event:
@@ -58,7 +58,7 @@ class Topic(models.Model):
             return u'该话题尚未加入任何活动，无法开始投票'
 
         return u'我们也不知道怎么了'
-    
+
     @property
     def rendered_content(self):
         if self.content_type == 'restructuredtext':
@@ -71,7 +71,7 @@ class Topic(models.Model):
             return self.html
         else:
             return restructuredtext(self.content)
-        
+
 
     @property
     def is_shown(self):
@@ -97,12 +97,12 @@ class Topic(models.Model):
     @property
     def summary(self):
         content = self.content_text
-        
+
         if len(content) > 60:
             return '%s...' % content[:60]
         else:
             return content
-    
+
     def style_seed(self, range=4):
         '''用来显示一些随机的样式'''
         return self.id % range
@@ -112,7 +112,7 @@ class Topic(models.Model):
 
     def send_notification_mail(self, type):
         '''在话题提交及更新时发送提醒邮件'''
-       
+
         type_dict = {'created':u'建立',
                      'updated':u'更新',
                     }
@@ -129,7 +129,7 @@ class Topic(models.Model):
         #没有用mail_admins(),更灵活一些
         mail_queue = []
         for each_admin in admin_user_set:
-            email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, 
+            email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL,
             [each_admin.email], '',
             headers = {'Reply-To': each_admin.email})
             email.content_subtype = "plain"
@@ -150,7 +150,9 @@ class Topic(models.Model):
 
     def save(self, *args, **kwargs):
         self.total_votes = self.votes.count()
+        if not self.content or self.content.strip() == '':
+          self.content = self.description
         super(Topic, self).save(*args, **kwargs)
-    
+
     class Meta:
         app_label = 'core'

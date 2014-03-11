@@ -1,4 +1,5 @@
 {% extends "core/base_core.html" %}
+{% load addcss %}
 {% block title %} - 编辑话题"{{topic.name}}"{% endblock %}
 {% block extra_head %}
       <script type="text/javascript" charset="utf-8" src="{{ MEDIA_URL }}javascripts/tiny_mce/jquery.tinymce.js"></script>
@@ -21,41 +22,44 @@
 {% block content %}
       <div class="span12">
         <div class="left">
-            <h1>话题详情：</h1><a href="/topic">返回话题列表</a>
-            <div class="lbox">
+            <h1 class="page-title">话题详情：</h1>
+            <a href="/topic" class="btn btn-primary btn-xs">返回话题列表</a>
+
+            <div class="topic-form">
                 {% if edit_success %}
-                    话题编辑成功，系统会根据接下来活动场次的情况以及用户的投票来安排您的话题，期待您精彩的演讲
-                    <a href="/topic/{{ topic.id }}">返回话题</a>
+                  话题编辑成功，系统会根据接下来活动场次的情况以及用户的投票来安排您的话题，期待您精彩的演讲
+                  <a href="/topic/{{ topic.id }}" class="btn btn-primary btn-xs">返回话题</a>
                 {% else %}
-                <form action="{% url edit_topic form.instance.id %}" method="POST">
-                {% csrf_token %}
-                <table>
-                    <tr>
-                      <td>{{form.name.label}}:{{form.name}}</td>
-                    </tr>
-                    <tr>
-                      <td>{{form.description.label}}</td>
-                    </tr>
-                    <tr>
-                      <td>{{form.description}}</td>
-                    </tr>
-                    <tr>
-                      <td>{{form.content.label}}</td>
-                    </tr>
-                    <tr>
-                      <td>{{form.content}}</td>
-                    </tr>
-                    {% if not topic.is_shown %}
-                    <tr>
-                      <td>申请在以下活动进行话题宣讲:(需管理员审核)</td>
-                    </tr>
-                    <tr>
-                      <td>{{form.in_event}}</td>
-                    </tr>
-                    {% endif %}
-                </table>
-                <input type="submit" value="保存">
-                </form>
+                  请首先了解OpenParty对于话题的一些要求、时间、等等
+                  <div class="form-container">
+                    <form action="{% url edit_topic form.instance.id %}" method="post" role="form">
+                      {% csrf_token %}
+                      <div class="form-group{% if form.name.errors %} has-error{% endif %}">
+                        {{form.name.errors}}
+                        {{form.name.label_tag}}
+                        {{form.name|addcss:'form-control'}}
+                      </div>
+                      <div class="form-group{% if form.description.errors %} has-error{% endif %}">
+                        {{form.description.errors}}
+                        {{form.description.label_tag}}<sup>纯文本</sup>
+                        {{form.description|addcss:'form-control'}}
+                      </div>
+                      <div class="form-group{% if form.content.errors %} has-error{% endif %}">
+                        {{form.content.errors}}
+                        {{form.content.label_tag}}<sup>支持 HTML</sup>
+                        {{form.content|addcss:'form-control with_tinymce'}}
+                      </div>
+                      {% if not topic.is_shown %}
+                        <div class="form-group{% if form.in_event.errors %} has-error{% endif %}">
+                          {{form.in_event.errors}}
+                          <label for="id_in_event">申请在以下活动进行话题宣讲: (需管理员审核)</label>
+                          {{form.in_event}}
+                        </div>
+                      {% endif %}
+                      <input type="text" name="captcha" style="display:none">
+                      <button type="submit" class="btn btn-default">保存</button>
+                    </form>
+                  </div>
                 {% endif %}
             </div>
         </div>
