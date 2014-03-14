@@ -113,9 +113,8 @@ form .hint {
 #change-password,
 #verification-sent {
   background: url(../images/logo_300.png) transparent left top no-repeat;
-  margin: 10em auto;
+  margin: 10em 0 10em 170px;
   padding-left: 310px;
-  width: 25em;
 }
 
 #login form {
@@ -995,7 +994,16 @@ ul.events {
   -moz-box-sizing:border-box;
   box-sizing:border-box
 }
-
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
 :before,:after{
   -webkit-box-sizing:border-box;
   -moz-box-sizing:border-box;
