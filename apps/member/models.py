@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User
 from django.core.cache import cache
+import logging
 
 import user
 
@@ -56,7 +57,8 @@ class MemberManager(models.Manager):
                 return self.get(user=user)
         except User.DoesNotExist:
             pass
-        except self.DoesNotExist:
+        except Exception, e:
+            logging.exception("find_by_email")
             pass
         return None
 
