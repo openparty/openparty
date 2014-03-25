@@ -81,7 +81,7 @@ class TopicTest(TestCase):
         self.client.login(username='tin', password='123')
         Member.objects.create(user = new_user, nickname="Tin")
         event = test_helper.create_upcoming_event()
-        response = self.client.post(reverse("submit_new_topic"), {"title":"iamaspamer",'name':'Test Topic Submitted','description':'Test Topic Description','content':'content','in_event':event.id})
+        response = self.client.post(reverse("submit_new_topic"), {"title":"iamaspamer",'name':'Test Topic Submitted','description':'Test Topic Description','content':'content','in_event':event.id, 'captcha':'should be empty if human'})
         self.assertEquals(response.status_code, 403)
 
     def test_edit_topic(self):
