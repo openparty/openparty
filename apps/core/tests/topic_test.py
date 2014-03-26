@@ -11,7 +11,7 @@ class TopicTest(TestCase):
     def test_topic_summary(self):
         content = '''软件需求遇到的最大问题是什么？基本上都是沟通和交流的相关问题需求从哪里来：客户（市场）、用户 我们需要确定的是：谁是用户？当前业务流程情况？业务目标是什么？ 项目需求确定中遇到的最大问题是什么？需求文档驱动的过程不堪重负 查看更多'''
         t = Topic(content=content)
-        self.assertEquals(u'软件需求遇到的最大问题是什么？...', t.summary)
+        self.assertEquals(u'软件需求遇到的最大问题是什么？基本上都是沟通和交流的相关问题需求从哪里来：客户（市场）、用户 我们需要确定的是：谁是用户...', t.summary)
     
     def test_render_topic_content_restructuredtext(self):
         '''You have to install docutils for pass this test.'''
@@ -71,7 +71,7 @@ class TopicTest(TestCase):
         self.client.login(username='tin', password='123')
         Member.objects.create(user = new_user, nickname="Tin")
         event = test_helper.create_upcoming_event()
-        response = self.client.post(reverse("submit_new_topic"), {'name':'Test Topic Submitted','title':'','description':'Test Topic Description','content':'content','in_event':event.id})
+        response = self.client.post(reverse("submit_new_topic"), {'name':'Test Topic Submitted','title':'','description':'Test Topic Description','content':'content','in_event':event.id, 'captcha':''})
         check_topic = len(Topic.objects.filter(name="Test Topic Submitted"))
         self.assertEquals(1, check_topic)
 
@@ -81,7 +81,7 @@ class TopicTest(TestCase):
         self.client.login(username='tin', password='123')
         Member.objects.create(user = new_user, nickname="Tin")
         event = test_helper.create_upcoming_event()
-        response = self.client.post(reverse("submit_new_topic"), {"title":"iamaspamer",'name':'Test Topic Submitted','description':'Test Topic Description','content':'content','in_event':event.id})
+        response = self.client.post(reverse("submit_new_topic"), {"title":"iamaspamer",'name':'Test Topic Submitted','description':'Test Topic Description','content':'content','in_event':event.id, 'captcha':'should be empty if human'})
         self.assertEquals(response.status_code, 403)
 
     def test_edit_topic(self):

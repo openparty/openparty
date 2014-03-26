@@ -220,6 +220,8 @@ def submit_topic(request):
               topic.save()
               topic.send_notification_mail('created')
               context['save_success'] = True
+          else:
+              return HttpResponseForbidden()
 
         return render_to_response('core/submit_topic.html',
                                     context,
