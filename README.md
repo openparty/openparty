@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/openparty/openparty.png)](https://travis-ci.org/openparty/openparty)
+
 # OpenParty (Unconference Community website)
 
 

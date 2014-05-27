@@ -12,12 +12,13 @@ class TopicTest(TestCase):
         content = '''软件需求遇到的最大问题是什么？基本上都是沟通和交流的相关问题需求从哪里来：客户（市场）、用户 我们需要确定的是：谁是用户？当前业务流程情况？业务目标是什么？ 项目需求确定中遇到的最大问题是什么？需求文档驱动的过程不堪重负 查看更多'''
         t = Topic(content=content)
         self.assertEquals(u'软件需求遇到的最大问题是什么？基本上都是沟通和交流的相关问题需求从哪里来：客户（市场）、用户 我们需要确定的是：谁是用户...', t.summary)
-    
-    def test_render_topic_content_restructuredtext(self):
-        '''You have to install docutils for pass this test.'''
-        content = '标题\n- point 1\n- point 2'
-        t = Topic(content=content)
-        self.assertEquals(u'<p>标题\n- point 1\n- point 2</p>\n', t.rendered_content)
+
+    # 看到註釋裡寫到去掉了restructuredtext的處理，所以去掉對應的注釋
+    #def test_render_topic_content_restructuredtext(self):
+    #    '''You have to install docutils for pass this test.'''
+    #    content = '标题\n- point 1\n- point 2'
+    #    t = Topic(content=content)
+    #    self.assertEquals(u'<p>标题\n- point 1\n- point 2</p>\n', t.rendered_content)
     
     def test_render_topic_content_html(self):
         html = '<h2>标题</h2><p>内容</p>'
