@@ -93,8 +93,9 @@ def rollback():
 @task
 def restart_server():
     """Restart the web server"""
-    run('cd %(path)s/releases/current; %(path)s/releases/current/site-restart' % env)
-    sudo('/etc/init.d/nginx restart')
+    with activate_virtualenv():
+        run('cd %(path)s/releases/current; %(path)s/releases/current/site-restart' % env)
+        sudo('/etc/init.d/nginx restart')
 
 
 def activate_virtualenv():
