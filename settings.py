@@ -29,6 +29,7 @@ DATABASE_OPTIONS = {
 }
 
 #EMAIL_BACKEND = 'custom_email_backend.unix_sendmail_backend.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
@@ -136,7 +137,8 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')
 
 ANALYTICS_ID = 'UA-329713-8'
-COMMENT_SYSTEM = 'disqus'#'homebrew'
+# COMMENT_SYSTEM = 'disqus'#'homebrew'
+COMMENT_SYSTEM = ''
 DISQUS_BRANCH_ID = 'beijing'
 
 TWITTER_OPENPARTY_KEY = "REPLACE_IT_WITH_REAL_VALUE_IN_LOCAL_SETTINGS"
