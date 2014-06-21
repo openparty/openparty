@@ -6,10 +6,6 @@
   .navigator-wrap {
     display: none;
   }
-  .messages {
-    font-size: 35px;
-    text-align: center;
-  }
 </style>
 {% endblock %}
 
@@ -19,19 +15,17 @@
     {% if event %}
     <div class="span5">
       <h2>{{event.name}}</h2>
+      <h2>您已成功签到</h2>
       <dl class="pair">
         <dt>时间：</dt><dd>{{event.begin_time|date:'Y年m月d日'}}</dd>
+        <dt>洗手间位于：</dt><dd>出门直走左转</dd>
+        <dt>Wifi：</dt><dd>密码见近门处墙上，名称Starbucks</dd>
+        <dt>尊重赞助商：</dt><dd>请勿动办公财物、请勿拍摄白板</dd>
+        <dt>支持环保：</dt><dd>喝完或带走您取用的瓶装水</dd>
+        <dt>注意安全：</dt><dd>请保管好自己的财物</dd>
+        <div class="clear"></div>
       </dl>
     </div>
-    <div id="event-checkin" class="span7">
-      <form action="/event/checkin" method="post" class="wide">
-        {% csrf_token %}
-        <h2>“{{event.name}}”活动现场签到</h2>
-        {{ form.as_p }}
-        <input id="checkin_submit" type="submit" value="签到" tabindex="2"/>
-      </form>
-    </div>
-    <img src="{{event.poster}}" alt="下次活动海报" height="100" class="shadow"/>
     {% endif %}
   </div>
 </div>
@@ -42,13 +36,6 @@
       email = $(this);
       email.select();
     });
-    $('#checkin_submit').click(function(){
-    $("#header").prepend('<ul class="messages"><li class="error">签到中...</li></ul>');
-    });
-    function fadeOutMessages(){
-        $('.messages').fadeOut('slow')
-        }
-    setTimeout(fadeOutMessages,1984)
   });
 </script>
 {% endblock %}

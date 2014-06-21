@@ -113,7 +113,9 @@ def checkin(request):
         form = EventCheckinForm(request.POST)
         try:
             if form.checkin(event):
-                messages.success(request, u'您已经成功在现场签到了！')
+                ctx['form'] = form
+                ctx['event'] = event
+                return render_to_response('core/checkin_completed.html', ctx, context_instance=RequestContext(request))
         except forms.ValidationError, e:
             for error_message in e.messages:
                 messages.error(request, error_message)
