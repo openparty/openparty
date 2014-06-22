@@ -53,7 +53,7 @@ class MemberTest(TestCase):
     # def test_login_should_failed_before_activate(self):
     #         helper.create_user(activate=False)
     #         response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
-    #         self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
+    #         self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登录邮箱打开链接激活')
     
     def test_avatar_of_member(self):
         import settings
