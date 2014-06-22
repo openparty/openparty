@@ -88,7 +88,7 @@
               {% include 'core/_duoshuo_comments.html' with id=this_event.id title=this_event.name url=next_url %}
             {% else %}
               {% include 'core/_comment_list.html' %}
-            {% endif %}
+            {% endifequal %}
           {% endwith %}
         {% endifequal %}
       </div><!-- .comment-widget -->
