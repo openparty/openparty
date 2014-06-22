@@ -1,7 +1,6 @@
 {% extends "core/base_core.html" %}
 {% block title %} - {{member.display_name}}{% endblock %}
 {% block content %}
-    {% load markup %}
     <div id="content" class="content topic row">
       <div class="span12">
         <p class="bread-crumb"><a href="/topic">返回</a></p>
@@ -29,7 +28,7 @@
                所属活动：<a href="/event/{{topic.in_event.id}}">{{topic.in_event.name}}</a> 日期：{{topic.in_event.begin_time|date}}
               {% endif %}
             </p>
-            <div class="description">{{ topic.description|restructuredtext }}</div>
+            <div class="description">{{ topic.description }}</div>
           </li>
         {% endfor %}
          </ul>
@@ -56,7 +55,7 @@
               {% for comment in comment_list %}
               <li id="c{{comment.id}}">
                   <span class="avatar"><img width=48 height=48 src="{{ comment.user.get_profile.avatar }}" alt="{{ comment.user.get_profile.display_name }}' Profile image" /></span>
-                  <span class="username"><a href="{% url member_profile comment.user.get_profile.id %}">{{ comment.user.get_profile.display_name }}</a></span>
+                  <span class="username"><a href="{% url 'member_profile' comment.user.get_profile.id %}">{{ comment.user.get_profile.display_name }}</a></span>
                   <span class="timesince"> - {{ comment.submit_date|timesince }}前</span>
                   <span class="comment">{{ comment.comment }}</span>
                 </li>
@@ -75,11 +74,11 @@
               {{ form.object_pk }}
               {{ form.timestamp }}
               {{ form.security_hash }}
-              <input type="hidden" name="next" value="{% url member_profile member.id %}" /><br />
+              <input type="hidden" name="next" value="{% url 'member_profile' member.id %}" /><br />
               <input type="submit" value="留言" id="id_submit" />
             </form>
          {% else %}
-          <p>如要发布留言，请先 <a href="{% url login %}">登录</a></p>
+          <p>如要发布留言，请先 <a href="{% url 'login' %}">登录</a></p>
          {% endif %}
      
 

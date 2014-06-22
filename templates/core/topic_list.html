@@ -4,7 +4,6 @@
 <link rel="alternate" type="application/rss+xml" title="最新话题" href="{% url feed_topics %}" />
 {% endblock %}
 {% block content %}
-  {% load markup %}
   <div id="content" class="content row">
     <div class="span12">
       <p class="bread-crumb">这是现在OpenParty所有的话题。当听众不过瘾？<a href="{% url submit_new_topic %}">来OpenParty分享话题吧</a></p>
@@ -28,7 +27,7 @@
               {% endif %}
             </p>
             
-            <div class="description">{{ topic.description|restructuredtext }}</div>
+            <div class="description">{{ topic.description }}</div>
           </li>
         {% endfor %}
       </ul>

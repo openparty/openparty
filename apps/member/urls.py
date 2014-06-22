@@ -1,8 +1,8 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
 from apps.member.views import MemberProfileView
 from apps.member.views import MemberRequestResetPasswordView, MemberRequestResetPasswordDone
 
-urlpatterns = patterns('member.views',
+urlpatterns = patterns('apps.member.views',
     url(r'^signup$', 'signup', name='signup'),
     url(r'^login$', 'login', name='login'),
     url(r'^logout$', 'logout', name='logout'),

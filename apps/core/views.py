@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseForbidden, Http404
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 from django import forms
 
 from apps.member.models import Member
@@ -34,7 +34,8 @@ def index(request):
         'next_event': next_event,
         'tab': 'index',
     }
-    return render_to_response('core/index.html', ctx, context_instance=RequestContext(request))
+    #return render_to_response('core/index.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/index.html', ctx)
 
 def event_list(request):
     event_list = Event.objects.all().order_by('-begin_time')

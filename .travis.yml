@@ -10,5 +10,5 @@ install:
   - pip install -q Django==$DJANGO_VERSION --use-mirrors
   - pip install -r requirements.txt
 script:
-  - python manage.py test member
-  - python manage.py test core
+  - python manage.py test apps.member
+  - python manage.py test apps.core

@@ -2,7 +2,7 @@ Thank you for signing up for Open Party!  You are one step away from being able 
 
 You now need to confirm that you are the person who signed up for an account on the Open Party website.
 
-Please click here to verify your account: {{ site }}{% url activate_account activation_key %}
+Please click here to verify your account: {{ site }}{% url 'activate_account' activation_key %}
 
 If you have any questions, feel free to email us at staff@beijing-open-party.org.
 

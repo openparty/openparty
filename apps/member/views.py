@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -7,7 +7,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import FormView
-from django.http import Http404  
+from django.http import Http404
 
 from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm, RequestResetPasswordForm, ResetPasswordForm
 from apps.member.models import Member
@@ -25,7 +25,7 @@ def login(request):
         form = LoginForm()
 
     ctx = { 'form': form,  }
-    return render_to_response('member/login.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'member/login.html', ctx)
 
 def logout(request):
     auth_logout(request)
