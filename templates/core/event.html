@@ -84,7 +84,11 @@
         {% else %}
           {% with entity=this_event %}
             {%  url event this_event.id as next_url %}
-            {% include 'core/_comment_list.html' %}
+            {% ifequal COMMENT_SYSTEM 'duoshuo' %}
+              {% include 'core/_duoshuo_comments.html' with id=this_event.id title=this_event.name url=next_url %}
+            {% else %}
+              {% include 'core/_comment_list.html' %}
+            {% endifequal %}
           {% endwith %}
         {% endifequal %}
       </div><!-- .comment-widget -->

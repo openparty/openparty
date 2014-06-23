@@ -137,8 +137,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')
 
 ANALYTICS_ID = 'UA-329713-8'
-# COMMENT_SYSTEM = 'disqus'#'homebrew'
-COMMENT_SYSTEM = ''
+COMMENT_SYSTEM = '' # 'disqus', 'duoshuo', ''
 DISQUS_BRANCH_ID = 'beijing'
 
 TWITTER_OPENPARTY_KEY = "REPLACE_IT_WITH_REAL_VALUE_IN_LOCAL_SETTINGS"

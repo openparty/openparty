@@ -58,7 +58,11 @@
           {% else %}
             {% with entity=this_topic %}
               {% url topic this_topic.id as next_url %}
-              {% include 'core/_comment_list.html' with id=this_topic.id title=this_topic.name url=next_url%}
+              {% ifequal COMMENT_SYSTEM 'duoshuo' %}
+                {% include 'core/_duoshuo_comments.html' with id=this_topic.id title=this_topic.name url=next_url %}
+              {% else %}
+                {% include 'core/_comment_list.html' %}
+              {% endifequal %}
             {% endwith %}
           {% endifequal %}
         </div><!-- .comment-widget -->
