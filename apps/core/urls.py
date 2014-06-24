@@ -1,4 +1,5 @@
 from feeds import Events_Feed, Topics_Feed, Posts_Feed
+from django.views.generic import TemplateView
 from django.conf.urls import patterns, url
 
 event_patterns = patterns('apps.core.views',
@@ -34,5 +35,5 @@ wordpress_redirect_patterns = patterns('apps.core.views',
 )
 
 about_patterns = patterns('django.views.generic',
-        url(r'^/?$', 'TemplateView', {'template_name': 'core/about.html', 'extra_context':{'tab':'about'}}, name="about"),
+    url(r'^/?$', TemplateView.as_view(template_name='core/about.html'), name="about"),
 )

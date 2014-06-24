@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response, redirect, render
+from django.shortcuts import redirect, render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -36,13 +36,12 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.save():
             ctx = { 'email': form.cleaned_data['email'], }
-            return render_to_response('member/verification_sent.html', ctx,
-                context_instance=RequestContext(request))
+            return render(request, 'member/verification_sent.html', ctx)
     else:
         form = SignupForm()
 
     ctx = { 'form': form,  }
-    return render_to_response('member/signup.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'member/signup.html', ctx)
 
 def activate(request, activation_key):
     activating_member = Member.objects.find_by_activation_key(activation_key)
@@ -62,8 +61,7 @@ def change_password(request):
     else:
         form = ChangePasswordForm(request)
     ctx = { 'form': form,  }
-    return render_to_response('member/change_password.html', ctx,
-        context_instance=RequestContext(request))
+    return render(request, 'member/change_password.html', ctx)
 
 class MemberRequestResetPasswordView(FormView):
     form_class = RequestResetPasswordForm
@@ -97,7 +95,7 @@ def reset_password(request, user_id, pwd_reset_token):
         ctx = { 'form': form,  }
     else:
         ctx = { 'status': 'failed' }
-    return render_to_response('member/reset_password.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'member/reset_password.html', ctx)
 
 @login_required
 def update_profile(request):
@@ -109,8 +107,7 @@ def update_profile(request):
     else:
         form = ProfileForm(request.user)
     ctx = { 'form': form,  }
-    return render_to_response('member/update_profile.html', ctx,
-        context_instance=RequestContext(request))
+    return render(request, 'member/update_profile.html', ctx)
 
 
 class MemberProfileView(DetailView):

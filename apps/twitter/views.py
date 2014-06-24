@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Create your views here.
 from django.template import RequestContext
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -47,7 +47,7 @@ def index(request):
         'tab': 'tweet',
         'twitter_enabled': twitter_enabled
     }
-    return render_to_response('twitter/index.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'twitter/index.html', ctx)
 
 @login_required
 def request_oauth(request):
