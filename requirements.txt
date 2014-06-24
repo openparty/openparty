@@ -12,3 +12,4 @@ raven==4.0.2
 simplejson==3.3.1
 tweepy==2.1
 wsgiref==0.1.2
+pytest-django==2.6.2

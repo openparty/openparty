@@ -1,6 +1,5 @@
 language: python
 env:
-  - DJANGO_VERSION=1.4.10
   - DJANGO_VERSION=1.5.5
   - DJANGO_VERSION=1.6.2
 python:
@@ -10,5 +9,5 @@ install:
   - pip install -q Django==$DJANGO_VERSION --use-mirrors
   - pip install -r requirements.txt
 script:
-  - python manage.py test apps.member
-  - python manage.py test apps.core
+  - py.test apps.member
+  - py.test apps.core
