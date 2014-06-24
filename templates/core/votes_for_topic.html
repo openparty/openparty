@@ -9,7 +9,7 @@
             {% for vote in votes_list %}
             <dl>
                 <dt><img width=48 height=48 src="{{vote.user.avatar }}"></dt>
-                <dd><a href="{% url member_profile vote.user.id %}">{{ vote.user.display_name}}</a></dd>
+                <dd><a href="{% url 'member_profile' vote.user.id %}">{{ vote.user.display_name}}</a></dd>
             </dl>
             {% endfor %}
             <div class="clear"></div>

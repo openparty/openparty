@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url, handler404
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 
 from apps.core.urls import event_patterns, topic_patterns, feed_patterns, post_patterns, about_patterns, wordpress_redirect_patterns
@@ -26,6 +27,8 @@ urlpatterns += patterns('apps.core.views',
     url(r'^index$', 'index', name='index'),
     url(r'^/?$', 'index'),
 )
+
+urlpatterns += staticfiles_urlpatterns()
 
 def handler500(request):
     """
