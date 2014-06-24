@@ -93,9 +93,9 @@ class TopicTest(TestCase):
         self.client.login(username='test', password='123')
 
         event = test_helper.create_upcoming_event()
-        
-        test_user_topic = Topic.objects.create(author = member_new_user, in_event = event, \
-                                               name = "Test", description = "test", content = "test")
+
+        test_user_topic = Topic.objects.create(author=member_new_user, in_event=event,
+                                               name="Test", description="test", content="test")
 
         response = self.client.get(reverse("edit_topic",  kwargs = {"id": test_user_topic.id }))
         self.failUnlessEqual(response.status_code, 200)
@@ -105,8 +105,8 @@ class TopicTest(TestCase):
         non_relevant_user = User.objects.create_user("another_user", "another@test.com", "123")
         member_non_relevant_user = Member.objects.create(user = non_relevant_user, nickname="Another")
 
-        test_non_user_topic = Topic.objects.create(author = member_non_relevant_user, in_event = event, \
-                                                   name = "Another Topic", description = "test", content = "test")
+        test_non_user_topic = Topic.objects.create(author=member_non_relevant_user, in_event=event,
+                                                   name="Another Topic", description="test", content="test")
         response = self.client.get(reverse("edit_topic", kwargs = {"id": test_non_user_topic.id }))
         self.failUnlessEqual(response.status_code, 302)
 

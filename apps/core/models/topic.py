@@ -30,7 +30,7 @@ class Topic(models.Model):
     name = models.CharField("名称", max_length=255, blank=False)
     created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
     last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified')
+    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified', null=True)
     #aggrgated
     total_votes = models.PositiveIntegerField(default=0)
     total_favourites = models.PositiveIntegerField(default=0, editable=False)

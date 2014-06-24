@@ -1,7 +1,7 @@
 {% extends "core/base_core.html" %}
 {% block title %} - 社区活动广播{% endblock %}
 {% block extra_head %}
-<link rel="alternate" type="application/rss+xml" title="所有新闻" href="{% url feed_posts %}" />
+<link rel="alternate" type="application/rss+xml" title="所有新闻" href="{% url 'feed_posts' %}" />
 {% endblock %}
 {% block content %}
   <div id="content" class="content row">
@@ -11,7 +11,7 @@
         {% for post in posts %}
           <li class="post">
             <h2 class="post-title post-title_{{ post.style_seed }}">
-              <a href="{% url view_post_by_name name=post.post_name %}">{{ post.title }}</a>
+              <a href="{% url 'view_post_by_name' name=post.post_name %}">{{ post.title }}</a>
               <span class="meta"><span class='created-at'>{{ post.created_at|date }}</span></span>
             </h2>
             <div class="description">{{ post.summary }}</div>

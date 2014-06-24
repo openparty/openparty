@@ -16,7 +16,7 @@
           <span class="event-status">即将开始</span>
           <span class="event-join">
             <a class="btn btn-large btn-primary" href="/event/join"><i class="icon-thumbs-up icon-white"></i> 报名参加本次活动</a>
-            <a class="btn btn-large btn-success" href="{% url submit_new_topic %}"><i class="icon-bullhorn icon-white"></i> 给本次活动贡献话题</a>
+            <a class="btn btn-large btn-success" href="{% url 'submit_new_topic' %}"><i class="icon-bullhorn icon-white"></i> 给本次活动贡献话题</a>
           </span>
 		    {% endif %}
       </h1>
@@ -57,7 +57,7 @@
                 得票数：<span class="votes">{{ topic.total_votes }}</span>
               {% endif %}
             </p>
-            <div class="description">{{ topic.description|restructuredtext }}</div>
+            <div class="description">{{ topic.description }}</div>
           </li>
         {% endfor %}
       </ul>
@@ -77,12 +77,12 @@
         <h2><span class="event-name">{{ this_event.name }}</span>的评论</h2>
         {% ifequal COMMENT_SYSTEM 'disqus' %}
           {% with entity_type='event' entity_id=this_event.id %}
-            {% url event this_event.id as entity_url %}
+            {% url 'event' this_event.id as entity_url %}
             {% include 'core/_disqus_comments.html' %}
           {% endwith %}
         {% else %}
           {% with entity=this_event %}
-            {%  url event this_event.id as next_url %}
+            {%  url 'event' this_event.id as next_url %}
             {% ifequal COMMENT_SYSTEM 'duoshuo' %}
               {% include 'core/_duoshuo_comments.html' with id=this_event.id title=this_event.name url=next_url %}
             {% else %}
