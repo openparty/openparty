@@ -20,11 +20,11 @@
       </p>
       <p>
         <label class="invisible"></label>
-        还没有注册？<a href="{% url signup %}">现在就注册</a><br />
+        还没有注册？<a href="{% url 'signup' %}">现在就注册</a><br />
       </p>
       <p>
         <label class="invisible"></label>
-        忘记登录密码？<a href="{% url member_request_reset_pwd %}">找回登录密码</a>
+        忘记登录密码？<a href="{% url 'member_request_reset_pwd' %}">找回登录密码</a>
       </p>
       {{ form.non_field_errors }}
       <input type="submit" value="登录" tabindex="4"/>

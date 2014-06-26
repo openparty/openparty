@@ -1,7 +1,6 @@
 {% extends "core/base_core.html" %}
 {% block title %} - {{this_topic.name}}{% endblock %}
 {% block content %}
-    {% load markup %}
     <div id="content" class="content topic row">
       <div class="span12">
         <p class="bread-crumb"><a href="/topic">返回话题列表</a></p>
@@ -31,11 +30,11 @@
         <h1 class="topic-name topic-name_{{this_topic.style_seed}}">{{ this_topic.name }}<span class="tail"></span></h1>
         
         {% if user == this_topic.author.user %}
-            <p><a href="{% url edit_topic id=this_topic.id %}">编辑此话题</a></p>
+            <p><a href="{% url 'edit_topic' id=this_topic.id %}">编辑此话题</a></p>
         {% endif %}
         
         <p class="meta">
-        <span class="topic-author"><a href="{% url member_profile this_topic.author.id %}">{{ this_topic.author.nickname }}</a></span>于“<span class="topic-created-at">{{ this_topic.created|date:'Y年m月d日' }}</span>”创建了这个话题{% if this_topic.accepted %}，计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date:'Y年m月d日'}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”活动中演讲{% endif %}
+        <span class="topic-author"><a href="{% url 'member_profile' this_topic.author.id %}">{{ this_topic.author.nickname }}</a></span>于“<span class="topic-created-at">{{ this_topic.created|date:'Y年m月d日' }}</span>”创建了这个话题{% if this_topic.accepted %}，计划在“<span class="topic-due-date">{{this_topic.in_event.begin_time|date:'Y年m月d日'}}</span>”的“<a href="/event/{{this_topic.in_event.id}}" class="topic-due-event">{{this_topic.in_event.name}}</a>”活动中演讲{% endif %}
         </p>
 
         {% include 'core/_share_link.html' %}
@@ -45,19 +44,19 @@
         </div>
 
         {% if modified %}
-        <p> 最近修改者：<a href="{% url member_profile this_topic.last_modified_by.id %}">{{ this_topic.last_modified_by.nickname }}</a> 于 {{ this_topic.last_modified|timesince }} 前</p>
+        <p> 最近修改者：<a href="{% url 'member_profile' this_topic.last_modified_by.id %}">{{ this_topic.last_modified_by.nickname }}</a> 于 {{ this_topic.last_modified|timesince }} 前</p>
         {% endif %}
 
         <div class="comment-widget">
           <h2><span class="topic-name">{{this_topic.name}}</span>的评论</h2>
           {% ifequal COMMENT_SYSTEM 'disqus' %}
             {% with entity_type='topic' entity_id=this_topic.id %}
-              {% url topic this_topic.id as entity_url %}
+              {% url 'topic' this_topic.id as entity_url %}
               {% include 'core/_disqus_comments.html' %}
             {% endwith %}
           {% else %}
             {% with entity=this_topic %}
-              {% url topic this_topic.id as next_url %}
+              {% url 'topic' this_topic.id as next_url %}
               {% ifequal COMMENT_SYSTEM 'duoshuo' %}
                 {% include 'core/_duoshuo_comments.html' with id=this_topic.id title=this_topic.name url=next_url %}
               {% else %}

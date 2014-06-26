@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response, redirect, get_list_or_404
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.contenttypes.models import ContentType
@@ -8,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseForbidden, Http404
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, get_list_or_404, render
 from django import forms
 
 from apps.member.models import Member
@@ -34,7 +33,7 @@ def index(request):
         'next_event': next_event,
         'tab': 'index',
     }
-    return render_to_response('core/index.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/index.html', ctx)
 
 def event_list(request):
     event_list = Event.objects.all().order_by('-begin_time')
@@ -45,7 +44,7 @@ def event_list(request):
         'topic_list': topic_list,
         'tab': 'event',
     }
-    return render_to_response('core/event_list.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/event_list.html', ctx)
 
 def topic_list(request):
     topic_list = Topic.objects.filter(accepted=True).order_by('-in_event__begin_time','-accepted', '-total_votes')
@@ -66,7 +65,7 @@ def topic_list(request):
         'topic_list': page.object_list,
         'tab': 'topic',
     }
-    return render_to_response('core/topic_list.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/topic_list.html', ctx)
 
 def join_event(request):
     if not request.user.is_authenticated():
@@ -102,7 +101,7 @@ def join_event(request):
         'next_event': next_event,
         'tab': 'event',
     }
-    return render_to_response('core/join_evnet.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/join_evnet.html', ctx)
 
 def checkin(request):
     ctx = {'tab': 'event'}
@@ -115,13 +114,13 @@ def checkin(request):
             if form.checkin(event):
                 ctx['form'] = form
                 ctx['event'] = event
-                return render_to_response('core/checkin_completed.html', ctx, context_instance=RequestContext(request))
+                return render(request, 'core/checkin_completed.html', ctx)
         except forms.ValidationError, e:
             for error_message in e.messages:
                 messages.error(request, error_message)
     ctx['form'] = form
     ctx['event'] = event
-    return render_to_response('core/checkin.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/checkin.html', ctx)
 
 def event(request, id):
     this_event = get_object_or_404(Event, pk = id)
@@ -132,7 +131,7 @@ def event(request, id):
         'topics_shown_in': topics_shown_in,
         'tab': 'event',
     }
-    return render_to_response('core/event.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/event.html', ctx)
 
 def topic(request, id):
     this_topic = get_object_or_404(Topic, pk = id)
@@ -154,7 +153,7 @@ def topic(request, id):
         'modified': modified,
         'tab': 'topic',
     }
-    return render_to_response('core/topic.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/topic.html', ctx)
 
 def votes_for_topic(request, id):
     this_topic = get_object_or_404(Topic, pk = id)
@@ -165,7 +164,7 @@ def votes_for_topic(request, id):
         'votes_list': votes_list,
         'tab': tab,
     }
-    return render_to_response('core/votes_for_topic.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'core/votes_for_topic.html', ctx)
 
 @login_required
 def vote(request, id):
@@ -203,9 +202,7 @@ def submit_topic(request):
           'form': form,
           'tab': 'topic',
         }
-        return render_to_response('core/submit_topic.html',
-                                    context,
-                                    context_instance=RequestContext(request))
+        return render(request, 'core/submit_topic.html', context)
 
     if request.method == 'POST' :
         form = ArticleForm(request.POST)
@@ -225,9 +222,7 @@ def submit_topic(request):
           else:
               return HttpResponseForbidden()
 
-        return render_to_response('core/submit_topic.html',
-                                    context,
-                                    context_instance=RequestContext(request))
+        return render(request, 'core/submit_topic.html', context)
 
 
 @login_required
@@ -243,9 +238,7 @@ def edit_topic(request, id):
                     'topic': this_topic,
                     'tab': 'topic',
                   }
-        return render_to_response('core/edit_topic.html',
-                                    context,
-                                    context_instance=RequestContext(request))
+        return render(request, 'core/edit_topic.html', context)
 
     if request.method == 'POST':
         form = ArticleForm(request.POST, instance=this_topic)
@@ -261,9 +254,7 @@ def edit_topic(request, id):
             'tab': 'topic',
         }
 
-        return render_to_response('core/edit_topic.html',
-                                    context,
-                                    context_instance=RequestContext(request))
+        return render(request, 'core/edit_topic.html', context)
 
 
 def list_post(request):
@@ -284,9 +275,7 @@ def list_post(request):
         'page': page,
         'tab': 'post',
     }
-    return render_to_response('core/list_post.html',
-                                ctx,
-                                context_instance=RequestContext(request))
+    return render(request, 'core/list_post.html', ctx)
 
 
 def view_post(request, id):
@@ -295,9 +284,8 @@ def view_post(request, id):
         'post': post,
         'tab': 'post',
     }
-    return render_to_response('core/post.html',
-                                ctx,
-                                context_instance=RequestContext(request))
+    return render(request, 'core/post.html', ctx)
+
 
 def view_post_by_name(request, name):
     post = get_object_or_404(Post, post_name=name)
@@ -306,9 +294,8 @@ def view_post_by_name(request, name):
         'object': post, #for pingback hook
         'tab': 'post',
     }
-    return render_to_response('core/post.html',
-                                ctx,
-                                context_instance=RequestContext(request))
+    return render(request, 'core/post.html', ctx)
+
 
 def redirect_wordpress_post(request, year, month, name):
     return HttpResponseRedirect(reverse('view_post_by_name', args=[name]))

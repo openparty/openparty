@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>OpenParty {% block title %}{% endblock %}</title>
-        <link rel="shortcut icon" href="{{ MEDIA_URL }}favicon.ico" />
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/bootstrap-responsive.min.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="{{ MEDIA_URL }}css/openparty.css?20140314pi" />
-        <script type="text/javascript" charset="utf-8" src="{{ MEDIA_URL }}javascripts/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="{{ MEDIA_URL }}javascripts/underscore-min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="{{ MEDIA_URL }}javascripts/openparty.js"></script>
+        <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/openparty.css?20140314pi" />
+        <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}javascripts/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}javascripts/underscore-min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}javascripts/openparty.js"></script>
         {% block extra_head %}{% endblock %}
     </head>
     <body id="{% block body_signature %}{% endblock %}">
@@ -25,27 +25,27 @@
             {% endif %}
             <div class="gutter container">
                 <div class="row">
-                    <h1 id="logo" class="span4"><a href="/"><img width="300" height="62" src="{{ MEDIA_URL }}images/logo_300.png" alt="Open Party" title="Open Party - IT community unconference" /></a></h1>
+                    <h1 id="logo" class="span4"><a href="/"><img width="300" height="62" src="{{ STATIC_URL }}images/logo_300.png" alt="Open Party" title="Open Party - IT community unconference" /></a></h1>
                     <ul id="toolbar" class="span7 offset1">
                         {% if user.is_authenticated %}
                         <li>
                             欢迎 <em>{{user.username}}</em>
                         </li>
                         <li>
-                            <a title="修改密码" href="{% url change_password %}">[改密码]</a>
+                            <a title="修改密码" href="{% url 'change_password' %}">[改密码]</a>
                         </li>
                         <li>
-                            <a title="登出" href="{% url logout %}">[登出]</a>
+                            <a title="登出" href="{% url 'logout' %}">[登出]</a>
                         </li>
                         {% else %}
                         <li>
                             欢迎来到Open Party，您还没有登录
                         </li>
                         <li>
-                            请<a title="登录" href="{% url login %}">[登录]</a>
+                            请<a title="登录" href="{% url 'login' %}">[登录]</a>
                         </li>
                         <li>
-                            ，没有帐号？现在就<a href="{% url signup %}">[注册]</a>
+                            ，没有帐号？现在就<a href="{% url 'signup' %}">[注册]</a>
                         </li>
                         {% endif %}
                     </ul>
@@ -59,12 +59,12 @@
                     <div class="navigator container">
                         <ul class="main-navigator row">
                             <li><a {%  if tab == "index" %}class="active"{%  endif %}  href="/">首页</a></li>
-                            <li><a {%  if tab == "event" %}class="active"{%  endif %}  href="{% url event_list %}">活动</a></li>
-                            <li><a {%  if tab == "topic" %}class="active"{%  endif %}  href="{% url topic_list %}">话题</a></li>
-                            <li><a {%  if tab == "post" %}class="active"{%  endif %}  href="{% url list_post %}">新闻</a></li>
+                            <li><a {%  if tab == "event" %}class="active"{%  endif %}  href="{% url 'event_list' %}">活动</a></li>
+                            <li><a {%  if tab == "topic" %}class="active"{%  endif %}  href="{% url 'topic_list' %}">话题</a></li>
+                            <li><a {%  if tab == "post" %}class="active"{%  endif %}  href="{% url 'list_post' %}">新闻</a></li>
                             <li><a {%  if tab == "tweet" %}class="active"{%  endif %}  href="/tweets">Tweet</a></li>
                             <li><a {%  if tab == "blog" %}class="active"{%  endif %}  href="http://blog.beijing-open-party.org">Blog</a></li>
-                            <li><a {%  if tab == "about" %}class="active"{%  endif %}  href="{% url about %}">关于</a></li>
+                            <li><a {%  if tab == "about" %}class="active"{%  endif %}  href="{% url 'about' %}">关于</a></li>
                         </ul>
                         <div class="clear"></div>
                     </div>

@@ -8,7 +8,7 @@
       <div class="span10" style="margin: 10px">
         {% if twitter_enabled %}
           <h2>Send a tweet about #openparty</h2>
-          <form action="{% url update_tweet %}" method="post">
+          <form action="{% url 'update_tweet' %}" method="post">
             <fieldset id="" class="">
               <div class="info">
                 {% csrf_token %}
@@ -33,7 +33,7 @@
               <span class="username"><a target="_blank" href="{{ tweet.profile_url }}">{{ tweet.tweet_user_name }}</a></span>
               {% endifequal %}
               <span class="message typo">{{ tweet.text|safe }}</span>
-              <form action="{% url delete_tweet %}" method="post">
+              <form action="{% url 'delete_tweet' %}" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="tweet_id" value="{{ tweet.tweet_id }}" />
                   <button class="btn btn-danger" type="submit" name="delete">删除</button>

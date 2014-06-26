@@ -2,11 +2,11 @@
 {% load addcss %}
 {% block title %} - 编辑话题"{{topic.name}}"{% endblock %}
 {% block extra_head %}
-      <script type="text/javascript" charset="utf-8" src="{{ MEDIA_URL }}javascripts/tiny_mce/jquery.tinymce.js"></script>
+      <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}javascripts/tiny_mce/jquery.tinymce.js"></script>
       <script type="text/javascript" charset="utf-8">
       $().ready(function() {
          $('textarea.with_tinymce').tinymce({
-            script_url : '{{ MEDIA_URL }}javascripts/tiny_mce/tiny_mce.js',
+            script_url : '{{ STATIC_URL }}javascripts/tiny_mce/tiny_mce.js',
             language : 'zh',
             theme : "advanced",
             theme_advanced_toolbar_location : "top",
@@ -32,7 +32,7 @@
                 {% else %}
                   请首先了解OpenParty对于话题的一些要求、时间、等等
                   <div class="form-container">
-                    <form action="{% url edit_topic form.instance.id %}" method="post" role="form">
+                    <form action="{% url 'edit_topic' form.instance.id %}" method="post" role="form">
                       {% csrf_token %}
                       <div class="form-group{% if form.name.errors %} has-error{% endif %}">
                         {{form.name.errors}}

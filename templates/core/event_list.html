@@ -1,10 +1,9 @@
 {% extends "core/base_core.html" %}
 {% block title %} - 活动列表{% endblock %}
 {% block extra_head %}
-<link rel="alternate" type="application/rss+xml" title="最新活动" href="{% url feed_events %}" />
+<link rel="alternate" type="application/rss+xml" title="最新活动" href="{% url 'feed_events' %}" />
 {% endblock %}
 {% block content %}
-  {% load markup %}
   <div class="row">
     <div class="span12">
       <ul class="events">
@@ -15,12 +14,12 @@
               {% if event.is_off %}<span class="event-status">本活动已结束</span>{% endif %}
               {% if event.is_upcoming %}<span class="event-status">即将开始</span>{% endif %}
             </h2>
-            <div class="textile">{{ event.description|restructuredtext }}</div>
+            <div class="textile">{{ event.description }}</div>
             <div class="event-topics">
               <h3>{{ event.name }}的话题</h3>
               <ul class="topics">
                   {% for event_topic in event.get_topics %}
-                  <li class="topic"><a class="topic-name topic-name_{{ event_topic.style_seed }}" href="{% url topic event_topic.id %}">{{ event_topic.name }}</a></li>
+                  <li class="topic"><a class="topic-name topic-name_{{ event_topic.style_seed }}" href="{% url 'topic' event_topic.id %}">{{ event_topic.name }}</a></li>
                 {% endfor %}
               </ul>
             </div>
