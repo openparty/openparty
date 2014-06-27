@@ -7,6 +7,8 @@ DEFAULT_CHARSET = 'utf-8'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.beijing-open-party.org']
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
