@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/openparty/openparty.png)](https://travis-ci.org/openparty/openparty)
+[![Build Status](https://drone.io/github.com/qingfeng/openparty/status.png)](https://drone.io/github.com/qingfeng/openparty/latest)
 
 # OpenParty (Unconference Community website)
 
