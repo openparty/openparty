@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
+from django.test.client import Client
 from apps.member.models import Member
 from apps.member.forms import SignupForm, LoginForm
 import apps.member.test_helper as helper
@@ -11,10 +12,22 @@ from datetime import datetime
 
 class MemberTest(TestCase):
     def test_save_member_though_form(self):
-            form = SignupForm({ 'email': 'some@domain.com', 'password1': '1', 'password2': '1' })
-            member = form.save()
-            self.assertTrue(isinstance(member, Member))
-            self.assertTrue(member.user.id)
+        form = SignupForm({ 'email': 'some@domain.com', 'password1': '1', 'password2': '1' })
+        member = form.save()
+        self.assertTrue(isinstance(member, Member))
+        self.assertTrue(member.user.id)
+
+    def test_signup_member_should_login_status(self):
+        client = Client()
+        response = client.get('/member/signup')
+        assert 'password1' in response.content
+        assert 'password2' in response.content
+        response = client.post('/member/signup', {'email': 'some@domain.com',
+                                                  'password1': '1',
+                                                  'password2': '1',
+                                                  'captcha': ''})
+        assert 'some@domain.com' in response.content
+        assert '注册确认信已发送' in response.content
 
     def test_save_member_though_form_with_nickname(self):
         form = SignupForm({ 'email': 'some@domain.com', 'nickname': u'田乐', 'password1': '1', 'password2': '1' })
@@ -43,18 +56,18 @@ class MemberTest(TestCase):
         helper.create_user()
         response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
         self.assertRedirects(response, '/')
-    
+
     def test_login_should_failed_when_password_is_wrong(self):
         helper.create_user()
         response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': 'wrong-password'})
         self.assertFormError(response, 'form', '', u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号')
-    
+
     # 暂时注释掉，因为邮件服务器总有问题，所以我们选择不需要邮件激活
     # def test_login_should_failed_before_activate(self):
     #         helper.create_user(activate=False)
     #         response = self.client.post(reverse('login'), {'email': 'tin@domain.com', 'password': '123'})
     #         self.assertFormError(response, 'form', '', u'您还没有通过邮件激活帐号，请您登录邮箱打开链接激活')
-    
+
     def test_avatar_of_member(self):
         import settings
         member = helper.create_user()

@@ -4,9 +4,10 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import View, FormView
 from django.http import Http404
 
 from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm, RequestResetPasswordForm, ResetPasswordForm
@@ -31,17 +32,20 @@ def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/')
 
-def signup(request):
-    if request.method == 'POST' and request.POST['captcha'] == '':
+class Signup(View):
+    def post(self, request, *args, **kwargs):
         form = SignupForm(request.POST)
-        if form.save():
+        member = form.save()
+        if member:
             ctx = { 'email': form.cleaned_data['email'], }
+            user = authenticate(username=member.user.email, password=form.cleaned_data['password1'])
+            auth_login(request, user)
             return render(request, 'member/verification_sent.html', ctx)
-    else:
-        form = SignupForm()
 
-    ctx = { 'form': form,  }
-    return render(request, 'member/signup.html', ctx)
+    def get(self, request, *args, **kwargs):
+        form = SignupForm()
+        ctx = {'form': form}
+        return render(request, 'member/signup.html', ctx)
 
 def activate(request, activation_key):
     activating_member = Member.objects.find_by_activation_key(activation_key)
