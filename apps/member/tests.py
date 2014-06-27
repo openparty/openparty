@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
+from django.test.client import Client
 from apps.member.models import Member
 from apps.member.forms import SignupForm, LoginForm
 import apps.member.test_helper as helper
@@ -15,6 +16,18 @@ class MemberTest(TestCase):
             member = form.save()
             self.assertTrue(isinstance(member, Member))
             self.assertTrue(member.user.id)
+
+    def test_signup_member_should_login_status(self):
+        client = Client()
+        response = client.get('/member/signup')
+        assert 'password1' in response.content
+        assert 'password2' in response.content
+        response = client.post('/member/signup', {'email': 'some@domain.com',
+                                                  'password1': '1',
+                                                  'password2': '1',
+                                                  'captcha': ''})
+        assert 'some@domain.com' in response.content
+        assert '注册确认信已发送' in response.content
 
     def test_save_member_though_form_with_nickname(self):
         form = SignupForm({ 'email': 'some@domain.com', 'nickname': u'田乐', 'password1': '1', 'password2': '1' })

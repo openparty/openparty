@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import FormView
@@ -34,8 +35,11 @@ def logout(request):
 def signup(request):
     if request.method == 'POST' and request.POST['captcha'] == '':
         form = SignupForm(request.POST)
-        if form.save():
+        member = form.save()
+        if member:
             ctx = { 'email': form.cleaned_data['email'], }
+            user = authenticate(username=member.user.email, password=form.cleaned_data['password1'])
+            auth_login(request, user)
             return render(request, 'member/verification_sent.html', ctx)
     else:
         form = SignupForm()
