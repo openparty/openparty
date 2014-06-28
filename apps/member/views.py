@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -83,10 +83,7 @@ class MemberRequestResetPasswordDone(TemplateView):
     template_name = 'member/request_reset_password_done.html'
 
 def reset_password(request, user_id, pwd_reset_token):
-    try:
-        this_member = Member.objects.get(id=user_id)
-    except Member.DoesNotExist:
-        raise Http404
+    this_member = get_object_or_404(Member, id=user_id)
     token = pwd_reset_token
     if request.method == 'POST' and not this_member.is_pwd_reset_token_expired(token):
         form = ResetPasswordForm(this_member.user, request.POST)
