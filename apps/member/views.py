@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import authenticate, login as auth_login
@@ -30,7 +29,7 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect('/')
+    return redirect('/')
 
 class Signup(View):
     def post(self, request, *args, **kwargs):
