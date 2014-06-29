@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.http import (HttpResponse, HttpResponsePermanentRedirect,
                          HttpResponseForbidden, Http404)
 from django.shortcuts import redirect, get_object_or_404, get_list_or_404, render
+from django.views.generic import ListView
 from django import forms
 
 from apps.member.models import Member
@@ -36,16 +37,16 @@ def index(request):
     return render(request, 'core/index.html', ctx)
 
 
-def event_list(request):
-    event_list = Event.objects.all().order_by('-begin_time')
-    topic_list = Topic.objects.all().order_by('-total_votes')
+class EventList(ListView):
+    queryset = Event.objects.all().order_by('-begin_time')
+    context_object_name = 'event_list'
+    template_name = 'core/event_list.html'
 
-    ctx = {
-        'event_list': event_list,
-        'topic_list': topic_list,
-        'tab': 'event',
-    }
-    return render(request, 'core/event_list.html', ctx)
+    def get_context_data(self, **kwargs):
+        context = super(EventList, self).get_context_data(**kwargs)
+        context['tab'] = 'event'
+        context['topic_list'] = Topic.objects.all().order_by('-total_votes')
+        return context
 
 
 def topic_list(request):

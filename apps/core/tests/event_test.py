@@ -2,6 +2,7 @@
 # encoding: utf-8
 from datetime import datetime, timedelta
 from django.test import TestCase
+from django.test.client import Client
 from apps.core.models import Event
 from apps.member import test_helper as member_test_helper
 
@@ -83,3 +84,12 @@ class EventTests(TestCase):
         self.failUnlessEqual(Event.objects.upcoming_events()[0], event)
         self.failUnlessEqual(Event.objects.past_events()[0], event_past)
 
+    def test_event_list_page(self):
+        event = Event(begin_time=self.tomorrow, end_time=self.tomorrow, name='upcoming event', content='test')
+        event.last_modified_by = self.member
+        event.save()
+        client = Client()
+        response = client.get('/event/')
+        assert response.context['tab'] == 'event'
+        event_list = response.context['event_list']
+        assert len(event_list) == 1
