@@ -11,3 +11,5 @@ install:
 script:
   - py.test --tb=short apps/member/tests.py --random
   - py.test --tb=short apps/core --random
+notifications:
+  slack: onemoment:PuhHVHeFZDi3zg7ome8zT0yB
