@@ -9,5 +9,5 @@ install:
   - pip install -q Django==$DJANGO_VERSION --use-mirrors
   - pip install -r requirements.txt
 script:
-  - py.test --tb=short apps/member/tests.py
-  - py.test --tb=short apps/core
+  - py.test --tb=short apps/member/tests.py --random
+  - py.test --tb=short apps/core --random
