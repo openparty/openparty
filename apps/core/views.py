@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.core.urlresolvers import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseForbidden, Http404
+from django.http import (HttpResponse, HttpResponseRedirect,
+                         HttpResponsePermanentRedirect, HttpResponseForbidden, Http404)
 from django.shortcuts import redirect, get_object_or_404, get_list_or_404, render
 from django import forms
 
@@ -16,12 +18,10 @@ from apps.member.forms import ProfileForm
 from forms import ArticleForm, EventCheckinForm
 from models import Event, Topic, Post
 from models import Vote
-from django.core.urlresolvers import reverse
-
 
 
 def index(request):
-    topic_list = Topic.objects.all().order_by('-in_event__begin_time','-accepted', '-total_votes')[:8]
+    topic_list = Topic.objects.all().order_by('-in_event__begin_time', '-accepted', '-total_votes')[:8]
     event_list = Event.objects.past_events().order_by('-begin_time')[:3]
     post_list = Post.objects.all().order_by('-created_at')[:15]
     next_event = Event.objects.next_event()
@@ -35,6 +35,7 @@ def index(request):
     }
     return render(request, 'core/index.html', ctx)
 
+
 def event_list(request):
     event_list = Event.objects.all().order_by('-begin_time')
     topic_list = Topic.objects.all().order_by('-total_votes')
@@ -46,8 +47,10 @@ def event_list(request):
     }
     return render(request, 'core/event_list.html', ctx)
 
+
 def topic_list(request):
-    topic_list = Topic.objects.filter(accepted=True).order_by('-in_event__begin_time','-accepted', '-total_votes')
+    topic_list = Topic.objects.filter(accepted=True) \
+        .order_by('-in_event__begin_time', '-accepted', '-total_votes')
     paginator = Paginator(topic_list, 16)
 
     try:
@@ -66,6 +69,7 @@ def topic_list(request):
         'tab': 'topic',
     }
     return render(request, 'core/topic_list.html', ctx)
+
 
 def join_event(request):
     if not request.user.is_authenticated():
@@ -91,7 +95,10 @@ def join_event(request):
             raise Http404
 
         if this_user in next_event.participants.all():
-            messages.success(request, u'感谢您的参与，您已经成功报名参加了 %s 活动 - 点击<a href="/event/%s">查看活动详情</a>' % (next_event.name, next_event.id))
+            success_msg = u'感谢您的参与，您已经成功报名参加了 %s 活动 - 点击<a href="/event/%s">查看活动详情</a>' % (
+                next_event.name,
+                next_event.id)
+            messages.success(request, success_msg)
             return redirect('/event/%s' % (next_event.id))
         else:
             form = ProfileForm(request.user)
@@ -102,6 +109,7 @@ def join_event(request):
         'tab': 'event',
     }
     return render(request, 'core/join_evnet.html', ctx)
+
 
 def checkin(request):
     ctx = {'tab': 'event'}
@@ -122,8 +130,9 @@ def checkin(request):
     ctx['event'] = event
     return render(request, 'core/checkin.html', ctx)
 
+
 def event(request, id):
-    this_event = get_object_or_404(Event, pk = id)
+    this_event = get_object_or_404(Event, pk=id)
     topics_shown_in = this_event.topic_shown_in.filter(accepted=True)
 
     ctx = {
@@ -133,12 +142,13 @@ def event(request, id):
     }
     return render(request, 'core/event.html', ctx)
 
+
 def topic(request, id):
-    this_topic = get_object_or_404(Topic, pk = id)
+    this_topic = get_object_or_404(Topic, pk=id)
 
     is_voted = False
     try:
-        vote_thistopic = this_topic.votes.get(user = request.user.get_profile())
+        vote_thistopic = this_topic.votes.get(user=request.user.get_profile())
         is_voted = True
     except:
         pass
@@ -155,8 +165,9 @@ def topic(request, id):
     }
     return render(request, 'core/topic.html', ctx)
 
+
 def votes_for_topic(request, id):
-    this_topic = get_object_or_404(Topic, pk = id)
+    this_topic = get_object_or_404(Topic, pk=id)
     votes_list = this_topic.votes.all().order_by('-id')
     tab = 'topic'
     ctx = {
@@ -165,6 +176,7 @@ def votes_for_topic(request, id):
         'tab': tab,
     }
     return render(request, 'core/votes_for_topic.html', ctx)
+
 
 @login_required
 def vote(request, id):
@@ -178,19 +190,19 @@ def vote(request, id):
     except:
         pass
 
-    if is_voted == False:
+    if is_voted is False:
         this_vote = Vote(user=request.user.get_profile())
-        #this_topic.votes.add(user = request.user)
+        # this_topic.votes.add(user = request.user)
         topic_type = ContentType.objects.get_for_model(Topic)
-        this_vote.content_type=topic_type
-        this_vote.object_id=this_topic.id
+        this_vote.content_type = topic_type
+        this_vote.object_id = this_topic.id
         this_vote.save()
 
-
-    #update vote count
+    # update vote count
     this_topic.save()
 
     return HttpResponseRedirect(reverse(topic, args=[this_topic.id]))
+
 
 @login_required
 def submit_topic(request):
@@ -199,12 +211,12 @@ def submit_topic(request):
         form.fields['in_event'].queryset = Event.objects.upcoming_events()
 
         context = {
-          'form': form,
-          'tab': 'topic',
+            'form': form,
+            'tab': 'topic',
         }
         return render(request, 'core/submit_topic.html', context)
 
-    if request.method == 'POST' :
+    if request.method == 'POST':
         form = ArticleForm(request.POST)
         context = {
             'form': form,
@@ -212,32 +224,31 @@ def submit_topic(request):
         }
 
         if form.is_valid():
-          topic = form.save(commit=False)
-          if request.POST['captcha'] == '':
-              topic = form.save(commit=False)
-              topic.set_author(request.user)
-              topic.save()
-              topic.send_notification_mail('created')
-              context['save_success'] = True
-          else:
-              return HttpResponseForbidden()
+            topic = form.save(commit=False)
+            if request.POST['captcha'] == '':
+                topic = form.save(commit=False)
+                topic.set_author(request.user)
+                topic.save()
+                topic.send_notification_mail('created')
+                context['save_success'] = True
+            else:
+                return HttpResponseForbidden()
 
         return render(request, 'core/submit_topic.html', context)
 
 
 @login_required
 def edit_topic(request, id):
-
-    this_topic = get_object_or_404(Topic, pk = id)
+    this_topic = get_object_or_404(Topic, pk=id)
     if this_topic.author.user != request.user:
         return HttpResponseRedirect(reverse('topic', args=[this_topic.id]))
 
     if request.method == 'GET':
         context = {
-                    'form': ArticleForm(instance = this_topic),
-                    'topic': this_topic,
-                    'tab': 'topic',
-                  }
+            'form': ArticleForm(instance=this_topic),
+            'topic': this_topic,
+            'tab': 'topic',
+        }
         return render(request, 'core/edit_topic.html', context)
 
     if request.method == 'POST':
@@ -291,7 +302,7 @@ def view_post_by_name(request, name):
     post = get_object_or_404(Post, post_name=name)
     ctx = {
         'post': post,
-        'object': post, #for pingback hook
+        'object': post,  # for pingback hook
         'tab': 'post',
     }
     return render(request, 'core/post.html', ctx)
