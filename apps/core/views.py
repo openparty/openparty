@@ -49,27 +49,17 @@ class EventList(ListView):
         return context
 
 
-def topic_list(request):
-    topic_list = Topic.objects.filter(accepted=True) \
+class TopicList(ListView):
+    queryset = Topic.objects.filter(accepted=True) \
         .order_by('-in_event__begin_time', '-accepted', '-total_votes')
-    paginator = Paginator(topic_list, 16)
+    context_object_name = 'topic_list'
+    template_name = 'core/topic_list.html'
+    paginate_by = 16
 
-    try:
-        page_num = int(request.GET.get('page', '1'))
-    except ValueError:
-        page_num = 1
-
-    try:
-        page = paginator.page(page_num)
-    except (EmptyPage, InvalidPage):
-        page = paginator.page(paginator.num_pages)
-
-    ctx = {
-        'page': page,
-        'topic_list': page.object_list,
-        'tab': 'topic',
-    }
-    return render(request, 'core/topic_list.html', ctx)
+    def get_context_data(self, **kwargs):
+        context = super(TopicList, self).get_context_data(**kwargs)
+        context['tab'] = 'topic'
+        return context
 
 
 def join_event(request):
