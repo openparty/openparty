@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from django.http import (HttpResponse, HttpResponseRedirect,
-                         HttpResponsePermanentRedirect, HttpResponseForbidden, Http404)
+from django.http import (HttpResponse, HttpResponsePermanentRedirect,
+                         HttpResponseForbidden, Http404)
 from django.shortcuts import redirect, get_object_or_404, get_list_or_404, render
 from django import forms
 
@@ -201,7 +201,7 @@ def vote(request, id):
     # update vote count
     this_topic.save()
 
-    return HttpResponseRedirect(reverse(topic, args=[this_topic.id]))
+    return redirect(reverse(topic, args=[this_topic.id]))
 
 
 @login_required
@@ -241,7 +241,7 @@ def submit_topic(request):
 def edit_topic(request, id):
     this_topic = get_object_or_404(Topic, pk=id)
     if this_topic.author.user != request.user:
-        return HttpResponseRedirect(reverse('topic', args=[this_topic.id]))
+        return redirect(reverse('topic', args=[this_topic.id]))
 
     if request.method == 'GET':
         context = {
@@ -309,4 +309,4 @@ def view_post_by_name(request, name):
 
 
 def redirect_wordpress_post(request, year, month, name):
-    return HttpResponseRedirect(reverse('view_post_by_name', args=[name]))
+    return redirect(reverse('view_post_by_name', args=[name]))
