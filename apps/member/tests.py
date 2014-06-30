@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
 from django.contrib.sites.models import Site
@@ -21,11 +20,10 @@ class MemberTest(TestCase):
         self.assertTrue(member.user.id)
 
     def test_signup_member_should_login_status(self):
-        client = Client()
-        response = client.get('/member/signup')
+        response = self.client.get('/member/signup')
         assert 'password1' in response.content
         assert 'password2' in response.content
-        response = client.post('/member/signup', {'email': 'some@domain.com',
+        response = self.client.post('/member/signup', {'email': 'some@domain.com',
                                                   'password1': '1',
                                                   'password2': '1',
                                                   'captcha': ''})
@@ -89,19 +87,18 @@ class MemberTest(TestCase):
 
     def test_reset_password(self):
         member = helper.create_user()
-        client = Client()
-        response = client.post('/member/request_reset_password', {'email': member.user.email})
+        response = self.client.post('/member/request_reset_password', {'email': member.user.email})
         self.assertRedirects(response, '/member/request_reset_password_done')
 
         token = cache.get('pwd_reset_token:%s' % member.id)
         assert token is not None
 
         reset_password_url = '/member/reset_password/%s/%s/' % (member.id, token)
-        response = client.get(reset_password_url)
+        response = self.client.get(reset_password_url)
         assert '新密码' in response.content
         assert '重复密码' in response.content
 
-        response = client.post(reset_password_url, {'password1': '1', 'password2': '1'}, follow=True)
+        response = self.client.post(reset_password_url, {'password1': '1', 'password2': '1'}, follow=True)
         self.assertRedirects(response, '/')
         assert '您的密码已经修改' in response.content
 
