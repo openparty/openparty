@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from django.test.client import Client
-from apps.member.models import Member
-from apps.member.forms import SignupForm, LoginForm
-import apps.member.test_helper as helper
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
+
+from apps.member.models import Member
+from apps.member.forms import SignupForm, LoginForm
 from apps.core.models import Event, Topic
+import apps.member.test_helper as helper
+
 from datetime import datetime
 
 class MemberTest(TestCase):
@@ -18,11 +20,10 @@ class MemberTest(TestCase):
         self.assertTrue(member.user.id)
 
     def test_signup_member_should_login_status(self):
-        client = Client()
-        response = client.get('/member/signup')
+        response = self.client.get('/member/signup')
         assert 'password1' in response.content
         assert 'password2' in response.content
-        response = client.post('/member/signup', {'email': 'some@domain.com',
+        response = self.client.post('/member/signup', {'email': 'some@domain.com',
                                                   'password1': '1',
                                                   'password2': '1',
                                                   'captcha': ''})
@@ -83,6 +84,24 @@ class MemberTest(TestCase):
     def test_find_member_by_none_existing_email(self):
         not_found = Member.objects.find_by_email('iamnotexisting@gmail.com')
         self.assertFalse(not_found)
+
+    def test_reset_password(self):
+        member = helper.create_user()
+        response = self.client.post('/member/request_reset_password', {'email': member.user.email})
+        self.assertRedirects(response, '/member/request_reset_password_done')
+
+        token = cache.get('pwd_reset_token:%s' % member.id)
+        assert token is not None
+
+        reset_password_url = '/member/reset_password/%s/%s/' % (member.id, token)
+        response = self.client.get(reset_password_url)
+        assert '新密码' in response.content
+        assert '重复密码' in response.content
+
+        response = self.client.post(reset_password_url, {'password1': '1', 'password2': '1'}, follow=True)
+        self.assertRedirects(response, '/')
+        assert '您的密码已经修改' in response.content
+
 
 class StatusTest(TestCase):
     def setUp(self):

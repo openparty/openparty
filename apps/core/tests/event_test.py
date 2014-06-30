@@ -83,3 +83,11 @@ class EventTests(TestCase):
         self.failUnlessEqual(Event.objects.upcoming_events()[0], event)
         self.failUnlessEqual(Event.objects.past_events()[0], event_past)
 
+    def test_event_list_page(self):
+        event = Event(begin_time=self.tomorrow, end_time=self.tomorrow, name='upcoming event', content='test')
+        event.last_modified_by = self.member
+        event.save()
+        response = self.client.get('/event/')
+        assert response.context['tab'] == 'event'
+        event_list = response.context['event_list']
+        assert len(event_list) == 1

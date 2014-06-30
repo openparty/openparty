@@ -1,16 +1,17 @@
-from feeds import Events_Feed, Topics_Feed, Posts_Feed
 from django.views.generic import TemplateView
 from django.conf.urls import patterns, url
+from feeds import Events_Feed, Topics_Feed, Posts_Feed
+from apps.core.views import EventList, TopicList
 
 event_patterns = patterns('apps.core.views',
-    url(r'^$', 'event_list', name='event_list'),
+    url(r'^$', EventList.as_view(), name='event_list'),
     url(r'^join/?$', 'join_event'),
     url(r'^checkin$', 'checkin', name='event_checkin'),
     url(r'^(?P<id>\d+)$', 'event', name='event'),
 )
 
 topic_patterns = patterns('apps.core.views',
-    url(r'^$', 'topic_list', name='topic_list'),
+    url(r'^$', TopicList.as_view(), name='topic_list'),
     url(r'^(?P<id>\d+)$', 'topic', name='topic'),
     url(r'^new/?$', 'submit_topic', name='submit_new_topic'),
     url(r'^(?P<id>\d+)/edit/?$', 'edit_topic', name='edit_topic'),
