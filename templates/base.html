@@ -107,6 +107,7 @@
         </div>
         {% if debug %}{% include "debug.html" %}{% else %}{% include "analytics.html" %}{% endif %}
         {% block extra_body %}{% endblock %}
+        {% if COMMENT_SYSTEM == 'duoshuo' %}
         <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
         <script type="text/javascript">
           var duoshuoQuery = {short_name:"openparty"};
@@ -120,6 +121,7 @@
 	  })();
 	</script>
         <!-- 多说公共JS代码 end -->
+        {% endif %}
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="{{ STATIC_URL }}javascripts/underscore-min.js"></script>
