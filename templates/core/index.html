@@ -4,15 +4,15 @@
 
 {% block content %}
 <div class="article row">
-  <div class="whats-open-party span11">
+  <div class="whats-open-party col-md-12">
     <h2>OpenParty是什么？</h2>
     <p>OpenParty是由北京的多个技术社区共同举办的社交活动。本着自由、开放、分享、互动的宗旨，采用“非会议（Unconference）”的形式， 为参与人员创建一个表达和交流的平台。本活动的目标<strong>给参与者提供一个平等、自由的分享与获取知识的机会</strong>。活动话题不仅仅局限于技术，还包括生活、旅游、艺术、创业、商务、投资、营销等各方面的话题。</p>
   </div>
 </div>
 
-<div id="content" class="content">
+<div id="content" class="content container">
   <div class="row">
-    <div class="next-event event span6" itemscope itemtype="http://data-vocabulary.org/Event">
+    <div class="next-event event col-md-6" itemscope itemtype="http://data-vocabulary.org/Event">
       <h2>本月活动 <span class="event-name"><a href="/event/{{next_event.id}}">{{next_event.name}}</a></span></h2>
       <dl class="meta">
         <dt>时间：</dt><dd>{{next_event.begin_time}}</dd>
@@ -22,7 +22,7 @@
       </dl>
       <p class="poster"><img itemprop="photo" src="{{next_event.poster}}" alt="{{ next_event.name }}活动海报" /></p>
     </div>
-    <div class="span6">
+    <div class="col-md-6">
       <div class="join-us">
         <h2>加入活动 / Join us</h2>
         <ul class="actions">
@@ -73,7 +73,7 @@
   <div class="clear"></div>
 
   <div class="topics-and-broadcast row">
-    <div class="entries topics span7">
+    <div class="entries topics col-md-8">
       <h2>精彩演讲话题</h2>
       <ul>
         {% for topic in topic_list %}
@@ -84,7 +84,7 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="entries posts span4 offset1">
+    <div class="entries posts col-md-4">
       <h2>社区活动广播</h2>
       <ul class="posts">
         {% for post in post_list %}
