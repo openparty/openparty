@@ -1,6 +1,7 @@
 {% extends "core/base_core.html" %}
 {% block title %} - {{this_topic.name}}{% endblock %}
 {% block content %}
+    {% load markup %}
     <div id="content" class="content topic row">
       <div class="span12">
         <p class="bread-crumb"><a href="/topic">返回话题列表</a></p>
@@ -40,7 +41,11 @@
         {% include 'core/_share_link.html' %}
 
         <div class="typo">
+          {% if this_topic.content_type == 'restructuredtext' %}
+          {{ this_topic.content|restructuredtext }}
+          {% else %}
           {{ this_topic.rendered_content|safe }}
+          {% endif %}
         </div>
 
         {% if modified %}

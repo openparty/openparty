@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     #TODO: take the unittest framework back
     'south',
     'django_xmlrpc',
+    'markup_deprecated',
     'apps.core',
     'apps.member',
     'apps.twitter',
