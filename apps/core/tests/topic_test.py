@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from apps.core.models import Topic
-from apps.core.tests import test_helper
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+
+from apps.core.models import Topic
+from apps.core.tests import test_helper
 from apps.member.models import Member
 import apps.member.test_helper as helper
+
 
 class TopicTest(TestCase):
     def test_topic_summary(self):
@@ -93,9 +95,9 @@ class TopicTest(TestCase):
         self.client.login(username='test', password='123')
 
         event = test_helper.create_upcoming_event()
-        
-        test_user_topic = Topic.objects.create(author = member_new_user, in_event = event, \
-                                               name = "Test", description = "test", content = "test")
+
+        test_user_topic = Topic.objects.create(author=member_new_user, in_event=event,
+                                               name="Test", description="test", content="test")
 
         response = self.client.get(reverse("edit_topic",  kwargs = {"id": test_user_topic.id }))
         self.failUnlessEqual(response.status_code, 200)
@@ -105,9 +107,7 @@ class TopicTest(TestCase):
         non_relevant_user = User.objects.create_user("another_user", "another@test.com", "123")
         member_non_relevant_user = Member.objects.create(user = non_relevant_user, nickname="Another")
 
-        test_non_user_topic = Topic.objects.create(author = member_non_relevant_user, in_event = event, \
-                                                   name = "Another Topic", description = "test", content = "test")
+        test_non_user_topic = Topic.objects.create(author=member_non_relevant_user, in_event=event,
+                                                   name="Another Topic", description="test", content="test")
         response = self.client.get(reverse("edit_topic", kwargs = {"id": test_non_user_topic.id }))
         self.failUnlessEqual(response.status_code, 302)
-
-

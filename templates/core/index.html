@@ -3,7 +3,6 @@
 {% block body_signature %}index{% endblock %}
 
 {% block content %}
-{% load markup %}
 <div class="article row">
   <div class="whats-open-party span11">
     <h2>OpenParty是什么？</h2>
@@ -31,7 +30,6 @@
             <a class="btn btn-large {{ next_event.button_class }}" href="/event/join"><i class="icon-thumbs-up icon-white"></i> 报名参加本次活动</a><sup>( 请等待下次活动开放 )</sup>
           </li>
           <li class="contribute-topic">
-            <a class="btn btn-large btn-success" href="{% url submit_new_topic %}"><i class="icon-bullhorn icon-white"></i> 我想要贡献话题</a>
           </li>
         </ul>
         <h2>社交互动 / Social</h2>
@@ -92,10 +90,9 @@
         {% for post in post_list %}
           <li>
             <h4 class="post-title post-title_{{ post.style_seed }}">
-              <a href="{% url view_post_by_name name=post.post_name %}">{{ post.title }}</a>
               <span class="meta"><span class='created-at'>{{ post.created_at|date }}</span></span>
             </h4>
-            <div class="description">{{ post.summary|restructuredtext }}</div>
+            <div class="description">{{ post.summary }}</div>
           </li>
         {% endfor %}
       </ul>

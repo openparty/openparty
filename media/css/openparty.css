@@ -348,6 +348,7 @@ dl.pair {
     font-weight: bold;
     letter-spacing:-0.02em;
     text-shadow:0 -1px rgba(0, 0, 0, 0.3);
+    list-style: none;
   }
   .top-sponsors a {
     text-indent: 100%;
@@ -556,6 +557,9 @@ dl.pair {
   .topics .topic {
     margin: 0.5em 0 1em 0;
     padding-bottom: 1em;
+  }
+  .topics li.topic {
+    list-style: none;
   }
   .topic .topic-name {
     -webkit-border-radius: 10px;

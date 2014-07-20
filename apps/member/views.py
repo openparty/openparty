@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect, render, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView, TemplateView
-from django.views.generic.edit import FormView
-from django.http import Http404  
+from django.views.generic.edit import View, FormView
+from django.http import Http404
 
 from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm, RequestResetPasswordForm, ResetPasswordForm
 from apps.member.models import Member
@@ -25,24 +25,26 @@ def login(request):
         form = LoginForm()
 
     ctx = { 'form': form,  }
-    return render_to_response('member/login.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'member/login.html', ctx)
 
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect('/')
+    return redirect('/')
 
-def signup(request):
-    if request.method == 'POST' and request.POST['captcha'] == '':
+class Signup(View):
+    def post(self, request, *args, **kwargs):
         form = SignupForm(request.POST)
-        if form.save():
+        member = form.save()
+        if member:
             ctx = { 'email': form.cleaned_data['email'], }
-            return render_to_response('member/verification_sent.html', ctx,
-                context_instance=RequestContext(request))
-    else:
-        form = SignupForm()
+            user = authenticate(username=member.user.email, password=form.cleaned_data['password1'])
+            auth_login(request, user)
+            return render(request, 'member/verification_sent.html', ctx)
 
-    ctx = { 'form': form,  }
-    return render_to_response('member/signup.html', ctx, context_instance=RequestContext(request))
+    def get(self, request, *args, **kwargs):
+        form = SignupForm()
+        ctx = {'form': form}
+        return render(request, 'member/signup.html', ctx)
 
 def activate(request, activation_key):
     activating_member = Member.objects.find_by_activation_key(activation_key)
@@ -62,8 +64,7 @@ def change_password(request):
     else:
         form = ChangePasswordForm(request)
     ctx = { 'form': form,  }
-    return render_to_response('member/change_password.html', ctx,
-        context_instance=RequestContext(request))
+    return render(request, 'member/change_password.html', ctx)
 
 class MemberRequestResetPasswordView(FormView):
     form_class = RequestResetPasswordForm
@@ -81,10 +82,7 @@ class MemberRequestResetPasswordDone(TemplateView):
     template_name = 'member/request_reset_password_done.html'
 
 def reset_password(request, user_id, pwd_reset_token):
-    try:
-        this_member = Member.objects.get(id=user_id)
-    except Member.DoesNotExist:
-        raise Http404
+    this_member = get_object_or_404(Member, id=user_id)
     token = pwd_reset_token
     if request.method == 'POST' and not this_member.is_pwd_reset_token_expired(token):
         form = ResetPasswordForm(this_member.user, request.POST)
@@ -97,7 +95,7 @@ def reset_password(request, user_id, pwd_reset_token):
         ctx = { 'form': form,  }
     else:
         ctx = { 'status': 'failed' }
-    return render_to_response('member/reset_password.html', ctx, context_instance=RequestContext(request))
+    return render(request, 'member/reset_password.html', ctx)
 
 @login_required
 def update_profile(request):
@@ -109,8 +107,7 @@ def update_profile(request):
     else:
         form = ProfileForm(request.user)
     ctx = { 'form': form,  }
-    return render_to_response('member/update_profile.html', ctx,
-        context_instance=RequestContext(request))
+    return render(request, 'member/update_profile.html', ctx)
 
 
 class MemberProfileView(DetailView):

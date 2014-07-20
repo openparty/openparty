@@ -7,7 +7,7 @@ from django.core.validators import validate_email
 class LoginForm(forms.Form):
     email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput(attrs={'tabindex': '1'}))
     password = forms.CharField(label=u'密码', required=True, widget=forms.PasswordInput(render_value=False, attrs={'tabindex': '2'}))
-    remember = forms.BooleanField(label=u'记住登陆信息', help_text=u'如果选择记住登陆信息，会保留登陆信息2周', required = False, widget=forms.CheckboxInput(attrs={'tabindex': '3'}))
+    remember = forms.BooleanField(label=u'记住登录信息', help_text=u'如果选择记住登录信息，会保留登录信息2周', required = False, widget=forms.CheckboxInput(attrs={'tabindex': '3'}))
     
     user = None
     
@@ -24,7 +24,7 @@ class LoginForm(forms.Form):
             if user.is_active:
                 self.user = user
             else:
-                raise forms.ValidationError(u'您还没有通过邮件激活帐号，请您登陆邮箱打开链接激活')
+                raise forms.ValidationError(u'您还没有通过邮件激活帐号，请您登录邮箱打开链接激活')
         else:
             raise forms.ValidationError(u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号')
         return self.cleaned_data

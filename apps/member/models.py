@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import re, urllib, hashlib, random, datetime
+from hashlib import sha512 as sha_constructor
 from django.db import models
 from django.conf import settings
-from django.utils.hashcompat import sha_constructor
 from django.template.loader import render_to_string
 from django.db.transaction import commit_on_success
 from django.contrib.auth.models import User

@@ -1,7 +1,6 @@
 {% extends "core/base_core.html" %}
 {% block title %} - 为话题"{{ this_topic.name }}"投票的朋友{% endblock %}
 {% block content %}
-    {% load markup %}
     <div id="content" class="topic content row">
       <div class="span12">
         <p class="bread-crumb"><a href="/topic/{{this_topic.id}}">返回话题：{{ this_topic.name }}</a></p>
@@ -10,7 +9,7 @@
             {% for vote in votes_list %}
             <dl>
                 <dt><img width=48 height=48 src="{{vote.user.avatar }}"></dt>
-                <dd><a href="{% url member_profile vote.user.id %}">{{ vote.user.display_name}}</a></dd>
+                <dd><a href="{% url 'member_profile' vote.user.id %}">{{ vote.user.display_name}}</a></dd>
             </dl>
             {% endfor %}
             <div class="clear"></div>

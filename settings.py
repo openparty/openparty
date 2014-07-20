@@ -7,6 +7,8 @@ DEFAULT_CHARSET = 'utf-8'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.beijing-open-party.org']
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
@@ -16,7 +18,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'openparty',                      # Or path to database file if using sqlite3.
+        'NAME': 'openparty.db',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -29,6 +31,7 @@ DATABASE_OPTIONS = {
 }
 
 #EMAIL_BACKEND = 'custom_email_backend.unix_sendmail_backend.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
@@ -53,14 +56,16 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'media')
+# MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = '/media/'
 STATIC_URL = '/media/'
+STATICFILES_DIRS = (
+    'media',
+)
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -82,23 +87,26 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     # "django.core.context_processors.i18n",
     "django.core.context_processors.media",
+    "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
     "apps.core.context_processors.global_settings_injection",
 )
 
 MIDDLEWARE_CLASSES = (
     'raven.contrib.django.middleware.SentryResponseErrorIdMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 LOGIN_URL = '/member/login'
 
 ROOT_URLCONF = 'urls'
+WSGI_APPLICATION = 'wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -117,10 +125,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.comments',
-    'django.contrib.markup',
+    #'django.contrib.markup',
+    'django.contrib.staticfiles',
     #TODO: take the unittest framework back
     'south',
     'django_xmlrpc',
+    'markup_deprecated',
     'apps.core',
     'apps.member',
     'apps.twitter',
@@ -136,7 +146,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')
 
 ANALYTICS_ID = 'UA-329713-8'
-COMMENT_SYSTEM = 'disqus'#'homebrew'
+COMMENT_SYSTEM = '' # 'disqus', 'duoshuo', ''
 DISQUS_BRANCH_ID = 'beijing'
 
 TWITTER_OPENPARTY_KEY = "REPLACE_IT_WITH_REAL_VALUE_IN_LOCAL_SETTINGS"
@@ -193,6 +203,9 @@ LOGGING = {
         },
     },
 }
+
+DEFAULT_FROM_EMAIL = 'noreply@beijing-open-party.org'
+
 
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.

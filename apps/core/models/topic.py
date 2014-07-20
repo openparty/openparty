@@ -8,7 +8,6 @@ from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.template.loader import render_to_string
-from django.contrib.markup.templatetags.markup import restructuredtext
 from django.core.urlresolvers import reverse
 
 from apps.member.models import Member
@@ -31,7 +30,7 @@ class Topic(models.Model):
     name = models.CharField("名称", max_length=255, blank=False)
     created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
     last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified')
+    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified', null=True)
     #aggrgated
     total_votes = models.PositiveIntegerField(default=0)
     total_favourites = models.PositiveIntegerField(default=0, editable=False)
@@ -61,17 +60,11 @@ class Topic(models.Model):
 
     @property
     def rendered_content(self):
-        if self.content_type == 'restructuredtext':
-            '''暂时取消restructuredtext的处理'''
-            #return restructuredtext(self.content)
-
-            #创建lxml的html过滤器，保留object,embed,去除js,iframe
-            return self.html_cleaner.clean_html(self.content) #使用过滤器,返回安全的html
-        elif self.content_type == 'html':
+        if self.content_type == 'html':
             return self.html
         else:
-            return restructuredtext(self.content)
-
+            #创建lxml的html过滤器，保留object,embed,去除js,iframe
+            return self.html_cleaner.clean_html(self.content) #使用过滤器,返回安全的html
 
     @property
     def is_shown(self):

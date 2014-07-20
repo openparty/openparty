@@ -1,4 +1,4 @@
-Django==1.4
+Django==1.6.5
 Fabric==1.4.3
 MySQL-python==1.2.3
 South==0.7.5
@@ -12,3 +12,7 @@ raven==4.0.2
 simplejson==3.3.1
 tweepy==2.1
 wsgiref==0.1.2
+pytest-django==2.6.2
+django-sendmail-backend==0.1.2
+pytest-random==0.02
+django-markup-deprecated==0.0.3
