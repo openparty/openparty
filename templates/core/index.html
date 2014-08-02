@@ -25,15 +25,15 @@
     <div class="col-md-6">
       <div class="join-us">
         <h2>加入活动 / Join us</h2>
-        <ul class="actions">
+        <ul class="actions list-unstyled">
           <li class="join-event {{ next_event.css_class }}">
-            <a class="btn btn-large {{ next_event.button_class }}" href="/event/join"><i class="icon-thumbs-up icon-white"></i> 报名参加本次活动</a><sup>( 请等待下次活动开放 )</sup>
+            <a class="btn btn-default btn-lg {{ next_event.button_class }}" href="/event/join"><span class="glyphicon glyphicon-thumbs-up"></span> 报名参加本次活动</a><sup>( 请等待下次活动开放 )</sup>
           </li>
           <li class="contribute-topic">
           </li>
         </ul>
         <h2>社交互动 / Social</h2>
-        <ul>
+        <ul class="list-unstyled">
           <li class="rss"><a href="/feed/post">社区活动信息RSS订阅</a></li>
           <li class="weibo"><a href="http://weibo.com/openparty">在微博关注我们 <strong>@openparty</strong></a> | <a href="http://weibo.com/u/2567579745">成都</a> | <a href="http://weibo.com/openpartyxian">西安</a></li>
           <li class="twitter"><a href="https://twitter.com/openparty">Follow Twitter <strong>@openparty</strong></a></li>
@@ -45,7 +45,7 @@
       </div>
       <div class="top-sponsors">
         <h2>钻石赞助商</h2>
-        <ul>
+        <ul class="list-unstyled">
           <li><a href="http://www.thoughtworks.com" class="thoughtworks">ThoughtWorks</a></li>
           <li><a href="http://cn.kii.com/web/" class="kii">Kii</a></li>
           <li><a href="http://www.google.com.hk/" class="google">谷歌中国</a></li>
@@ -57,9 +57,9 @@
   <div class="clear"></div>
 
   <div class="entries events row">
-    <h2 class="span12">以往活动</h2>
+    <h2 class="col-md-12">以往活动</h2>
     {% for event in event_list %}
-        <div class="span4">
+        <div class="col-md-4">
           <h4><a href="/event/{{event.id}}">{{ event.name }}</a></h4>
           <p>
             <img itemprop="photo" class="poster-preview" src="{{event.poster}}" alt="{{ event.name }}活动海报" width="100" height="135" />
@@ -75,7 +75,7 @@
   <div class="topics-and-broadcast row">
     <div class="entries topics col-md-8">
       <h2>精彩演讲话题</h2>
-      <ul>
+      <ul class="list-unstyled">
         {% for topic in topic_list %}
           <li>
             <h4><a href="/topic/{{topic.id}}">{{ topic.name }}</a></h4>
@@ -86,7 +86,7 @@
     </div>
     <div class="entries posts col-md-4">
       <h2>社区活动广播</h2>
-      <ul class="posts">
+      <ul class="posts list-unstyled">
         {% for post in post_list %}
           <li>
             <h4 class="post-title post-title_{{ post.style_seed }}">

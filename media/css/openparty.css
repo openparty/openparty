@@ -234,7 +234,8 @@ form .hint {
   line-height: 1.8;
   font-size: 19px;
   font-weight: normal;
-  padding: 0.4em 0;
+  padding-left:30px;
+  padding-right:30px;
   color: #666;
 }
 .whats-open-party p {
