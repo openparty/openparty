@@ -32,6 +32,15 @@ Install openparty project dependencies::
 (openparty)$ pip install -r requirements.txt
 ```
 
+For Windows users:
+
+```
+Please remove the following two dependencies before you install:
+Fabric==1.4.3
+lxml==3.3.0beta2
+
+And install the lxml(3.3.6) manually from https://pypi.python.org/pypi/lxml/3.3.6#downloads
+```
 
 ## Setting up the database
 
