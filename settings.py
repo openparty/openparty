@@ -7,7 +7,7 @@ DEFAULT_CHARSET = 'utf-8'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.beijing-open-party.org']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'www.beijing-open-party.com']
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -140,7 +140,7 @@ INSTALLED_APPS = (
 
 # One-week activation window; you may, of course, use a different value.
 ACCOUNT_ACTIVATION_DAYS = 7
-SITE_URL = 'http://www.beijing-open-party.org'
+SITE_URL = 'http://www.beijing-open-party.com'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 INTERNAL_IPS = ('127.0.0.1')
@@ -204,7 +204,7 @@ LOGGING = {
     },
 }
 
-DEFAULT_FROM_EMAIL = 'noreply@beijing-open-party.org'
+DEFAULT_FROM_EMAIL = 'noreply@beijing-open-party.com'
 
 
 # local_settings.py can be used to override environment-specific settings

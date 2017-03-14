@@ -11,7 +11,7 @@ def production():
     env.settings = 'production'
     env.user = 'openparty'
     env.path = '/home/%(user)s/sites/openparty-app' % env
-    env.hosts = ['www.beijing-open-party.org']
+    env.hosts = ['www.beijing-open-party.com']
 
 
 @task
