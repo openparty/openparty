@@ -62,8 +62,8 @@
                             <li><a {%  if tab == "event" %}class="active"{%  endif %}  href="{% url 'event_list' %}">活动</a></li>
                             <li><a {%  if tab == "topic" %}class="active"{%  endif %}  href="{% url 'topic_list' %}">话题</a></li>
                             <li><a {%  if tab == "post" %}class="active"{%  endif %}  href="{% url 'list_post' %}">新闻</a></li>
-                            <li><a {%  if tab == "tweet" %}class="active"{%  endif %}  href="/tweets">Tweet</a></li>
-                            <li><a {%  if tab == "blog" %}class="active"{%  endif %}  href="http://blog.beijing-open-party.com">Blog</a></li>
+                            <!-- <li><a {%  if tab == "tweet" %}class="active"{%  endif %}  href="/tweets">Tweet</a></li>
+                            <li><a {%  if tab == "blog" %}class="active"{%  endif %}  href="http://blog.beijing-open-party.com">Blog</a></li> -->
                             <li><a {%  if tab == "about" %}class="active"{%  endif %}  href="{% url 'about' %}">关于</a></li>
                         </ul>
                         <div class="clear"></div>
@@ -81,7 +81,7 @@
         <div id="footer" class="container">
             <div class="row">
                 <p>
-                    &copy; 2010 www.beijing-open-party.com
+                    &copy; 2018 www.beijing-open-party.com
                     <br/>
                     <a href="http://www.github.com/openparty/openparty" target="_blank">OpenParty App</a>
                     Powered by
