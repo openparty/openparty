@@ -230,7 +230,6 @@ form .hint {
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
-  text-align: justify;
   line-height: 1.8;
   font-size: 19px;
   font-weight: normal;
@@ -417,7 +416,6 @@ dl.pair {
     margin: 12px 0px 6px;
   }
   .entries p {
-    text-align: justify;
     line-height: 1.7;
     margin: 0;
     color: #333;
