@@ -11,7 +11,7 @@ body {
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
   /* http://www.awayback.com/revised-font-stack/ */
   /*  font-family: Baskerville, Garamond, Palatino, "Palatino Linotype", "Hoefler Text", "Times New Roman", serif;*/
-  text-align: justify;
+  /* text-align: justify; */
   line-height:1.7;
 }
 form p {
@@ -1123,4 +1123,35 @@ textarea.form-control {
 .errorlist {
   color: #A94442;
   margin: 2em 0 0.25em 0;
+}
+/* Portrait and Landscape */
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 736px)
+{
+  .event-join a:link {
+    margin-left: 0;
+  }
+  .event .event-status {
+    display: block;
+    padding-left: 0;
+  }
+  .event .meta dt {
+    display: inline;
+  }
+  .event .meta dd {
+    display: inline-block;
+    line-height: 17px;
+    margin-top: 5px;
+  }
+  .event .meta dd:after {
+    content: '';
+    display: block;
+  }
+  ul, ol {
+    margin: 0 0 10px 0;
+  }
+  .comment-widget .event-name {
+    font-size: 14px;
+  }
 }
