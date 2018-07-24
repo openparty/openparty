@@ -1125,9 +1125,7 @@ textarea.form-control {
   margin: 2em 0 0.25em 0;
 }
 /* Portrait and Landscape */
-@media only screen
-  and (min-device-width: 320px)
-  and (max-device-width: 736px)
+@media all and (min-width: 320px) and (max-width: 1024px)
 {
   .event-join a:link {
     margin-left: 0;
@@ -1140,13 +1138,14 @@ textarea.form-control {
     display: inline;
   }
   .event .meta dd {
-    display: inline-block;
+    display: inline;
     line-height: 17px;
     margin-top: 5px;
   }
   .event .meta dd:after {
-    content: '';
     display: block;
+    content: '\A';
+    white-space: pre;
   }
   ul, ol {
     margin: 0 0 10px 0;

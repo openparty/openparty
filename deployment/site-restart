@@ -15,7 +15,7 @@ kill -9 `ps aux|grep python|grep runfcgi|grep openparty-app|awk '{print $2}'`
 
 cd $PROJDIR
 # exec python ./manage.py runfcgi daemonize=false host=127.0.0.1 port=9090 pidfile=$PIDFILE --settings=settings
-exec python ./manage.py runfcgi host=127.0.0.1 port=9090 pidfile=$PIDFILE method=prefork maxrequests=600 maxspare=2 minspare=1 maxchildren=3 --settings=settings
+exec python ./manage.py runfcgi host=127.0.0.1 port=9090 pidfile=$PIDFILE method=prefork maxrequests=20 maxspare=6 minspare=2 maxchildren=3 --settings=settings
 
 deactivate
 pythonbrew off
