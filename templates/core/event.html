@@ -3,7 +3,8 @@
 {% block content %}
   {% load markup %}
   <div id="content" class="content row">
-    <div class="span12 event" itemscope itemtype="http://data-vocabulary.org/Event">
+    {# See also https://schema.org/docs/faq.html#19 #}
+    <div class="span12 event" itemscope itemtype="https://schema.org/event">
       <p class="bread-crumb"><a href="/event">返回活动列表</a></p>
 
       <h1 class="event-name">
@@ -30,7 +31,7 @@
       <dl class="meta">
         <dt class="address">地点</dt><dd itemprop="location">
             {{ this_event.address }}
-            <span itemprop="geo" itemscope itemtype="http://data-vocabulary.org/​Geo">
+            <span itemprop="geo" itemscope itemtype="https://schema.org/geo">
               <meta itemprop="latitude" content="39.944358"></meta>
               <meta itemprop="longitude" content="116.421025"></meta>
             </span>
