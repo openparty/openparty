@@ -16,8 +16,17 @@
     <div class="share-to-google-calendar">
         <a id="google-calendar_link" target="_blank">添到 Google 日历</a>
         <script type="text/javascript">
-            var a = document.getElementById('google-calendar_link');
-            a.href = 'https://www.google.com/calendar/event?action=TEMPLATE&text={{ this_event.name }}&dates={{ this_event.begin_time|utc|date:"Ymd\THis\Z" }}/{{ this_event.end_time|utc|date:"Ymd\THis\Z" }}&sprop=website:' + window.location.href + '&location={{ this_event.address }}&output=xml';
+            (function(anchor) {
+                var text = '{{ this_event.name|urlencode }}',
+                    dates = [
+                        '{{ this_event.begin_time|utc|date:"Ymd\THis\Z"|urlencode }}',
+                        '{{ this_event.end_time|utc|date:"Ymd\THis\Z"|urlencode }}',
+                    ].join('/'),
+                    sprop = encodeURIComponent('website:' + window.location.href),
+                    location = '{{ this_event.address|urlencode }}';
+                anchor.href = 'https://www.google.com/calendar/event?action=TEMPLATE&text=' + text +
+                    '&dates=' + dates + '&sprop=' + sprop + '&location=' + location + '&output=xml';
+            })(document.getElementById('google-calendar_link'))
         </script>
     </div>
 </div>
