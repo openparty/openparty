@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==1.6.5"
+django = "==1.11.29"
 fabric = "==1.4.3"
 mysql-python = "==1.2.3"
 south = "==0.7.5"
