@@ -12,25 +12,18 @@ This repository stores the OpenParty website.
 
 To get setup with OpenParty code you must have the follow installed:
 
-> * Python 2.5+
+> * Python 3
+> * Pipenv
 > * MySQL
-> * virtualenv 1.4.7+
 
 ## Setting up environment
 
-
-Create a virtual environment where dependencies will live:
-
 ```
-$ virtualenv --no-site-packages openparty
-$ source openparty/bin/activate
-(openparty)$
-```
-
-Install openparty project dependencies::
-
-```
-(openparty)$ pip install -r requirements.txt
+pyenv install 3.9
+pip install pipenv
+pipenv --python 3.9
+pipenv shell
+pipevn install
 ```
 
 
@@ -42,9 +35,18 @@ see the Configuration section below for where to place settings and get the
 database running. Now you can run:
 
 ```
-(openparty)$ python openparty_project/manage.py syncdb
-(openparty)$ python openparty_project/manage.py migrate core
+pipenv shell
+(openparty)$ python manage.py migrate --fake-initial
 ```
+
+## Install pre-commit hook
+
+First time `pre-commit install` which will install a git commit hook.
+
+
+Manually check file format `pre-commit run --all-files`.
+
+Update pre-commit hook's version `pre-commit autoupdate`.
 
 ## Running a web server
 
