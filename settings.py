@@ -75,24 +75,36 @@ STATICFILES_DIRS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ')x_^bgbj$v_r-5=rn&01pm-5*%szlnc+8^3kh4$^$#z-gn5yo#'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.load_template_source',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+            # Always use forward slashes, even on Windows.
+            # Don't forget to use absolute paths, not relative paths.
+            os.path.join(PROJECT_ROOT, 'templates'),
+            '/usr/local/lib/python2.6/dist-packages/debug_toolbar/templates',
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                # 'django.template.context_processors.i18n',
+                'django.contrib.messages.context_processors.messages',
+                'apps.core.context_processors.global_settings_injection',
+            ],
+        },
+    },
+]
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    # "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.contrib.messages.context_processors.messages",
-    "apps.core.context_processors.global_settings_injection",
-)
-
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'raven.contrib.django.middleware.SentryResponseErrorIdMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -100,22 +112,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+APPEND_SLASH=True
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 LOGIN_URL = '/member/login'
 
 ROOT_URLCONF = 'urls'
 WSGI_APPLICATION = 'wsgi.application'
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_ROOT, 'templates'),
-    '/usr/local/lib/python2.6/dist-packages/debug_toolbar/templates',
-)
-
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -124,12 +131,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.sites',
-    'django.contrib.comments',
     #'django.contrib.markup',
     'django.contrib.staticfiles',
     #TODO: take the unittest framework back
-    'south',
     'django_xmlrpc',
+    'django_comments',
     'markup_deprecated',
     'apps.core',
     'apps.member',

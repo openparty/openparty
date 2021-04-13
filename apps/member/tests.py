@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.cache import cache
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
@@ -73,7 +73,7 @@ class MemberTest(TestCase):
         import settings
         member = helper.create_user()
         user = member.user
-        self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2F' + settings.SITE_URL[len("http://"):] + '%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', user.get_profile().avatar)
+        self.assertEquals('http://www.gravatar.com/avatar.php?default=http%3A%2F%2F' + settings.SITE_URL[len("http://"):] + '%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a', user.profile.avatar)
 
     def test_find_member_by_email(self):
         member = helper.create_user()

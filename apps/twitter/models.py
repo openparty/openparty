@@ -9,9 +9,16 @@ import tweepy
 import time
 from lxml import html
 from datetime import datetime, timedelta
+from django.urls import reverse
 from django.db import models
-import urllib, urllib2
-from cookielib import CookieJar
+import urllib
+from urllib.request import build_opener
+from urllib.request import install_opener
+from urllib.request import Request
+from urllib.request import urlopen
+from urllib.request import HTTPCookieProcessor
+from urllib.parse import quote
+from http.cookiejar import CookieJar
 
 class TweetManager(models.Manager):
 
@@ -24,7 +31,7 @@ class TweetManager(models.Manager):
             max_tweet_id = since # for test only
         else:
             max_tweet_id = self.filter(query=query).aggregate(models.Max('tweet_id'))['tweet_id__max']
-        print 'Syncing new tweets of %s (newer than %s)' % (query, max_tweet_id)
+        print(f'Syncing new tweets of {query} (newer than {max_tweet_id})')
         new_tweets = self.search(query=query, limit=100, since=max_tweet_id, page=1)
         if len(new_tweets):
             for tweet in new_tweets:
@@ -37,7 +44,7 @@ class TweetManager(models.Manager):
     def sync_all(self, query='#openparty'):
         page = 1
         count = 0
-        print 'Syncing all of %s' % query
+        print(f'Syncing all of {query}')
         while True:
             tweets = tweepy.api.search(q=query, rpp=50, page=page)
             page += 1
@@ -48,12 +55,12 @@ class TweetManager(models.Manager):
                 t.query = query
                 t.save()
                 count += 1
-            print 'synced %s tweets' % count
+            print(f'synced {count} tweets')
             time.sleep(5)
         return count
     
     def sync_weibo(self, query='#openparty'):
-        weibo_query = urllib.quote(urllib.quote(query))
+        weibo_query = quote(quote(query))
         username = 'iamtin%40gmail.com'
         password = '111111'
 
@@ -72,18 +79,18 @@ class TweetManager(models.Manager):
         post_url = 'http://login.sina.com.cn/sso/login.php'
         
         cookie = CookieJar()
-        opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
-        urllib2.install_opener(opener)
+        opener = build_opener(HTTPCookieProcessor(cookie))
+        install_opener(opener)
 
         # login
-        req = urllib2.Request(url=post_url, data=post_data)
+        req = Request(url=post_url, data=post_data)
         req = add_headers(req)
-        response = urllib2.urlopen(req)
+        response = urlopen(req)
         
         # do the real search
-        search_req = urllib2.Request(url='http://t.sina.com.cn/k/%2523openparty')
+        search_req = Request(url='http://t.sina.com.cn/k/%2523openparty')
         req = add_headers(search_req)
-        response = urllib2.urlopen(search_req)
+        response = urlopen(search_req)
         htm = response.read()
         page = html.fromstring(htm)
         tweets_list = page.cssselect('#feed_list li')
@@ -94,6 +101,7 @@ class TweetManager(models.Manager):
                 tweet.save()
                 tweets.append(tweet)
         return len(tweets)
+
 
 # Create your models here.
 class Tweet(models.Model):
@@ -199,7 +207,3 @@ class Tweet(models.Model):
         if len(contents) == 1:
             t.text = html.tostring(contents[0])
         return t
-
-    @models.permalink
-    def get_absolute_url(self):
-        return ('Tweet', [self.id])

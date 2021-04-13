@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from models import Event, Topic
-from models import Favorite, Vote
-from models import Post
+from .models import Event, Topic
+from .models import Favorite, Vote
+from .models import Post
 
 class Event_Admin(admin.ModelAdmin):
     list_display = ('name', 'begin_time')

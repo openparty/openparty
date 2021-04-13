@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.template import RequestContext
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -16,9 +16,9 @@ from django import forms
 from apps.member.models import Member
 from apps.member.forms import ProfileForm
 
-from forms import ArticleForm, EventCheckinForm
-from models import Event, Topic, Post
-from models import Vote
+from .forms import ArticleForm, EventCheckinForm
+from .models import Event, Topic, Post
+from .models import Vote
 
 
 def index(request):
@@ -78,7 +78,7 @@ def join_event(request):
             return redirect('/event/%s' % (next_event.id))
     else:
         try:
-            this_user = request.user.get_profile()
+            this_user = request.user.profile
         except:
             return redirect(reverse('signup'))
 
@@ -114,7 +114,7 @@ def checkin(request):
                 ctx['form'] = form
                 ctx['event'] = event
                 return render(request, 'core/checkin_completed.html', ctx)
-        except forms.ValidationError, e:
+        except forms.ValidationError as e:
             for error_message in e.messages:
                 messages.error(request, error_message)
     ctx['form'] = form
@@ -139,7 +139,7 @@ def topic(request, id):
 
     is_voted = False
     try:
-        vote_thistopic = this_topic.votes.get(user=request.user.get_profile())
+        vote_thistopic = this_topic.votes.get(user=request.user.profile)
         is_voted = True
     except:
         pass
@@ -176,13 +176,13 @@ def vote(request, id):
 
     is_voted = False
     try:
-        vote_thistopic = this_topic.votes.get(user=request.user.get_profile())
+        vote_thistopic = this_topic.votes.get(user=request.user.profile)
         is_voted = True
     except:
         pass
 
     if is_voted is False:
-        this_vote = Vote(user=request.user.get_profile())
+        this_vote = Vote(user=request.user.profile)
         # this_topic.votes.add(user = request.user)
         topic_type = ContentType.objects.get_for_model(Topic)
         this_vote.content_type = topic_type

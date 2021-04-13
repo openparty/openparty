@@ -1,28 +1,27 @@
 [[source]]
-url = "https://pypi.python.org/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==1.6.5"
-fabric = "==1.4.3"
-mysql-python = "==1.2.3"
-south = "==0.7.5"
-django-debug-toolbar = "==0.9.4"
-django-xmlrpc = "==0.1.4"
-docutils = "==0.9.1"
-flup = "==1.0.3.dev-20110405"
-lxml = "==3.3.0beta2"
-raven = "==4.0.2"
-simplejson = "==3.3.1"
-tweepy = "==2.1"
-wsgiref = "==0.1.2"
-pytest-django = "==2.6.2"
-django-sendmail-backend = "==0.1.2"
-pytest-random = "==0.02"
-django-markup-deprecated = "==0.0.3"
+django-debug-toolbar = "*"
+django-xmlrpc = "*"
+docutils = "*"
+flup = "*"
+lxml = "*"
+raven = "*"
+simplejson = "*"
+tweepy = "*"
+pytest-django = "*"
+pytest-random = "*"
+django-markup-deprecated = "*"
+Django = "*"
+mysqlclient = "*"
+django_sendmail_backend = "*"
+django-contrib-comments = "*"
 
 [dev-packages]
+fabric = "*"
 
 [requires]
-python_version = "2.7"
+python_version = "3.9"

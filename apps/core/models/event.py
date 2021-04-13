@@ -3,12 +3,12 @@ from datetime import datetime
 
 from django.db import models
 from apps.member.models import Member
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 class EventManager(models.Manager):
     def next_event(self):
         '''定义next_event为获取当前未结束的活动或下次活动，减少逻辑复杂度'''
-        latest_nonclosed_events = super(EventManager, self).get_query_set().filter(end_time__gte=datetime.now()).order_by("begin_time")
+        latest_nonclosed_events = super(EventManager, self).get_queryset().filter(end_time__gte=datetime.now()).order_by("begin_time")
         if latest_nonclosed_events.count() >= 1:
             next_event = latest_nonclosed_events[0]
             next_event.css_class = 'hot'
@@ -17,10 +17,10 @@ class EventManager(models.Manager):
             return NullEvent()
 
     def upcoming_events(self):
-        return super(EventManager, self).get_query_set().filter(begin_time__gte=datetime.now())
+        return super(EventManager, self).get_queryset().filter(begin_time__gte=datetime.now())
 
     def past_events(self):
-        return super(EventManager, self).get_query_set().filter(end_time__lte=datetime.now())
+        return super(EventManager, self).get_queryset().filter(end_time__lte=datetime.now())
 
 class NullEventException(Exception):
     pass
@@ -60,9 +60,9 @@ class Event(models.Model):
     button_class    = 'btn-primary'
 
     name = models.CharField("名称", max_length=255, blank=False)
-    created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified')
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified', on_delete=models.SET_NULL, null=True)
     #aggrgated
     total_votes = models.PositiveIntegerField(default=0)
     total_favourites = models.PositiveIntegerField(default=0, editable=False)

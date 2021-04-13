@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from apps.member.models import Member
 from apps.core.models import Event, Topic
 from django.contrib.auth.models import User
