@@ -7,32 +7,45 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Tweet',
+            name="Tweet",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('tweet_id', models.BigIntegerField(unique=True)),
-                ('profile_image', models.CharField(blank=True, max_length=255, null=True)),
-                ('text', models.TextField(blank=True, max_length=512)),
-                ('language', models.CharField(blank=True, max_length=16, null=True)),
-                ('geo', models.CharField(blank=True, max_length=80, null=True)),
-                ('tweet_user_id', models.BigIntegerField(blank=True)),
-                ('tweet_user_name', models.CharField(blank=True, max_length=128, null=True)),
-                ('created_at', models.DateTimeField(blank=True, null=True)),
-                ('source', models.CharField(blank=True, max_length=80, null=True)),
-                ('dump', models.TextField(blank=True)),
-                ('query', models.CharField(blank=True, max_length=127, null=True)),
-                ('race', models.CharField(blank=True, max_length=16, null=True)),
-                ('uri', models.CharField(blank=True, max_length=512, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("tweet_id", models.BigIntegerField(unique=True)),
+                (
+                    "profile_image",
+                    models.CharField(blank=True, max_length=255, null=True),
+                ),
+                ("text", models.TextField(blank=True, max_length=512)),
+                ("language", models.CharField(blank=True, max_length=16, null=True)),
+                ("geo", models.CharField(blank=True, max_length=80, null=True)),
+                ("tweet_user_id", models.BigIntegerField(blank=True)),
+                (
+                    "tweet_user_name",
+                    models.CharField(blank=True, max_length=128, null=True),
+                ),
+                ("created_at", models.DateTimeField(blank=True, null=True)),
+                ("source", models.CharField(blank=True, max_length=80, null=True)),
+                ("dump", models.TextField(blank=True)),
+                ("query", models.CharField(blank=True, max_length=127, null=True)),
+                ("race", models.CharField(blank=True, max_length=16, null=True)),
+                ("uri", models.CharField(blank=True, max_length=512, null=True)),
             ],
             options={
-                'verbose_name': 'Tweet',
-                'verbose_name_plural': 'Tweets',
-                'ordering': [],
+                "verbose_name": "Tweet",
+                "verbose_name_plural": "Tweets",
+                "ordering": [],
             },
         ),
     ]

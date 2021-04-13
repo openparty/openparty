@@ -5,48 +5,64 @@ from django import forms
 from django.contrib.auth.models import User
 from apps.member.models import Member
 
+
 class SignupForm(forms.Form):
-    email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput(attrs={'tabindex': '1'}))
-    nickname = forms.CharField(label=u'昵称', required=False, max_length=30, widget=forms.TextInput(attrs={'tabindex': '2'}))
-    
-    password1 = forms.CharField(label=u'密码', required=True, widget=forms.PasswordInput(render_value=False, attrs={'tabindex': '3'}))
-    password2 = forms.CharField(label=u'重复密码', widget=forms.PasswordInput(render_value=False, attrs={'tabindex': '4'}))
-    
+    email = forms.EmailField(
+        label=u"email", required=True, widget=forms.TextInput(attrs={"tabindex": "1"})
+    )
+    nickname = forms.CharField(
+        label=u"昵称",
+        required=False,
+        max_length=30,
+        widget=forms.TextInput(attrs={"tabindex": "2"}),
+    )
+
+    password1 = forms.CharField(
+        label=u"密码",
+        required=True,
+        widget=forms.PasswordInput(render_value=False, attrs={"tabindex": "3"}),
+    )
+    password2 = forms.CharField(
+        label=u"重复密码",
+        widget=forms.PasswordInput(render_value=False, attrs={"tabindex": "4"}),
+    )
+
     def clean_nickname(self):
-        nickname = self.cleaned_data['nickname'].strip()
-        if nickname and (not re.compile(r'^[\w|\u2E80-\u9FFF]+$').search(nickname)):
-            raise forms.ValidationError(u'昵称“%s”名非法，昵称目前仅允许使用中英文字数字和下划线' % nickname)
+        nickname = self.cleaned_data["nickname"].strip()
+        if nickname and (not re.compile(r"^[\w|\u2E80-\u9FFF]+$").search(nickname)):
+            raise forms.ValidationError(u"昵称“%s”名非法，昵称目前仅允许使用中英文字数字和下划线" % nickname)
         return nickname
-    
+
     def clean_email(self):
         email = self.cleaned_data["email"].strip().lower()
         try:
             # 每个Member对应一个User，但是允许后台User不对应Member
-            User.objects.get(username__iexact=email) 
+            User.objects.get(username__iexact=email)
         except User.DoesNotExist:
             return email
-        raise forms.ValidationError(u'已经有用户使用“%s”注册了用户，请您确认邮件是否拼写错误' % email)
+        raise forms.ValidationError(u"已经有用户使用“%s”注册了用户，请您确认邮件是否拼写错误" % email)
         return email
-    
+
     def clean_password1(self):
-        password = self.cleaned_data['password1'].strip()
+        password = self.cleaned_data["password1"].strip()
         if not password:
-            raise forms.ValidationError(u'对不起，密码不能为空')
+            raise forms.ValidationError(u"对不起，密码不能为空")
         return password
-    
+
     def clean(self):
-        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
-            if self.cleaned_data['password1'] != self.cleaned_data['password2']:
-                raise forms.ValidationError(u'您所输入的两个密码不一致，请您重新输入')
+        if "password1" in self.cleaned_data and "password2" in self.cleaned_data:
+            if self.cleaned_data["password1"] != self.cleaned_data["password2"]:
+                raise forms.ValidationError(u"您所输入的两个密码不一致，请您重新输入")
         return self.cleaned_data
-    
+
     def save(self):
         if not self.is_valid():
             return False
-        email = self.cleaned_data['email']
-        nickname = self.cleaned_data['nickname']
-        password = self.cleaned_data['password1']
-        
-        
-        member = Member.objects.create_with_inactive_user(email=email, password=password, nickname=nickname)
+        email = self.cleaned_data["email"]
+        nickname = self.cleaned_data["nickname"]
+        password = self.cleaned_data["password1"]
+
+        member = Member.objects.create_with_inactive_user(
+            email=email, password=password, nickname=nickname
+        )
         return member

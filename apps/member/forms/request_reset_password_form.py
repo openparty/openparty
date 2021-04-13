@@ -6,20 +6,22 @@ from apps.member.models import Member
 
 
 class RequestResetPasswordForm(forms.Form):
-    email = forms.EmailField(label=u'email', required=True, widget=forms.TextInput(attrs={'tabindex': '1'}))
-    
+    email = forms.EmailField(
+        label=u"email", required=True, widget=forms.TextInput(attrs={"tabindex": "1"})
+    )
+
     user = None
-    
+
     def clean_email(self):
-        email=self.cleaned_data.get('email','')
+        email = self.cleaned_data.get("email", "")
         validate_email(email)
         return email
-    
+
     def clean(self):
-        super(RequestResetPasswordForm,self).clean()
-        usermail = self.cleaned_data.get('email','')
+        super(RequestResetPasswordForm, self).clean()
+        usermail = self.cleaned_data.get("email", "")
         try:
             user = Member.objects.get(user__email=usermail).user
         except Member.DoesNotExist:
-            raise forms.ValidationError(u'您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号')
+            raise forms.ValidationError(u"您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号")
         return self.cleaned_data
