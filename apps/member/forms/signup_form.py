@@ -14,7 +14,7 @@ class SignupForm(forms.Form):
     
     def clean_nickname(self):
         nickname = self.cleaned_data['nickname'].strip()
-        if nickname and (not re.compile(ur'^[\w|\u2E80-\u9FFF]+$').search(nickname)):
+        if nickname and (not re.compile(r'^[\w|\u2E80-\u9FFF]+$').search(nickname)):
             raise forms.ValidationError(u'昵称“%s”名非法，昵称目前仅允许使用中英文字数字和下划线' % nickname)
         return nickname
     

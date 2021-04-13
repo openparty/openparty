@@ -11,7 +11,7 @@ from django.http import Http404
 
 from apps.member.forms import LoginForm, SignupForm, ChangePasswordForm, ProfileForm, RequestResetPasswordForm, ResetPasswordForm
 from apps.member.models import Member
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 def login(request):
     if request.method == 'POST':

@@ -28,8 +28,8 @@ class EventCheckinForm(forms.Form):
             if self.member in event.appearances.all():
                 raise forms.ValidationError(u'嘿，您已经签过到了，请下一位签到吧！')
             else:
-                print self.member
-                print self.member.id
+                print(self.member)
+                print(self.member.id)
                 event.appearances.add(self.member)
             return True
         else:

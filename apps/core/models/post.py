@@ -2,7 +2,7 @@
 from django.db import models
 from apps.member.models import Member
 from django.db.models import signals
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 class PostStatus(object):
     DRAFT   = 0
@@ -23,7 +23,7 @@ class Post(models.Model):
     guid = models.CharField(u'Canonical网址', blank=True, max_length=512) # guid
     
     author = models.CharField(u'发表人', blank=False, max_length=256)
-    created_by = models.ForeignKey(Member, related_name='post_created', verbose_name=u"创建人")
+    created_by = models.ForeignKey(Member, related_name='post_created', verbose_name=u"创建人", on_delete=models.PROTECT)
     comment_count = models.IntegerField(u'评论数量', blank=False, null=False, default=0) # comment_count
     
     post_status = PostStatus()

@@ -54,8 +54,8 @@
             <ul class="comments">
               {% for comment in comment_list %}
               <li id="c{{comment.id}}">
-                  <span class="avatar"><img width=48 height=48 src="{{ comment.user.get_profile.avatar }}" alt="{{ comment.user.get_profile.display_name }}' Profile image" /></span>
-                  <span class="username"><a href="{% url 'member_profile' comment.user.get_profile.id %}">{{ comment.user.get_profile.display_name }}</a></span>
+                  <span class="avatar"><img width=48 height=48 src="{{ comment.user.profile.avatar }}" alt="{{ comment.user.profile.display_name }}' Profile image" /></span>
+                  <span class="username"><a href="{% url 'member_profile' comment.user.profile.id %}">{{ comment.user.profile.display_name }}</a></span>
                   <span class="timesince"> - {{ comment.submit_date|timesince }}前</span>
                   <span class="comment">{{ comment.comment }}</span>
                 </li>

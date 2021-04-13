@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # Create your views here.
 from django.template import RequestContext
-from django.shortcuts import render_to_response, redirect, render
+from django.shortcuts import redirect, render
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib import messages
 import tweepy
 from settings import TWITTER_OPENPARTY_KEY, TWITTER_OPENPARTY_SECRET
@@ -51,12 +51,12 @@ def index(request):
 
 @login_required
 def request_oauth(request):
-    member = request.user.get_profile()
+    member = request.user.profile
     auth = tweepy.OAuthHandler(TWITTER_OPENPARTY_KEY, TWITTER_OPENPARTY_SECRET)
     try:
         redirect_url = auth.get_authorization_url()
     except tweepy.TweepError:
-        render_to_response('500.html', {'error_message': u'无法从twitter.com获取redirect url'}, context_instance=RequestContext(request))
+        return render(request, 'index.html', {'error_message': u'无法从twitter.com获取redirect url'})
 
     member.twitter_access_token_key = auth.request_token.key
     member.twitter_access_token_secret = auth.request_token.secret
@@ -67,7 +67,7 @@ def request_oauth(request):
 
 @login_required
 def oauth_callback(request):
-    member = request.user.get_profile()
+    member = request.user.profile
     auth = tweepy.OAuthHandler(TWITTER_OPENPARTY_KEY, TWITTER_OPENPARTY_SECRET)
     try:
         auth.set_request_token(member.twitter_access_token_key, member.twitter_access_token_secret)
@@ -84,7 +84,7 @@ def oauth_callback(request):
 
 @login_required
 def update(request):
-    member = request.user.get_profile()
+    member = request.user.profile
     status = request.POST.get('status')
     if member.twitter_enabled:
         auth = tweepy.OAuthHandler(TWITTER_OPENPARTY_KEY, TWITTER_OPENPARTY_SECRET)
@@ -99,7 +99,7 @@ def update(request):
 
 @login_required
 def delete(request):
-    member = request.user.get_profile()
+    member = request.user.profile
     tweet_id = request.POST.get('tweet_id')
     if member.twitter_enabled:
         tweet = Tweet.objects.get(tweet_id=tweet_id)

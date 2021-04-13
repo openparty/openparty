@@ -2,7 +2,7 @@
 # encoding: utf-8
 from django.test import TestCase
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from apps.twitter.models import Tweet
 from lxml import html
 from datetime import datetime, timedelta

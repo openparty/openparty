@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 import re, urllib, hashlib, random, datetime
+from urllib.parse import urlencode
 from hashlib import sha512 as sha_constructor
 from django.db import models
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.db.transaction import commit_on_success
+from django.db.transaction import atomic
 from django.contrib.auth.models import User
 from django.core.cache import cache
 import logging
 
-import user
 
 ACTIVATION_KEY_PATTERN = re.compile('^[a-f0-9]{40}$')
 
 class MemberManager(models.Manager):
-    @commit_on_success
+    @atomic
     def create_with_inactive_user(self, email, password, nickname=''):
         def generate_activation_key(email):
             salt = sha_constructor(str(random.random())).hexdigest()[:8]
@@ -57,7 +57,7 @@ class MemberManager(models.Manager):
                 return self.get(user=user)
         except User.DoesNotExist:
             pass
-        except Exception, e:
+        except Exception as e:
             logging.exception("find_by_email")
             pass
         return None
@@ -66,7 +66,7 @@ class MemberManager(models.Manager):
 class Member(models.Model):
     ACTIVATED = "ALREADY_ACTIVATED"
     
-    user = models.ForeignKey(User, unique=True, verbose_name=u"用户")
+    user = models.OneToOneField(User, related_name="profile", verbose_name=u"用户", on_delete=models.CASCADE)
     nickname = models.CharField(verbose_name=u'用户名称', max_length=40)
     properties = models.TextField(verbose_name=u'属性', blank=True)
     activation_key = models.CharField(verbose_name=u'激活密钥 Activation Key', max_length=40)
@@ -91,8 +91,8 @@ class Member(models.Model):
         default = settings.SITE_URL + '/media/images/default_gravatar.png'
         size = 40
         gravatar_url = "http://www.gravatar.com/avatar.php?"
-        gravatar_url += urllib.urlencode({'gravatar_id':hashlib.md5(self.user.username).hexdigest(),
-                                        'default':default, 'size':str(size)})
+        gravatar_url += urlencode({'gravatar_id': hashlib.md5(self.user.username.encode('utf-8')).hexdigest(),
+                                        'default': default, 'size':str(size)})
         return gravatar_url
 
     def send_activation_email(self):

@@ -6,9 +6,9 @@ from django.conf import settings
 from django.core import mail
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericRelation
 from django.template.loader import render_to_string
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from apps.member.models import Member
 from apps.core.models import Event
@@ -19,8 +19,8 @@ from lxml.html.clean import Cleaner
 
 class Topic(models.Model):
 
-    author = models.ForeignKey(Member, related_name='topic_created', verbose_name=u"演讲者")
-    in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name=u"已安排在此活动中")
+    author = models.ForeignKey(Member, related_name='topic_created', verbose_name=u"演讲者", on_delete=models.PROTECT)
+    in_event = models.ForeignKey(Event, related_name='topic_shown_in', blank=True, null=True, verbose_name=u"已安排在此活动中", on_delete=models.PROTECT)
     description = models.TextField(u"简介", max_length=200, blank=False)
     content = models.TextField(u"内容", blank=True)
     html = models.TextField(u'HTML', blank=True, null=True)
@@ -28,9 +28,9 @@ class Topic(models.Model):
     accepted = models.BooleanField(default=False)  #该话题是否已经被管理员接受,True才能在活动正式的公布页面显示, 同时in_event才能显示
 
     name = models.CharField("名称", max_length=255, blank=False)
-    created = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modified = models.DateTimeField(auto_now_add=True, auto_now=True, blank=True, null=True)
-    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified', null=True)
+    created = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified', null=True, on_delete=models.SET_NULL)
     #aggrgated
     total_votes = models.PositiveIntegerField(default=0)
     total_favourites = models.PositiveIntegerField(default=0, editable=False)
@@ -38,7 +38,7 @@ class Topic(models.Model):
     html_cleaner = Cleaner(style=False, embedded=False, safe_attrs_only=False)
 
     def set_author(self, user):
-        author = user.get_profile()
+        author = user.profile
         self.last_modified_by = author # last_modified_by 总是author？
         self.author = author
         return self
@@ -78,10 +78,7 @@ class Topic(models.Model):
 
     @property
     def content_text(self):
-        try:
-            content = self.content.decode('utf-8')
-        except UnicodeEncodeError:
-            content = self.content
+        content = self.content
 
         content_element = html.fromstring(content)
 
@@ -137,7 +134,7 @@ class Topic(models.Model):
     def __unicode__(self):
             return self.name
 
-    votes = generic.GenericRelation('Vote')
+    votes = GenericRelation('Vote')
 
     #TODO Add a custom manager for most web voted & unshown topics, to add to a upcoming event
 
