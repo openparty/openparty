@@ -5,72 +5,99 @@ from django.db import models
 from apps.member.models import Member
 from django.urls import reverse
 
+
 class EventManager(models.Manager):
     def next_event(self):
-        '''定义next_event为获取当前未结束的活动或下次活动，减少逻辑复杂度'''
-        latest_nonclosed_events = super(EventManager, self).get_queryset().filter(end_time__gte=datetime.now()).order_by("begin_time")
+        """定义next_event为获取当前未结束的活动或下次活动，减少逻辑复杂度"""
+        latest_nonclosed_events = (
+            super(EventManager, self)
+            .get_queryset()
+            .filter(end_time__gte=datetime.now())
+            .order_by("begin_time")
+        )
         if latest_nonclosed_events.count() >= 1:
             next_event = latest_nonclosed_events[0]
-            next_event.css_class = 'hot'
-            return next_event 
+            next_event.css_class = "hot"
+            return next_event
         else:
             return NullEvent()
 
     def upcoming_events(self):
-        return super(EventManager, self).get_queryset().filter(begin_time__gte=datetime.now())
+        return (
+            super(EventManager, self)
+            .get_queryset()
+            .filter(begin_time__gte=datetime.now())
+        )
 
     def past_events(self):
-        return super(EventManager, self).get_queryset().filter(end_time__lte=datetime.now())
+        return (
+            super(EventManager, self)
+            .get_queryset()
+            .filter(end_time__lte=datetime.now())
+        )
+
 
 class NullEventException(Exception):
     pass
 
+
 class NullEvent(object):
     id = 0
-    '''空的项目，保持接口的一致'''
-    begin_time  = u'未定'
-    end_time    = u'未定'
-    description = u'本次活动正在计划中'
-    content     = u'本次活动正在计划中'
-    address     = u'东直门国华投资大厦11层'
-    poster      = '/media/images/null.jpg'
+    """空的项目，保持接口的一致"""
+    begin_time = u"未定"
+    end_time = u"未定"
+    description = u"本次活动正在计划中"
+    content = u"本次活动正在计划中"
+    address = u"东直门国华投资大厦11层"
+    poster = "/media/images/null.jpg"
     participants = set()
-    
-    css_class       = 'inactive'
-    button_class    = 'disabled'
-    
+
+    css_class = "inactive"
+    button_class = "disabled"
+
     def save():
         raise NullEventException()
-    
-    is_running  = False
-    is_off      = False
+
+    is_running = False
+    is_off = False
     is_upcoming = True
 
+
 class Event(models.Model):
-    begin_time  = models.DateTimeField(u"开始时间", auto_now_add=False, auto_now=False, blank=False, null=False)
-    end_time    = models.DateTimeField(u"结束时间", auto_now_add=False, auto_now=False, blank=False, null=False)
+    begin_time = models.DateTimeField(
+        u"开始时间", auto_now_add=False, auto_now=False, blank=False, null=False
+    )
+    end_time = models.DateTimeField(
+        u"结束时间", auto_now_add=False, auto_now=False, blank=False, null=False
+    )
     description = models.TextField(u"简介", max_length=200, blank=False)
-    content     = models.TextField(u"介绍", blank=False)
-    address     = models.TextField(u"活动地点", blank=False)
-    poster      = models.CharField(u"招贴画", default='/media/upload/null-event-1.jpg', blank=True, max_length=255)
-    participants = models.ManyToManyField(Member, related_name='joined_%(class)s')
-    appearances = models.ManyToManyField(Member, related_name='arrived_%(class)s')
-    
-    css_class       = ''
-    button_class    = 'btn-primary'
+    content = models.TextField(u"介绍", blank=False)
+    address = models.TextField(u"活动地点", blank=False)
+    poster = models.CharField(
+        u"招贴画", default="/media/upload/null-event-1.jpg", blank=True, max_length=255
+    )
+    participants = models.ManyToManyField(Member, related_name="joined_%(class)s")
+    appearances = models.ManyToManyField(Member, related_name="arrived_%(class)s")
+
+    css_class = ""
+    button_class = "btn-primary"
 
     name = models.CharField("名称", max_length=255, blank=False)
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
-    last_modified_by = models.ForeignKey(Member, related_name='%(class)s_last_modified', on_delete=models.SET_NULL, null=True)
-    #aggrgated
+    last_modified_by = models.ForeignKey(
+        Member,
+        related_name="%(class)s_last_modified",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    # aggrgated
     total_votes = models.PositiveIntegerField(default=0)
     total_favourites = models.PositiveIntegerField(default=0, editable=False)
 
-
-    #englishname?
-    #url_path = models.SlugField(_('url path'),max_length=250, db_index=True, blank=True)
-    #Currently using ID in url
+    # englishname?
+    # url_path = models.SlugField(_('url path'),max_length=250, db_index=True, blank=True)
+    # Currently using ID in url
 
     @property
     def is_running(self):
@@ -88,12 +115,12 @@ class Event(models.Model):
         return self.topic_shown_in.filter(accepted=True).all()
 
     def __unicode__(self):
-        return u'%s (%s)' % (self.name, self.begin_time)
+        return u"%s (%s)" % (self.name, self.begin_time)
 
     def get_absolute_url(self):
-        return reverse("event", kwargs={"id":self.id})
+        return reverse("event", kwargs={"id": self.id})
 
     class Meta:
-        app_label = 'core'
+        app_label = "core"
 
     objects = EventManager()

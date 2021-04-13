@@ -15,16 +15,51 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Member',
+            name="Member",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nickname', models.CharField(max_length=40, verbose_name='用户名称')),
-                ('properties', models.TextField(blank=True, verbose_name='属性')),
-                ('activation_key', models.CharField(max_length=40, verbose_name='激活密钥 Activation Key')),
-                ('twitter_access_token_key', models.CharField(blank=True, max_length=80, null=True, verbose_name='Twitter OAuth key')),
-                ('twitter_access_token_secret', models.CharField(blank=True, max_length=128, null=True, verbose_name='Twitter OAuth secret')),
-                ('twitter_enabled', models.BooleanField(default=False)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, unique=True, verbose_name='用户')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nickname", models.CharField(max_length=40, verbose_name="用户名称")),
+                ("properties", models.TextField(blank=True, verbose_name="属性")),
+                (
+                    "activation_key",
+                    models.CharField(max_length=40, verbose_name="激活密钥 Activation Key"),
+                ),
+                (
+                    "twitter_access_token_key",
+                    models.CharField(
+                        blank=True,
+                        max_length=80,
+                        null=True,
+                        verbose_name="Twitter OAuth key",
+                    ),
+                ),
+                (
+                    "twitter_access_token_secret",
+                    models.CharField(
+                        blank=True,
+                        max_length=128,
+                        null=True,
+                        verbose_name="Twitter OAuth secret",
+                    ),
+                ),
+                ("twitter_enabled", models.BooleanField(default=False)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        unique=True,
+                        verbose_name="用户",
+                    ),
+                ),
             ],
         ),
     ]

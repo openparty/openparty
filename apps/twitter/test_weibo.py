@@ -8,7 +8,7 @@ from lxml import html
 from datetime import datetime, timedelta
 
 
-weibo_sms_html_frag = u'''
+weibo_sms_html_frag = u"""
 <li id="mid_211101110530573" class="MIB_linedot2">
   <div class="head_pic"><a href="http://t.sina.com.cn/lanyueniao"><img src="http://tp3.sinaimg.cn/1661931502/50/1287680537/1" imgtype="head" uid="1661931502" title="蓝月鸟"></a>
 </div>
@@ -41,7 +41,8 @@ weibo_sms_html_frag = u'''
     <div id="_comment_list_miniblog2_211101110530573"></div>
   </div>
 </li>
-'''
+"""
+
 
 class WeiboTest(TestCase):
     # def test_login_to_weibo(self):
@@ -51,88 +52,101 @@ class WeiboTest(TestCase):
     #              'url=http%3A%2F%2Ft.sina.com.cn%2Fajaxlogin.php%3Fframelogin%3D1%26c' +\
     #              'allback%3Dparent.sinaSSOController.feedBackUrlCallBack&' +\
     #              'username=' + self.username + '&useticket=0'
-    # 
+    #
     #         post_url = 'http://login.sina.com.cn/sso/login.php'
-    #         
+    #
     #         cookie = CookieJar()
     #         opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
     #         urllib2.install_opener(opener)
-    # 
+    #
     #         req = urllib2.Request(url=post_url, data=post_data)
     #         req = self._add_headers(req)
     #         response = urllib2.urlopen(req)
     #         # print dir(response)
-    #         
+    #
     #         search_req = urllib2.Request(url='http://t.sina.com.cn/k/%2523openparty')
     #         req = self._add_headers(search_req)
     #         response = urllib2.urlopen(search_req)
     #         print response.info()
     #         print response.headers
     #         print response.read()
-    #     
+    #
     #     def _add_headers(self, req):
     #         req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7')
     #         req.add_header('Referer', 'http://t.sina.com.cn/')
     #         return req
-    
+
     def test_tweet_should_have_id_when_create_it_from_weibo_html_fragment(self):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
         self.assertEquals(211101110530573L, t.tweet_id)
-    
-    def test_tweet_should_have_profile_image_when_create_it_from_weibo_html_fragment(self):
+
+    def test_tweet_should_have_profile_image_when_create_it_from_weibo_html_fragment(
+        self,
+    ):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
-        self.assertEquals('http://tp3.sinaimg.cn/1661931502/50/1287680537/1', t.profile_image)
-    
+        self.assertEquals(
+            "http://tp3.sinaimg.cn/1661931502/50/1287680537/1", t.profile_image
+        )
+
     def test_tweet_should_have_user_id_when_create_it_from_weibo_html_fragment(self):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
-        self.assertEquals(u'蓝月鸟', t.tweet_user_name)
+        self.assertEquals(u"蓝月鸟", t.tweet_user_name)
         self.assertEquals(1661931502L, t.tweet_user_id)
-    
-    def test_tweet_should_have_created_at_time_when_create_it_from_weibo_html_fragment(self):
+
+    def test_tweet_should_have_created_at_time_when_create_it_from_weibo_html_fragment(
+        self,
+    ):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
         created_at = datetime(2010, 11, 10, 11, 19)
-        self.assertEquals(created_at.strftime('%Y%m%d %H%M%S'), t.created_at.strftime('%Y%m%d %H%M%S'))
+        self.assertEquals(
+            created_at.strftime("%Y%m%d %H%M%S"), t.created_at.strftime("%Y%m%d %H%M%S")
+        )
 
-        m = weibo_sms_html_frag.replace(u'11月10日 11:19', '2009-8-29 16:55')
+        m = weibo_sms_html_frag.replace(u"11月10日 11:19", "2009-8-29 16:55")
         ele = html.fromstring(m)
         t = Tweet.create_from_weibo_html_fragment(ele)
         created_at = datetime(2009, 8, 29, 16, 55)
-        self.assertEquals(created_at.strftime('%Y%m%d %H%M%S'), t.created_at.strftime('%Y%m%d %H%M%S'))
-        
-        m = weibo_sms_html_frag.replace(u'11月10日 11:19', u'18分钟前')
+        self.assertEquals(
+            created_at.strftime("%Y%m%d %H%M%S"), t.created_at.strftime("%Y%m%d %H%M%S")
+        )
+
+        m = weibo_sms_html_frag.replace(u"11月10日 11:19", u"18分钟前")
         ele = html.fromstring(m)
         t = Tweet.create_from_weibo_html_fragment(ele)
-        created_at = datetime.now() - timedelta(seconds=60*18)
-        self.assertEquals(created_at.strftime('%Y%m%d %H%M%S'), t.created_at.strftime('%Y%m%d %H%M%S'))
-    
+        created_at = datetime.now() - timedelta(seconds=60 * 18)
+        self.assertEquals(
+            created_at.strftime("%Y%m%d %H%M%S"), t.created_at.strftime("%Y%m%d %H%M%S")
+        )
+
     def test_tweet_should_have_source_when_create_it_from_weibo_html_fragment(self):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
-        self.assertEquals('FaWave', t.source)
-    
+        self.assertEquals("FaWave", t.source)
+
     def test_tweet_should_have_dump_which_is_the_original_html_fragment(self):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
         self.assertEquals(html.tostring(ele), t.dump)
-    
+
     def test_weibo_tweet_should_be_weibo_race(self):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
-        self.assertEquals('weibo', t.race)
-    
+        self.assertEquals("weibo", t.race)
+
     def test_weibo_tweet_should_have_uri(self):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
-        self.assertEquals('http://t.sina.com.cn/1661931502/24EN12e1D', t.uri)
-    
+        self.assertEquals("http://t.sina.com.cn/1661931502/24EN12e1D", t.uri)
+
     def test_weibo_tweet_should_use_original_content_as_text(self):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
         ele = html.fromstring(t.text)
-        self.assertEquals('MIB_feed_c', ele.get('class'))
+        self.assertEquals("MIB_feed_c", ele.get("class"))
+
 
 __test__ = {}
