@@ -1,19 +1,16 @@
 [tool.black]
-    py39 = true
-    include = '\.pyi?$'
-    exclude = '''
-    /(
-        \.git
-      | \.hg
-      | \.mypy_cache
-      | \.tox
-      | \.venv
-      | _build
-      | buck-out
-      | build
-      | dist
+line-length = 120
+target-version = ['py36', 'py37', 'py38', 'py39']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data
+  | profiling
+)/
+'''
 
-      # The following are specific to Black, you probably don't want those.
-      | blib2to3
-      | tests/data
-    )/
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
