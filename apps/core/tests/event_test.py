@@ -2,7 +2,7 @@
 # encoding: utf-8
 from datetime import datetime, timedelta
 from django.test import TestCase
-from apps.core.models import Event
+from apps.core.models.event import Event
 from apps.member import test_helper as member_test_helper
 
 

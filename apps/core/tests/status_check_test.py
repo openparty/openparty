@@ -3,7 +3,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from apps.member.models import Member
-from apps.core.models import Event, Topic
+from apps.core.models.event import Event
+from apps.core.models.topic import  Topic
 from django.contrib.auth.models import User
 from datetime import datetime
 

@@ -1,8 +1,10 @@
 from django.contrib import admin
 
-from .models import Event, Topic
-from .models import Favorite, Vote
-from .models import Post
+from .models.event import Event
+from .models.topic import Topic
+from .models.favorite import Favorite
+from .models.vote import Vote
+from .models.post import Post
 
 
 class Event_Admin(admin.ModelAdmin):
