@@ -15,10 +15,11 @@ tweepy = "*"
 pytest-django = "*"
 pytest-random = "*"
 django-markup-deprecated = "*"
-Django = "*"
+Django = "==3.2.10"
 mysqlclient = "*"
 django_sendmail_backend = "*"
 django-contrib-comments = "*"
+cssselect = "*"
 
 [dev-packages]
 fabric = "*"
