@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
-from apps.core.models import Topic
+from apps.core.models.topic import Topic
 from apps.core.tests import test_helper
 from django.urls import reverse
 from django.contrib.auth.models import User

@@ -3,10 +3,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from apps.core.models import Topic
+from apps.core.models.topic import Topic
 from apps.core.tests import test_helper
 from apps.member.models import Member
-import apps.member.test_helper as helper
 
 
 class TopicTest(TestCase):

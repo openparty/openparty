@@ -18,8 +18,8 @@ class MemberManager(models.Manager):
     @atomic
     def create_with_inactive_user(self, email, password, nickname=""):
         def generate_activation_key(email):
-            salt = sha_constructor(str(random.random())).hexdigest()[:8]
-            activation_key = sha_constructor(salt + email).hexdigest()
+            salt = sha_constructor(str(random.random()).encode('utf-8')).hexdigest()[:8]
+            activation_key = sha_constructor((salt + email).encode('utf-8')).hexdigest()
             return activation_key
 
         user = User()
@@ -124,8 +124,8 @@ class Member(models.Model):
         self.user.email_user(subject, message, settings.DEFAULT_FROM_EMAIL)
 
     def _generate_pwd_reset_token(self):
-        salt = sha_constructor(str(random.random())).hexdigest()[:8]
-        token = sha_constructor(salt + self.user.username).hexdigest()
+        salt = sha_constructor(str(random.random()).encode('utf-8')).hexdigest()[:8]
+        token = sha_constructor((salt + self.user.username).encode('utf-8')).hexdigest()
         cache.set("pwd_reset_token:%s" % self.user.id, token, 60 * 60 * 3)
         return token
 

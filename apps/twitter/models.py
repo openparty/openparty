@@ -11,7 +11,6 @@ from lxml import html
 from datetime import datetime, timedelta
 from django.urls import reverse
 from django.db import models
-import urllib
 from urllib.request import build_opener
 from urllib.request import install_opener
 from urllib.request import Request
@@ -23,7 +22,7 @@ from http.cookiejar import CookieJar
 
 class TweetManager(models.Manager):
     def search(self, query="#openparty", limit=5, since=None, page=1):
-        tweets = tweepy.api.search(q=query, rpp=limit, since_id=since, page=page)
+        tweets = tweepy.api.search_tweets(q=query, rpp=limit, since_id=since, page=page)
         return [self.model.create_from_tweepy_tweet(tweet=tweet) for tweet in tweets]
 
     def sync(self, query="#openparty", since=None):
@@ -48,7 +47,7 @@ class TweetManager(models.Manager):
         count = 0
         print(f"Syncing all of {query}")
         while True:
-            tweets = tweepy.api.search(q=query, rpp=50, page=page)
+            tweets = tweepy.api.search_tweets(q=query, rpp=50, page=page)
             page += 1
             if len(tweets) == 0:
                 break
@@ -193,17 +192,7 @@ class Tweet(models.Model):
         if len(created_ats) == 1:
             created_at = created_ats[0]
             time_str = created_at.text_content()
-            if time_str.find("分钟前") != -1:
-                minutes = time_str[: time_str.find("分钟前")]
-                t.created_at = datetime.now() - timedelta(seconds=60 * int(minutes))
-            elif time_str.find("月") != -1:
-                this_year = datetime.today().year
-                time_str = "%s年%s" % (this_year, time_str)
-                t.created_at = datetime.strptime(
-                    time_str.encode("utf-8"), "%Y年%m月%d日 %H:%M"
-                )
-            else:
-                t.created_at = datetime.strptime(time_str, "%Y-%m-%d %H:%M")
+            t.created_at = parse_weibo_time(time_str)
         # uri
         uris = ele.cssselect(".feed_att a[href^='http://t.sina.com.cn']")
         if len(uris) == 1:
@@ -220,3 +209,17 @@ class Tweet(models.Model):
         if len(contents) == 1:
             t.text = html.tostring(contents[0])
         return t
+
+
+def parse_weibo_time(time_str):
+    if time_str.find("分钟前") != -1:
+        minutes = time_str[: time_str.find("分钟前")]
+        return datetime.now() - timedelta(seconds=60 * int(minutes))
+    elif time_str.find("月") != -1:
+        this_year = datetime.today().year
+        time_str = "%s年%s" % (this_year, time_str)
+        return datetime.strptime(
+            time_str, "%Y年%m月%d日 %H:%M"
+        )
+    else:
+        return datetime.strptime(time_str, "%Y-%m-%d %H:%M")

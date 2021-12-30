@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.db import models
 from django.urls import reverse
 from apps.twitter.models import Tweet
+from apps.twitter.models import parse_weibo_time
 from lxml import html
 from datetime import datetime, timedelta
 
@@ -79,7 +80,7 @@ class WeiboTest(TestCase):
     def test_tweet_should_have_id_when_create_it_from_weibo_html_fragment(self):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
-        self.assertEquals(211101110530573L, t.tweet_id)
+        self.assertEquals(211101110530573, t.tweet_id)
 
     def test_tweet_should_have_profile_image_when_create_it_from_weibo_html_fragment(
         self,
@@ -94,7 +95,7 @@ class WeiboTest(TestCase):
         ele = html.fromstring(weibo_sms_html_frag)
         t = Tweet.create_from_weibo_html_fragment(ele)
         self.assertEquals(u"蓝月鸟", t.tweet_user_name)
-        self.assertEquals(1661931502L, t.tweet_user_id)
+        self.assertEquals(1661931502, t.tweet_user_id)
 
     def test_tweet_should_have_created_at_time_when_create_it_from_weibo_html_fragment(
         self,
@@ -103,7 +104,7 @@ class WeiboTest(TestCase):
         t = Tweet.create_from_weibo_html_fragment(ele)
         created_at = datetime(2010, 11, 10, 11, 19)
         self.assertEquals(
-            created_at.strftime("%Y%m%d %H%M%S"), t.created_at.strftime("%Y%m%d %H%M%S")
+            created_at.strftime("%m%d %H%M%S"), t.created_at.strftime("%m%d %H%M%S")
         )
 
         m = weibo_sms_html_frag.replace(u"11月10日 11:19", "2009-8-29 16:55")
@@ -147,6 +148,13 @@ class WeiboTest(TestCase):
         t = Tweet.create_from_weibo_html_fragment(ele)
         ele = html.fromstring(t.text)
         self.assertEquals("MIB_feed_c", ele.get("class"))
+    
+    def test_parse_time(self):
+        dt = parse_weibo_time("11月10日 11:19")
+        self.assertEqual(dt.month, 11)
+        self.assertEqual(dt.day, 10)
+        self.assertEqual(dt.hour, 11)
+        self.assertEqual(dt.minute, 19)
 
 
 __test__ = {}

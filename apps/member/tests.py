@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 
 from apps.member.models import Member
 from apps.member.forms import SignupForm, LoginForm
-from apps.core.models import Event, Topic
+from apps.core.models.event import Event
+from apps.core.models.topic import  Topic
 import apps.member.test_helper as helper
 
 from datetime import datetime
@@ -15,17 +16,16 @@ from datetime import datetime
 
 class MemberTest(TestCase):
     def test_save_member_though_form(self):
-        form = SignupForm(
-            {"email": "some@domain.com", "password1": "1", "password2": "1"}
-        )
+        form = SignupForm({"email": "some@domain.com", "password1": "1", "password2": "1"})
         member = form.save()
         self.assertTrue(isinstance(member, Member))
         self.assertTrue(member.user.id)
 
     def test_signup_member_should_login_status(self):
         response = self.client.get("/member/signup")
-        assert "password1" in response.content
-        assert "password2" in response.content
+        content = response.content.decode('utf-8')
+        assert "password1" in content
+        assert "password2" in content
         response = self.client.post(
             "/member/signup",
             {
@@ -35,14 +35,15 @@ class MemberTest(TestCase):
                 "captcha": "",
             },
         )
-        assert "some@domain.com" in response.content
-        assert "注册确认信已发送" in response.content
+        content = response.content.decode('utf-8')
+        assert "some@domain.com" in content
+        assert "注册确认信已发送" in content
 
     def test_save_member_though_form_with_nickname(self):
         form = SignupForm(
             {
                 "email": "some@domain.com",
-                "nickname": u"田乐",
+                "nickname": "田乐",
                 "password1": "1",
                 "password2": "1",
             }
@@ -51,9 +52,7 @@ class MemberTest(TestCase):
         self.assertTrue(member.user.id)
 
     def test_save_member_should_show_error_when_password_not_matching(self):
-        form = SignupForm(
-            {"email": "some@domain.com", "password1": "1", "password2": "2"}
-        )
+        form = SignupForm({"email": "some@domain.com", "password1": "1", "password2": "2"})
         self.assertFalse(form.save())
         self.assertEquals(1, len(form.errors))
 
@@ -86,17 +85,13 @@ class MemberTest(TestCase):
 
     def test_login(self):
         helper.create_user()
-        response = self.client.post(
-            reverse("login"), {"email": "tin@domain.com", "password": "123"}
-        )
+        response = self.client.post(reverse("login"), {"email": "tin@domain.com", "password": "123"})
         self.assertRedirects(response, "/")
 
     def test_login_should_failed_when_password_is_wrong(self):
         helper.create_user()
-        response = self.client.post(
-            reverse("login"), {"email": "tin@domain.com", "password": "wrong-password"}
-        )
-        self.assertFormError(response, "form", "", u"您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号")
+        response = self.client.post(reverse("login"), {"email": "tin@domain.com", "password": "wrong-password"})
+        self.assertFormError(response, "form", "", "您输入的邮件地址与密码不匹配或者帐号还不存在，请您重试或者注册帐号")
 
     # 暂时注释掉，因为邮件服务器总有问题，所以我们选择不需要邮件激活
     # def test_login_should_failed_before_activate(self):
@@ -110,9 +105,7 @@ class MemberTest(TestCase):
         member = helper.create_user()
         user = member.user
         self.assertEquals(
-            "http://www.gravatar.com/avatar.php?default=http%3A%2F%2F"
-            + settings.SITE_URL[len("http://") :]
-            + "%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40&gravatar_id=ea746490cff50b7d53bf78a11c86815a",
+            "http://www.gravatar.com/avatar.php?gravatar_id=ea746490cff50b7d53bf78a11c86815a&default=http%3A%2F%2Fwww.beijing-open-party.com%2Fmedia%2Fimages%2Fdefault_gravatar.png&size=40",
             user.profile.avatar,
         )
 
@@ -128,9 +121,7 @@ class MemberTest(TestCase):
 
     def test_reset_password(self):
         member = helper.create_user()
-        response = self.client.post(
-            "/member/request_reset_password", {"email": member.user.email}
-        )
+        response = self.client.post("/member/request_reset_password", {"email": member.user.email})
         self.assertRedirects(response, "/member/request_reset_password_done")
 
         token = cache.get("pwd_reset_token:%s" % member.id)
@@ -138,14 +129,14 @@ class MemberTest(TestCase):
 
         reset_password_url = "/member/reset_password/%s/%s/" % (member.id, token)
         response = self.client.get(reset_password_url)
-        assert "新密码" in response.content
-        assert "重复密码" in response.content
+        content = response.content.decode("utf-8")
+        assert "新密码" in content
+        assert "重复密码" in content
 
-        response = self.client.post(
-            reset_password_url, {"password1": "1", "password2": "1"}, follow=True
-        )
+        response = self.client.post(reset_password_url, {"password1": "1", "password2": "1"}, follow=True)
+        content = response.content.decode("utf-8")
         self.assertRedirects(response, "/")
-        assert "您的密码已经修改" in response.content
+        assert "您的密码已经修改" in content
 
 
 class StatusTest(TestCase):

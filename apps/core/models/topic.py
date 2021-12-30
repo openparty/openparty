@@ -11,14 +11,13 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 
 from apps.member.models import Member
-from apps.core.models import Event
-from apps.core.models.vote import Vote
 
 from lxml import html
 from lxml.html.clean import Cleaner
 
 
 class Topic(models.Model):
+    from apps.core.models.event import Event
 
     author = models.ForeignKey(
         Member,

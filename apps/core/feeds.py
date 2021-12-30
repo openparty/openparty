@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django.urls import reverse
-from django.contrib.auth.models import User
 from django.contrib.syndication.views import Feed
 
-from apps.core.models import Event, Topic, Post
 
 import settings
 
@@ -21,6 +19,7 @@ class Events_Feed(Feed):
         return attrs
 
     def items(self):
+        from apps.core.models.event import Event
         return Event.objects.order_by("-begin_time")
 
     def item_title(self, item):
@@ -40,6 +39,7 @@ class Topics_Feed(Feed):
     description = "发布 Beijing OpenParty 的最新活动中的话题信息"
 
     def items(self):
+        from apps.core.models.topic import Topic
         return Topic.objects.all().order_by(
             "-in_event__begin_time", "-accepted", "-total_votes"
         )
@@ -61,6 +61,7 @@ class Posts_Feed(Feed):
     description = "Beijing OpenParty 最新新闻"
 
     def items(self):
+        from apps.core.models.post import Post
         return Post.objects.all().order_by("-created_at")
 
     def item_title(self, item):

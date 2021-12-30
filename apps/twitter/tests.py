@@ -5,12 +5,11 @@ unittest). These will both pass when you run "manage.py test".
 
 Replace these with more appropriate tests for your application.
 """
+from unittest import skip
 
-from django.test import TestCase
-from django.db import models
-from django.urls import reverse
 from apps.twitter.models import Tweet
-from apps.twitter.test_weibo import WeiboTest
+from django.test import TestCase
+from django.urls import reverse
 
 
 class StatusTest(TestCase):
@@ -21,11 +20,13 @@ class StatusTest(TestCase):
 
 
 class TweetTest(TestCase):
+    @skip("twett's authentication mechenism is changed, we need to fix it")
     def test_search(self):
         tweets = Tweet.objects.search(query="#openparty", limit=1)
         t = tweets[0]
         self.assertTrue(t.text)
 
+    @skip("twett's authentication mechenism is changed, we need to fix it")
     def test_sync(self):
         tweets = Tweet.objects.search(query="#openparty", limit=2)
         new = tweets[0]

@@ -28,7 +28,7 @@ def index(request):
         )
 
         if (
-            hashlib.sha1(request.user.username.lower()).hexdigest()
+            hashlib.sha1(request.user.username.lower().encode('utf-8')).hexdigest()
             in admin_mail_sha1_hash
         ):
             twitter_enabled = True

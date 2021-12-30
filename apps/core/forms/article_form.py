@@ -1,9 +1,10 @@
-from apps.core.models import Topic
 from django.forms import ModelForm, Textarea
 
 
 class ArticleForm(ModelForm):
     class Meta:
+        from apps.core.models.topic import Topic
+
         model = Topic
         fields = ("name", "description", "content", "in_event")
         widgets = {
