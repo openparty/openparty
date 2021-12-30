@@ -1,16 +1,12 @@
 language: python
 env:
-  - DJANGO_VERSION=1.5.5
-  - DJANGO_VERSION=1.6.2
 python:
-  - "2.6"
-  - "2.7"
+  - "3.9"
 install:
   - pip install -U pip setuptools
-  - pip install -r requirements.txt
-  - pip install -q Django==$DJANGO_VERSION
+  - pip install pipenv
+  - pipenv shell && pipenv install --dev
 script:
-  - py.test --tb=short apps/member/tests.py --random
-  - py.test --tb=short apps/core --random
-notifications:
-  slack: onemoment:PuhHVHeFZDi3zg7ome8zT0yB
+  - # pipenv run pytest --tb=short apps/member/tests.py --random
+  - # pipenv run pytest --tb=short apps/core --random
+  - pipenv run python manage.py test
