@@ -20,9 +20,11 @@ mysqlclient = "*"
 django_sendmail_backend = "*"
 django-contrib-comments = "*"
 cssselect = "*"
+invoke = "*"
+fabric = "*"
+gunicorn = "*"
 
 [dev-packages]
-fabric = "*"
 black = "*"
 pre-commit = "*"
 
