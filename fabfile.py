@@ -124,7 +124,7 @@ def kill_current_cgi_process(c):
 
 def start_cgi_process(c):
     print("start_cgi_process")
-    with c.cd("%(home_path)s/%(releases)s/%(release)s" % env):
+    with c.cd("%(home_path)s/%(releases)s/current" % env):
         c.run("PIPENV_VENV_IN_PROJECT=enabled pipenv run gunicorn -c gunicorn_config.py" % env)
 
 
