@@ -1,6 +1,38 @@
+[project]
+name = "openparty-app"
+version = "0.1.0"
+requires-python = ">=3.9,<3.10"
+dependencies = [
+  "django-debug-toolbar",
+  "django-xmlrpc",
+  "docutils",
+  "flup",
+  "lxml==4.7.1",
+  "raven",
+  "simplejson",
+  "tweepy",
+  "pytest-django",
+  "pytest-random",
+  "django-markup-deprecated",
+  "Django==3.2.11",
+  "mysqlclient",
+  "django_sendmail_backend",
+  "django-contrib-comments",
+  "cssselect",
+  "invoke",
+  "fabric",
+  "gunicorn",
+]
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "pre-commit",
+]
+
 [tool.black]
 line-length = 120
-target-version = ['py36', 'py37', 'py38', 'py39']
+target-version = ['py36', 'py37', 'py38', 'py39', 'py311']
 include = '\.pyi?$'
 extend-exclude = '''
 /(
@@ -14,3 +46,6 @@ extend-exclude = '''
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.uv]
+package = false
